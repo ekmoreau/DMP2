@@ -1,4 +1,4 @@
-// DisplayName = DMP2-Frozen Solid
+// DisplayName = DMP2-Thick Ice
 // MissionTypes = CTF
 
 //--- MISSION QUOTE BEGIN ---
@@ -364,6 +364,11 @@ new SimGroup(MissionGroup) {
 					Target = "40";
 					Ready = "1";
 					locked = "true";
+
+					mobileBaseVehicle = "removed";
+					BomberFlyer = "removed";
+					scoutVehicle = "removed";
+					AssaultVehicle = "removed";
 				};
 				new InteriorInstance() {
 					position = "351.637 518.565 146.809";
@@ -754,6 +759,11 @@ new SimGroup(MissionGroup) {
 					Target = "58";
 					Ready = "1";
 					locked = "true";
+
+					mobileBaseVehicle = "removed";
+					BomberFlyer = "removed";
+					scoutVehicle = "removed";
+					AssaultVehicle = "removed";
 				};
 				new InteriorInstance() {
 					position = "-356.85 -526.783 146.809";

@@ -1186,6 +1186,427 @@ new SimGroup(MissionGroup) {
 			locked = "false";
 		};
 	};
+	new SimGroup(TreeS) {
+
+		powerCount = "0";
+
+		new TSStatic() {
+			position = "-403.683 -686.23 172.055";
+			rotation = "0 0 1 26.9291";
+			scale = "1 1 1";
+			shapeName = "borg18.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "-292.388 -332.868 191.743";
+			rotation = "1 0 0 0";
+			scale = "1.2 1.2 1.2";
+			shapeName = "borg18.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "-104.656 -43.7442 174.072";
+			rotation = "1 0 0 0";
+			scale = "0.8 0.8 0.8";
+			shapeName = "borg18.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "255.68 -292.128 235.398";
+			rotation = "0 0 1 74.4845";
+			scale = "1 1 1";
+			shapeName = "borg18.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "442.785 -267.938 160.542";
+			rotation = "1 0 0 0";
+			scale = "1 1 1";
+			shapeName = "borg18.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "-203.666 -469.102 210.069";
+			rotation = "1 0 0 0";
+			scale = "1 1 1";
+			shapeName = "borg25.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "258.747 -523.049 166.783";
+			rotation = "1 0 0 0";
+			scale = "1 1 1";
+			shapeName = "borg25.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "276.189 -497.769 171.667";
+			rotation = "1 0 0 0";
+			scale = "1 1 1";
+			shapeName = "borg25.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "-278.451 -17.6834 157.526";
+			rotation = "1 0 0 0";
+			scale = "1 1 1";
+			shapeName = "borg18.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "-17.4045 -239.165 189.993";
+			rotation = "0 0 1 2.2924";
+			scale = "1 1 1";
+			shapeName = "borg18.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "108.894 -419.285 183.118";
+			rotation = "1 0 0 0";
+			scale = "1 1 1";
+			shapeName = "borg19.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "2.05242 -721.367 174.453";
+			rotation = "0 0 -1 44.6907";
+			scale = "1.2 1.2 1.2";
+			shapeName = "borg19.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "-224.054 -545.62 166.205";
+			rotation = "1 0 0 0";
+			scale = "1 1 1";
+			shapeName = "borg19.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "88.8918 -256.77 176.082";
+			rotation = "1 0 0 0";
+			scale = "1 1 1";
+			shapeName = "borg25.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "204.471 -160.021 185.89";
+			rotation = "1 0 0 0";
+			scale = "1 1 1";
+			shapeName = "borg19.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "399.762 -314.269 166.743";
+			rotation = "1 0 0 0";
+			scale = "1 1 1";
+			shapeName = "borg19.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "33.7316 -382.93 224.534";
+			rotation = "1 0 0 0";
+			scale = "1 1 1";
+			shapeName = "borg19.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "-212.976 150.276 185.09";
+			rotation = "0 0 1 180.034";
+			scale = "1 1 1";
+			shapeName = "borg19.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "-98.1233 246.956 176.082";
+			rotation = "0 0 1 180.034";
+			scale = "1 1 1";
+			shapeName = "borg25.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "-42.887 373.086 224.534";
+			rotation = "0 0 1 180.034";
+			scale = "1 1 1";
+			shapeName = "borg19.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "-407.325 308.335 166.743";
+			rotation = "0 0 1 180.034";
+			scale = "1 1 1";
+			shapeName = "borg19.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "396.033 677.086 171.655";
+			rotation = "0 0 1 236.757";
+			scale = "1 1 1";
+			shapeName = "borg18.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "283.211 322.829 191.743";
+			rotation = "0 0 1 180.034";
+			scale = "1.2 1.2 1.2";
+			shapeName = "borg18.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "97.8044 35.1927 173.472";
+			rotation = "0 0 1 180.034";
+			scale = "0.8 0.8 0.8";
+			shapeName = "borg18.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "-262.942 283.985 234.998";
+			rotation = "0 0 1 75.7557";
+			scale = "1 1 1";
+			shapeName = "borg18.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "-452.019 258.334 161.542";
+			rotation = "0 0 1 180.034";
+			scale = "1 1 1";
+			shapeName = "borg18.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "194.568 459.12 210.069";
+			rotation = "0 0 1 180.034";
+			scale = "1 1 1";
+			shapeName = "borg25.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "-267.826 513.343 166.983";
+			rotation = "0 0 1 180.034";
+			scale = "1 1 1";
+			shapeName = "borg25.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "-285.283 488.072 171.667";
+			rotation = "0 0 1 180.034";
+			scale = "1 1 1";
+			shapeName = "borg25.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "269.085 7.64551 159.726";
+			rotation = "0 0 1 180.034";
+			scale = "1 1 1";
+			shapeName = "borg18.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "10.5249 230.806 189.593";
+			rotation = "0 0 1 180.034";
+			scale = "1 1 1";
+			shapeName = "borg18.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "-118.03 409.486 183.118";
+			rotation = "0 0 1 180.034";
+			scale = "1 1 1";
+			shapeName = "borg19.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "-9.81581 714.404 174.653";
+			rotation = "0 0 1 180.034";
+			scale = "1.2 1.2 1.2";
+			shapeName = "borg19.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "215.003 535.628 166.205";
+			rotation = "0 0 1 180.034";
+			scale = "1 1 1";
+			shapeName = "borg19.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "-604.61 694.247 148.764";
+			rotation = "0 0 1 180.034";
+			scale = "1 1 1";
+			shapeName = "borg25.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "597.938 -700.754 148.835";
+			rotation = "0 0 1 180.034";
+			scale = "1 1 1";
+			shapeName = "borg25.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "-41.0902 -486.201 239.277";
+			rotation = "0 0 1 180.034";
+			scale = "1 1 1";
+			shapeName = "borg25.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "-122.806 -390.095 231.735";
+			rotation = "0 0 1 180.034";
+			scale = "1 1 1";
+			shapeName = "borg25.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "-94.988 -556.456 232.145";
+			rotation = "0 0 1 202.952";
+			scale = "1 1 1";
+			shapeName = "borg25.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "-1.2886 -333.563 227.654";
+			rotation = "0 0 1 180.034";
+			scale = "1 1 1";
+			shapeName = "borg25.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "-44.1662 -405.098 240.94";
+			rotation = "0.0898785 -2.66612e-05 0.995953 180.034";
+			scale = "1 1 1";
+			shapeName = "borg25.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "-152.844 -505.465 198.841";
+			rotation = "-0.0349868 0.0186748 0.999213 236.146";
+			scale = "1 1 1";
+			shapeName = "borg25.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "-215.165 -310.741 215.377";
+			rotation = "-0.109778 3.25642e-05 0.993956 180.034";
+			scale = "1 1 1";
+			shapeName = "borg25.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "-23.1668 330.806 227.827";
+			rotation = "0 0 1 180.034";
+			scale = "1 1 1";
+			shapeName = "borg25.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "-9.48519 453.391 232.735";
+			rotation = "-0.124674 -0.00183327 0.992196 178.328";
+			scale = "1 1 1";
+			shapeName = "borg25.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "36.5148 476.685 238.789";
+			rotation = "-2.07476e-05 -0.0699428 0.997551 180.034";
+			scale = "1 1 1";
+			shapeName = "borg25.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "60.7483 390.151 245.031";
+			rotation = "0.0749297 -2.22269e-05 0.997189 180.034";
+			scale = "1 1 1";
+			shapeName = "borg25.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "164.431 375.318 228.276";
+			rotation = "-0.059964 1.77875e-05 0.998201 180.034";
+			scale = "1 1 1";
+			shapeName = "borg25.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "91.4947 547.237 231.625";
+			rotation = "0 0 1 180.034";
+			scale = "1 1 1";
+			shapeName = "borg25.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "-166.032 425.563 169.677";
+			rotation = "0.0749297 -2.22269e-05 0.997189 180.034";
+			scale = "1 1 1";
+			shapeName = "borg25.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "196.693 277.112 214.477";
+			rotation = "0 0 1 180.034";
+			scale = "1 1 1";
+			shapeName = "borg25.dts";
+
+			locked = "false";
+		};
+		new TSStatic() {
+			position = "119.882 -392.001 180.082";
+			rotation = "0.139543 -4.13936e-05 0.990216 180.034";
+			scale = "1 1 1";
+			shapeName = "borg25.dts";
+
+			locked = "false";
+		};
+	};
 };
 //--- OBJECT WRITE END ---
 addMaterialMapping("lush/dox_grsteel3", "environment: special/chuteTexture 0.15");

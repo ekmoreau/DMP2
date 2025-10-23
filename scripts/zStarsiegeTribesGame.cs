@@ -418,7 +418,7 @@ function T1TargetingLaserImage::onMount(%this,%obj,%slot){
 function T1TargetingLaserImage::onUnmount(%this,%obj,%slot){
    Parent::onUnmount(%this, %obj, %slot);
 }
- function TargetingLaser::onUse(%data, %obj){
+function TargetingLaser::onUse(%data, %obj){
     if(Game.weaponOnUse(%data, %obj)){
        if (%obj.getDataBlock().className $= Armor){
          if(isObject(StarsiegeTribesMap)){
@@ -2389,7 +2389,7 @@ function t1InvyPad::onAdd(%this, %obj)
 function t1InvyPad::onRemove(%this, %obj){
    parent::onRemove(%this, %obj);
    if(isObject(%obj.trigger)){
-      %obj.sOtriggerbj.delete();
+      %obj.trigger.delete();
    }
    if(isObject(%obj.pwrTrigger)){
       %obj.pwrTrigger.delete();
@@ -4308,6 +4308,19 @@ function T1InvyDeployableImage::onDeploy(%item, %plyr, %slot){
    %trigger.station =%obj;
    %obj.trigger = %trigger;
 
+
+   %b = new BeaconObject() {
+      dataBlock = "DeployedBeacon";
+      position =%obj.position;
+      rotation = %obj.rotation;
+      team = %obj.team;
+      scale = "0.5 0.5 0.5";
+      invincible = "1";
+   };
+   MissionCleanup.add(%b);
+   %b.setBeaconType(friend);
+   %b.setTarget(%obj.team);
+   %obj.beacon = %b;
 }
 function T1InvyDeployable::onCollision(%data,%obj,%col){
    if (%col.getDataBlock().className $= Armor && %col.getState() !$= "Dead" && %col.getMountedImage(2) == 0 && !%col.isMounted()){
@@ -4327,9 +4340,12 @@ function T1InvyDeployable::onCollision(%data,%obj,%col){
 
 function T1InvyDeployableObj::onDestroyed(%this, %obj, %prevState){
    Parent::onDestroyed(%this, %obj, %prevState);
-   $TeamDeployedCount[%obj.team, T1AmmoDeployable]--;
+   $TeamDeployedCount[%obj.team, T1InvyDeployable]--;
    if(isObject(%obj.trigger)){   
       %obj.trigger.delete();
+   }
+   if(isObject(%obj.beacon)){   
+      %obj.beacon.delete();
    }
    %obj.schedule(500, "delete");
 }
@@ -4674,8 +4690,8 @@ datablock ShapeBaseImageData(T1RemoteTurretImage)
    maxDeployDis       = 6.0;
 };
 
-$TeamDeployableMax[T1RemoteTurret] = 4;
-$TeamDeployableMin[T1RemoteTurret] = 4;
+$TeamDeployableMax[T1RemoteTurret] = 6;
+$TeamDeployableMin[T1RemoteTurret] = 6;
 
 datablock ItemData(T1RemoteTurret)
 {
@@ -4717,6 +4733,12 @@ function T1RemoteTurret::onCollision(%data,%obj,%col){
    }
 }
 
+
+function T1RemoteTurretObj::onDestroyed(%this, %obj, %prevState){
+   Parent::onDestroyed(%this, %obj, %prevState);
+   $TeamDeployedCount[%obj.team, T1RemoteTurret]--;
+   %obj.schedule(500, "delete");
+}
 
 datablock AudioProfile(t1RepairPackFireSound)
 {
@@ -5655,7 +5677,7 @@ function t1buyFavorites(%client)
    %client.player.t1clearInventory();
    %client.setWeaponsHudClearAll();
    %cmt = $CurrentMissionType;
-
+   %eng = %client.player.getEnergyLevel();
    %curArmor = %client.player.getDatablock();
    %curDmgPct = getDamagePercent(%curArmor.maxDamage, %client.player.getDamageLevel());
 
@@ -5663,8 +5685,8 @@ function t1buyFavorites(%client)
    %client.armor = $NameToInv[%client.favorites[0]];
    %client.player.setArmor( %client.armor );
    %newArmor = %client.player.getDataBlock();
-
    %client.player.setDamageLevel(%curDmgPct * %newArmor.maxDamage);
+   %client.player.setEnergyLevel(%eng);
    %weaponCount = 0;
 
    // weapons
@@ -5696,6 +5718,12 @@ function t1buyFavorites(%client)
       else{
          if(%pch $= "RepairPack"){
                %client.player.setInventory( "t1RepairPack", 1, 1);
+         }
+         else if(%pch $= "InventoryDeployable"){
+               %client.player.setInventory( "T1InvyDeployable", 1, 1);
+         }
+         else if(%pch $= "TurretIndoorDeployable" || %pch $= "TurretOutdoorDeployable"){
+               %client.player.setInventory( "T1RemoteTurret", 1, 1);
          }
          else{
             %client.player.setInventory( %pCh, 1 );
@@ -5836,6 +5864,9 @@ function t1buyDeployableFavorites(%client)
    if ( !($InvBanList[DeployInv, %packChoice]) && !$InvBanList[%cmt, %packChoice]){
       if(%packChoice $= "RepairPack"){
          %player.setInventory( "t1RepairPack", 1, 1);
+      }
+      else if(%packChoice $= "TurretIndoorDeployable" || %packChoice $= "TurretOutdoorDeployable"){
+            %client.player.setInventory( "T1RemoteTurret", 1, 1);
       }
       else{
          %player.setInventory( %packChoice, 1 );

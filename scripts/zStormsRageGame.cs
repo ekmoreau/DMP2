@@ -68,7 +68,7 @@ function stormragesim(){
          addRainMist(); 
       }
 	   if($tickCountZap == (60 * 12)){
-		  setupTR(32,32,6,70,15,2,4,90,60000*3); 
+		  setupTR(32,32,6,70,15,2,4,90,60000*2); 
 	   }
 		for(%i = 0; %i < ClientGroup.getCount(); %i++){
 			%client = ClientGroup.getObject(%i);

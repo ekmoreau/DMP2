@@ -57,7 +57,7 @@ datablock ParticleData(SnowParticle4) {
    gravityCoefficient = "0";
    inheritedVelFactor = "0";
    constantAcceleration = "0";
-   lifetimeMS = "3000";
+   lifetimeMS = "4000";
    lifetimeVarianceMS = "0";
    spinSpeed = "1";
    spinRandomMin = "-50";
@@ -65,15 +65,15 @@ datablock ParticleData(SnowParticle4) {
    useInvAlpha = "0";
    textureName = "precipitation/snowflake002";
    colors[0] = "0.204724 0.204724 0.204724 0.0";
-   colors[1] = "0.291339 0.291339 0.291339 1";
-   colors[2] = "0.259843 0.259843 0.259843 1";
+   colors[1] = "0.591339 0.591339 0.591339 1";
+   colors[2] = "0.559843 0.559843 0.559843 1";
    colors[3] = "0.0787402 0.0787402 0.0787402 1";
    sizes[0] = "0.5";
    sizes[1] = "0.5";
    sizes[2] = "0.5";
    sizes[3] = "0.5";
    times[0] = "0.1";
-   times[1] = "0.2";
+   times[1] = "0.4";
    times[2] = "0.9";
    times[3] = "1";
 };
@@ -81,9 +81,9 @@ datablock ParticleData(SnowParticle4) {
 datablock ParticleEmitterData(SnowEmitter4) {
    ejectionPeriodMS = "4";
    periodVarianceMS = "0";
-   ejectionVelocity = "100";
-   velocityVariance = "0";
-   ejectionOffset = "0";
+   ejectionVelocity = "45";
+   velocityVariance = "25";
+   ejectionOffset = "10";
    ejectionOffsetVariance = "0";
    thetaMin = "0";
    thetaMax = "45";

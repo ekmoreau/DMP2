@@ -14,10 +14,10 @@
 //--- OBJECT WRITE BEGIN ---
 new SimGroup(MissionGroup) {
 
+	cdTrack = "2";
 	CTF_scoreLimit = "8";
 	powerCount = "0";
 	musicTrack = "lush";
-	cdTrack = "2";
 
 	new MissionArea(MissionArea) {
 		area = "-136 -160 1008 1088";
@@ -50,7 +50,7 @@ new SimGroup(MissionGroup) {
 		windEffectPrecipitation = "1";
 		fogVolumeColor1 = "128.000000 128.000000 128.000000 -222768174765569861000000000000000000000.000000";
 		fogVolumeColor2 = "128.000000 128.000000 128.000000 0.000000";
-		fogVolumeColor3 = "128.000000 128.000000 128.000000 -170698929442160049000000000000000000000.000000";
+		fogVolumeColor3 = "128.000000 128.000000 128.000000 -170698929442160050000000000000000000000.000000";
 		high_visibleDistance = "-1";
 		high_fogDistance = "-1";
 		high_fogVolume1 = "-1 107 1.07457e-38";
@@ -115,13 +115,13 @@ new SimGroup(MissionGroup) {
 		customArea = "0 0 0 0";
 
 		position = "0 0 0 1";
+		YDimOverSize = "0";
 		conjoinBowlDev = "20";
-		GraphFile = "Stonehenge_nef.nav";
 		rotation = "0 0 0 0";
 		coverage = "0";
 		scale = "1 1 1";
+		GraphFile = "Stonehenge_nef.nav";
 		XDimOverSize = "0";
-		YDimOverSize = "0";
 		locked = "true";
 	};
 	new AudioEmitter() {
@@ -261,12 +261,12 @@ new SimGroup(MissionGroup) {
 				static = "1";
 				rotate = "0";
 
+				Target = "33";
 				team = "1";
-				WayPoint = "10087";
-				Trigger = "10088";
+				WayPoint = "4086";
+				Trigger = "4087";
 				isHome = "1";
 				originalPosition = "212.562 261.6 178.414 0 0 1 0.820305";
-				Target = "33";
 				locked = "false";
 			};
 			new Turret() {
@@ -279,8 +279,8 @@ new SimGroup(MissionGroup) {
 				homingCount = "0";
 				initialBarrel = "T1SentryTurretBarrel";
 
-				team = "1";
 				Target = "34";
+				team = "1";
 			};
 			new Turret() {
 				position = "239.146 286.115 184.168";
@@ -292,8 +292,8 @@ new SimGroup(MissionGroup) {
 				homingCount = "0";
 				initialBarrel = "T1ELFBarrelLarge";
 
-				team = "1";
 				Target = "35";
+				team = "1";
 			};
 			new Turret() {
 				position = "360.155 287.147 178.183";
@@ -305,8 +305,8 @@ new SimGroup(MissionGroup) {
 				homingCount = "0";
 				initialBarrel = "hellFireTurretBarrel";
 
-				team = "1";
 				Target = "36";
+				team = "1";
 			};
 			new StaticShape() {
 				position = "222.198 262.618 194.545";
@@ -317,8 +317,8 @@ new SimGroup(MissionGroup) {
 				lockCount = "0";
 				homingCount = "0";
 
-				team = "1";
 				Target = "37";
+				team = "1";
 			};
 			new StaticShape() {
 				position = "237.587 270.122 175.234";
@@ -329,11 +329,11 @@ new SimGroup(MissionGroup) {
 				lockCount = "0";
 				homingCount = "0";
 
-				Trigger = "10058";
-				team = "1";
-				init = "0";
-				pwrTrigger = "10058";
 				Target = "38";
+				team = "1";
+				Trigger = "4054";
+				init = "0";
+				pwrTrigger = "4054";
 			};
 			new StaticShape() {
 				position = "251.583 284.05 175.204";
@@ -344,11 +344,11 @@ new SimGroup(MissionGroup) {
 				lockCount = "0";
 				homingCount = "0";
 
-				Trigger = "10061";
-				team = "1";
-				init = "0";
-				pwrTrigger = "10061";
 				Target = "39";
+				team = "1";
+				Trigger = "4057";
+				init = "0";
+				pwrTrigger = "4057";
 			};
 			new StaticShape() {
 				position = "225.617 286.713 175.341";
@@ -359,8 +359,8 @@ new SimGroup(MissionGroup) {
 				lockCount = "0";
 				homingCount = "0";
 
-				team = "1";
 				Target = "40";
+				team = "1";
 			};
 			new Item() {
 				position = "330.532 385.952 213.484";
@@ -374,6 +374,21 @@ new SimGroup(MissionGroup) {
 				rotate = "1";
 
 				Target = "-1";
+				team = "1";
+			};
+			new Item() {
+				position = "249.521 291.963 175.273";
+				rotation = "1 0 0 0";
+				scale = "1 1 1";
+				dataBlock = "t1RepairPack";
+				lockCount = "0";
+				homingCount = "0";
+				collideable = "0";
+				static = "1";
+				rotate = "1";
+
+				Target = "-1";
+				team = "1";
 			};
 		};
 		new SimGroup(Team2) {
@@ -411,14 +426,14 @@ new SimGroup(MissionGroup) {
 				static = "1";
 				rotate = "0";
 
-				team = "2";
-				WayPoint = "10089";
-				Trigger = "10090";
-				isHome = "1";
 				searchSchedule = "185843";
+				Target = "41";
+				team = "2";
+				WayPoint = "4088";
+				Trigger = "4089";
+				isHome = "1";
 				originalPosition = "552.369 549.431 193.089 0 0 1 0.645772";
 				className = "FlagObj";
-				Target = "41";
 				locked = "false";
 			};
 			new InteriorInstance(InteriorInstance) {
@@ -461,8 +476,8 @@ new SimGroup(MissionGroup) {
 				homingCount = "0";
 				initialBarrel = "T1ELFBarrelLarge";
 
-				team = "2";
 				Target = "42";
+				team = "2";
 			};
 			new Turret() {
 				position = "552.326 548.742 205.73";
@@ -474,8 +489,8 @@ new SimGroup(MissionGroup) {
 				homingCount = "0";
 				initialBarrel = "T1SentryTurretBarrel";
 
-				team = "2";
 				Target = "43";
+				team = "2";
 			};
 			new StaticShape() {
 				position = "552.071 538.93 209.665";
@@ -486,8 +501,8 @@ new SimGroup(MissionGroup) {
 				lockCount = "0";
 				homingCount = "0";
 
-				team = "2";
 				Target = "44";
+				team = "2";
 			};
 			new Turret() {
 				position = "492.846 404.59 174.016";
@@ -499,8 +514,8 @@ new SimGroup(MissionGroup) {
 				homingCount = "0";
 				initialBarrel = "hellFireTurretBarrel";
 
-				team = "2";
 				Target = "45";
+				team = "2";
 			};
 			new StaticShape() {
 				position = "528.12 532.71 192.637";
@@ -511,11 +526,11 @@ new SimGroup(MissionGroup) {
 				lockCount = "0";
 				homingCount = "0";
 
-				Trigger = "10077";
-				team = "2";
-				init = "0";
-				pwrTrigger = "10077";
 				Target = "46";
+				team = "2";
+				Trigger = "4074";
+				init = "0";
+				pwrTrigger = "4074";
 			};
 			new StaticShape() {
 				position = "516.018 517.073 192.63";
@@ -526,11 +541,11 @@ new SimGroup(MissionGroup) {
 				lockCount = "0";
 				homingCount = "0";
 
-				Trigger = "10080";
-				team = "2";
-				init = "0";
-				pwrTrigger = "10080";
 				Target = "47";
+				team = "2";
+				Trigger = "4077";
+				init = "0";
+				pwrTrigger = "4077";
 			};
 			new StaticShape() {
 				position = "542.211 517.666 192.71";
@@ -541,8 +556,8 @@ new SimGroup(MissionGroup) {
 				lockCount = "0";
 				homingCount = "0";
 
-				team = "2";
 				Target = "48";
+				team = "2";
 			};
 			new Item() {
 				position = "392.757 453.886 213.411";
@@ -556,6 +571,21 @@ new SimGroup(MissionGroup) {
 				rotate = "1";
 
 				Target = "-1";
+				team = "2";
+			};
+			new Item() {
+				position = "519.042 509.411 192.731";
+				rotation = "1 0 0 0";
+				scale = "1 1 1";
+				dataBlock = "t1RepairPack";
+				lockCount = "0";
+				homingCount = "0";
+				collideable = "0";
+				static = "1";
+				rotate = "1";
+
+				Target = "-1";
+				team = "2";
 			};
 		};
 		new SimGroup(Team0) {
@@ -578,6 +608,7 @@ new SimGroup(MissionGroup) {
 		position = "0 0 -100";
 		rotation = "1 0 0 0";
 		scale = "1 1 1";
+		nameTag = "Base";
 		dataBlock = "T1StartObj";
 		lockCount = "0";
 		homingCount = "0";

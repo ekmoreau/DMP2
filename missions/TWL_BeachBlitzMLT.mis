@@ -19,8 +19,8 @@ new SimGroup(MissionGroup) {
 
 	CTF_scoreLimit = "8";
 	powerCount = "0";
-	musicTrack = "desert";
 	cdTrack = "2";
+	musicTrack = "desert";
 
 	new MissionArea(MissionArea) {
 		area = "-544 -736 1024 1504";
@@ -56,25 +56,25 @@ new SimGroup(MissionGroup) {
 		terrainFile = "TWL_BeachBlitzM.ter";
 		squareSize = "8";
 
-		visibleDistance = "365";
-		locked = "true";
 		position = "-1024 -1024 0";
 		hazeDistance = "245";
+		visibleDistance = "365";
+		locked = "true";
 	};
 	new NavigationGraph(navGraph) {
 		conjoinAngleDev = "70";
 		cullDensity = "0.3";
 		customArea = "0 0 0 0";
 
-		conjoinBowlDev = "20";
-		rotation = "0 0 0 0";
 		YDimOverSize = "0";
-		scale = "1 1 1";
 		GraphFile = "BeachBlitz.nav";
-		locked = "true";
-		coverage = "0";
 		position = "0 0 0 1";
+		coverage = "0";
+		rotation = "0 0 0 0";
 		XDimOverSize = "0";
+		scale = "1 1 1";
+		conjoinBowlDev = "20";
+		locked = "true";
 	};
 	new WaterBlock() {
 		position = "-600 -1024 -52";
@@ -115,7 +115,7 @@ new SimGroup(MissionGroup) {
 		windVelocity = "0 0 0.5";
 		windEffectPrecipitation = "0";
 		fogVolumeColor1 = "0.082300 0.235200 0.549000 1.000000";
-		fogVolumeColor2 = "128.000000 128.000000 128.000000 -14124837643317411800.000000";
+		fogVolumeColor2 = "128.000000 128.000000 128.000000 -14124837643317411840.000000";
 		fogVolumeColor3 = "128.000000 128.000000 128.000000 210.438995";
 		high_visibleDistance = "-1";
 		high_fogDistance = "-1";
@@ -143,8 +143,8 @@ new SimGroup(MissionGroup) {
 					powerCount = "0";
 
 					new InteriorInstance(InteriorInstance) {
-						position = "-78.2399 -359.449 199.241";
-						rotation = "0 0 1 72.7661";
+						position = "-75.5506 -364.309 203.477";
+						rotation = "-0 -0 1 75";
 						scale = "1.5 1.5 1";
 						interiorFile = "dox_bb_rig_x2.dif";
 						showTerrainInside = "1";
@@ -162,7 +162,7 @@ new SimGroup(MissionGroup) {
 						team = "1";
 					};
 					new Item() {
-						position = "-86.1366 -333.833 216.187";
+						position = "-82.3251 -338.216 220.218";
 						rotation = "1 0 0 0";
 						scale = "1 1 1";
 						nameTag = "Flag";
@@ -173,22 +173,13 @@ new SimGroup(MissionGroup) {
 						static = "1";
 						rotate = "1";
 
-						isHome = "1";
-						className = "FlagObj";
-						originalPosition = "-77.8376 -268.018 216.187 0 0 1 1.37";
+						team = "1";
+						WayPoint = "8068";
+						Trigger = "8069";
 						Target = "33";
-						team = "1";
-						WayPoint = "6400";
-						Trigger = "6401";
-					};
-					new InteriorInstance(InteriorInstance) {
-						position = "-77.8131 -334.49 216.16";
-						rotation = "0 0 1 163.293";
-						scale = "0.6 1.5 0.3";
-						interiorFile = "Magellan_kab_magflagstand.dif";
-						showTerrainInside = "0";
-
-						team = "1";
+						originalPosition = "-86.1366 -333.833 216.187 1 0 0 0";
+						className = "FlagObj";
+						isHome = "1";
 					};
 				};
 			};
@@ -244,18 +235,18 @@ new SimGroup(MissionGroup) {
 						team = "2";
 					};
 					new InteriorInstance(InteriorInstance) {
-						position = "59.2084 352.988 203.477";
+						position = "59.0604 353.518 203.477";
 						rotation = "0 0 -1 105.606";
 						scale = "1.5 1.5 1";
 						interiorFile = "dox_bb_rig_x2.dif";
 						showTerrainInside = "1";
 						AudioProfile = "Universal_Base_1";
 
-						locked = "false";
 						team = "2";
+						locked = "false";
 					};
 					new Item() {
-						position = "66.583 327.121 220.414";
+						position = "66.2447 327.537 220.204";
 						rotation = "1 0 0 0";
 						scale = "1 1 1";
 						nameTag = "Flag";
@@ -266,24 +257,14 @@ new SimGroup(MissionGroup) {
 						static = "1";
 						rotate = "1";
 
-						isHome = "1";
-						className = "FlagObj";
-						locked = "false";
-						originalPosition = "33.9265 324.331 220.414 0 0 -1 1.84319";
+						team = "2";
+						WayPoint = "8070";
+						Trigger = "8071";
 						Target = "34";
-						team = "2";
-						WayPoint = "6402";
-						Trigger = "6403";
-					};
-					new InteriorInstance(InteriorInstance) {
-						position = "58.2596 327.794 220.4";
-						rotation = "-0 0 -1 16.043";
-						scale = "0.6 1.5 0.3";
-						interiorFile = "Magellan_kab_magflagstand.dif";
-						showTerrainInside = "0";
-
+						originalPosition = "66.583 327.121 220.414 1 0 0 0";
+						className = "FlagObj";
+						isHome = "1";
 						locked = "false";
-						team = "2";
 					};
 				};
 			};
@@ -549,7 +530,7 @@ new SimGroup(MissionGroup) {
 		};
 		new InteriorInstance(InteriorInstance) {
 			position = "-195.088 618.306 152.461";
-			rotation = "0.0549376 0.0355006 0.997858 114.371";
+			rotation = "0.0549376 0.0355006 0.997859 114.371";
 			scale = "0.75 0.75 0.75";
 			interiorFile = "dox_bb_rustbox_x2.dif";
 			showTerrainInside = "0";
