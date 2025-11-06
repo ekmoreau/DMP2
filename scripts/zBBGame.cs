@@ -920,7 +920,7 @@ datablock LinearFlareProjectileData(midExpl){
    directDamage        = 0.0;
    hasDamageRadius     = true;
    indirectDamage      = 100.0;
-   damageRadius        = 400.0;
+   damageRadius        = 250.0;
    kickBackStrength    = 5000.0;
    radiusDamageType    = $DamageType::Explosion;
 
@@ -1101,7 +1101,7 @@ datablock LinearFlareProjectileData(topExpl){
    directDamage        = 0.0;
    hasDamageRadius     = true;
    indirectDamage      = 100.0;
-   damageRadius        = 450.0;
+   damageRadius        = 250.0;
    kickBackStrength    = 5000.0;
    radiusDamageType    = $DamageType::Explosion;
 
@@ -1265,7 +1265,7 @@ datablock SeekerProjectileData(nukeMissile)
    indirectDamage      = 100;
    damageRadius        = 100.0;
    radiusDamageType    = $DamageType::Explosion;
-   kickBackStrength    = 2000;
+   kickBackStrength    = 10000;
 
    explosion           = "thetaSStrikeExplosion";
    splash              = MissileSplash;
@@ -2229,7 +2229,7 @@ function drawXYTarget(%team){
    MissionCleanup.add(%tf);
    %xObj = Game.colObjX[%team];
    if(isObject(%xObj)){
-      %dir = (%team == 1) ? "0 24 0" : "0 -24 0";
+      %dir = (%team == 1) ? "0 25 0" : "0 -25 0";
       %x = Game.colX[%team];
       %pos = vectorAdd(setWord(%xObj.getPosition(),0,%x), %dir);
       drawTarget(setWord(%xObj.getPosition(),0,%x),%pos, %tf);
@@ -2251,7 +2251,7 @@ function drawXYTarget(%team){
    }
    %yObj = Game.colObjY[%team];
    if(isObject(%yObj)){
-      %dir = (%team == 1) ? "-24 0 0" : "24 0 0";
+      %dir = (%team == 1) ? "-25 0 0" : "25 0 0";
       %y = Game.colY[%team];
       %pos2 = vectorAdd(setWord(%yObj.getPosition(),1,%y), %dir);
       drawTarget(setWord(%yObj.getPosition(),1,%y),%pos2, %tf);

@@ -1206,7 +1206,7 @@ new SimGroup(MissionGroup) {
 			locked = "true";
 		};
 	};
-	new SimGroup(evo) {
+	new SimGroup(waterSkiGrp) {
 
 		powerCount = "0";
 

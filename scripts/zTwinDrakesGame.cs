@@ -3,7 +3,8 @@
 $dragon::fireTime = 1000 * 20;
 $dragon::burn = 0;//leave zero
 $dragon::burnBoltEnable = 0; // enable burning on dragon bolt
-
+$dragon::dwUnlockTime = 8; // dark weapon unlock
+$dragon::dragonTimer = 3; // dragon fire use
 datablock ParticleData(midMapSmokeParticle) {
    dragCoefficient = "0";
    windCoefficient = "0";
@@ -69,13 +70,13 @@ datablock StaticShapeData(fireFireSwitch)
 };
 function fireFireSwitch::onCollision(%data,%obj,%col)
 {
-   if (%col.getDataBlock().className $= Armor && (!game.burnTrigTime || (getSimTime() - game.burnTrigTime) > (60000 * 5))){
+   if (%col.getDataBlock().className $= Armor && (!game.burnTrigTime || (getSimTime() - game.burnTrigTime) > (60000 * $dragon::dragonTimer))){
       burnStart();   
       game.burnTrigTime = getSimTime();
       game.dragonTrigPlr = %col;
    }
    else{
-      %timeMS = (60000 * 5) - (getSimTime() - game.burnTrigTime);
+      %timeMS = (60000 * $dragon::dragonTimer) - (getSimTime() - game.burnTrigTime);
       if(%timeMS > 0){
          messageClient(%col.client, 'MsgClient', '\c0Dragon fire ready in %1.~wfx/powered/station_denied.wav', game.formatTime(%timeMS));
       }
@@ -92,21 +93,15 @@ function DragonFireTrig::onEnterTrigger(%data, %trigger, %player){
    }
    if(%trigger.mode == 1){
       %strike = 1;
-      if(getSimTime() - game.firstTrig > ((1000 * 60) * 15)){// enable after 15 min
-         if(!game.hasSEWep[%player.team]){
-            SEStrike::onCollision(SEStrike, bigWep, %player, 1);
-            game.hasSEWep[%player.team] = 1;
-            %strike = 0;
-         }
-         else if(game.hasSEWep[%player.team] && getRandom(1,100) == 100){
-            SEStrike::onCollision(SEStrike, bigWep, %player, 1);
-            %strike = 0;  
-         }
+      if(getSimTime() - game.firstTrig > (60000 * $dragon::dwUnlockTime)){// enable after 15 min
+         game.firstTrig = getSimTime();
+         %strike = 0;
+         SEStrike::onCollision(SEStrike, bigWep, %player, 1);
       }
       if(%strike){
-         %minLeft =  mFloor((((60000) * 15) - (getSimTime() - game.firstTrig)) / 1000 / 60);
+         %minLeft = (60000 * $dragon::dwUnlockTime) - (getSimTime() - game.firstTrig);
          if(%minLeft > 0){
-            messageClient(%player.client, 'MsgClient', '\c0The dark weapon unlocks in %1 minutes.~wfx/powered/station_denied.wav', %minLeft);
+            messageTeam(%player.client.team, 'MsgClient', '\c1The dark weapon unlocks in %1.~wfx/powered/station_denied.wav', game.formatTime(%minLeft), %client.name);
          }
 
          %pos = "201.062 -22.3359 315.09";
@@ -213,12 +208,6 @@ datablock ParticleEmitterData(DragonFireEmitter){
    particles = "DragonFirePart";
 };
 
-datablock AudioProfile(dragonRoar)
-{
-   filename    = "fx/Bonuses/TRex.wav";
-   description = AudioDefault3d;
-};
-
 function burnStart(){
    if( getSimTime() - $dragon::burn > $dragon::fireTime){
       $dragon::burn = getSimTime();
@@ -228,13 +217,12 @@ function burnStart(){
          rotation = "1 0 0 0";
          scale = "1 1 1";
          fileName = "fx/Bonuses/TRex.wav";
-        // profile = dragonRoar;
          useProfileDescription = "0";
          outsideAmbient = "1";
          volume = "1";
          isLooping = "0";
          is3D = "1";
-         minDistance = "50";
+         minDistance = "400";
          maxDistance = "600";
          coneInsideAngle = "360";
          coneOutsideAngle = "360";
@@ -254,13 +242,12 @@ function burnStart(){
          rotation = "1 0 0 0";
          scale = "1 1 1";
          fileName = "fx/Bonuses/TRex.wav";
-         //profile = dragonRoar;
          useProfileDescription = "0";
          outsideAmbient = "1";
          volume = "1";
          isLooping = "0";
          is3D = "1";
-         minDistance = "50";
+         minDistance = "400";
          maxDistance = "600";
          coneInsideAngle = "360";
          coneOutsideAngle = "360";
@@ -456,7 +443,7 @@ function burnObjectD(%obj, %source, %part){
       else
          %wet = 0;  
       if(%obj.burnCount < 10000 && !%wet && ((%obj.getDamagePercent()+0.001) - %obj.fireDmg) >= 0){
-         %obj.damage(%source, %pos, 0.005, $DamageType::Plasma);
+         %obj.damage(%source, %pos, 0.03, $DamageType::Plasma);
          %obj.burnEvent = schedule(%burnloop, 0, "burnObjectD", %obj, %source, %part); 
       }
       else{
@@ -605,6 +592,12 @@ datablock LinearFlareProjectileData(DragonsFireWepBolt){
    hasLight    = true;
    lightRadius = 1.0;
    lightColor  = "0.9 0.3 0.0";
+};
+
+datablock AudioProfile(dragonRoar)
+{
+   filename    = "fx/Bonuses/TRex.wav";
+   description = AudioDefault3d;
 };
 
 datablock ShapeBaseImageData(DragonsFireWepImage)
@@ -797,12 +790,13 @@ datablock ShapeBaseImageData(DragonsFireWepFlameImage){
    stateScript[3] = "onFire";
    stateEmitter[3] = "DragonFlameEmitter";
    stateEmitterNode[3] = "muzzlepoint1";
-   stateEmitterTime[3] = 0.2;
+   stateEmitterTime[3] = 0.1;
    
    stateName[4]                     = "Reload";
    stateTransitionOnTimeout[4]      = "Ready";
-   stateTimeoutValue[4]             = 0.01;
+   stateTimeoutValue[4]             = 0.1;
    stateAllowImageChange[4]         = false;
+
 
    offset = "0 0.3 0.02";
    rotation = "0 1 0 0";
@@ -828,9 +822,9 @@ function DragonsFireWepImage::onFire(%data, %obj, %slot){
 }
 function DragonsFireWepFlameImage::onFire(%data, %obj, %slot){
 // not needed
-   if(%obj.getImageState(0) $= "Ready"){
-      %obj.setImageTrigger(6, false);   
-   }
+   //if(%obj.getImageState(0) $= "Ready"){
+   //   %obj.setImageTrigger(6, false);   
+   //}
 }
 
 function DragonsFireWepImage::onWetFire(%this,%obj,%slot){
@@ -1035,7 +1029,6 @@ datablock ShapeBaseImageData(dragonBoltImage){
    stateRecoil[3] = LightRecoil;
    stateAllowImageChange[3] = false;
    stateScript[3] = "onFire";
-   stateEmitterTime[3] = 0.2;
    stateSound[3] = PlasmaFireSound;
    stateName[4] = "Reload";
    stateTransitionOnNoAmmo[4] = "NoAmmo";
@@ -1287,7 +1280,6 @@ datablock ShapeBaseImageData(SEStrikeImage){
    stateRecoil[3] = LightRecoil;
    stateAllowImageChange[3] = false;
    stateScript[3] = "onFire";
-   stateEmitterTime[3] = 0.2;
    stateSound[3] = PlasmaBarrelExpSound;
    stateSequence[3] = "Fire";
    

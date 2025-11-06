@@ -1,3 +1,34 @@
+datablock ForceFieldBareData(FirnAllFastField)
+{
+   fadeMS           = 1000;
+   baseTranslucency = 0.30;
+   powerOffTranslucency = 0.0;
+   teamPermiable    = true;
+   otherPermiable   = true;
+   color            = "0.0 0.0 1.0";   
+   powerOffColor    = "0.0 0.0 0.0";
+   targetTypeTag    = 'ForceField'; 
+
+   texture[0] = "skins/forcef1";
+   texture[1] = "skins/forcef2";
+   texture[2] = "skins/forcef3";
+   texture[3] = "skins/forcef4";
+   texture[4] = "skins/forcef5";
+
+   framesPerSec = 10;
+   numFrames = 5;
+   scrollSpeed = 15;
+   umapping = 1.0;
+   vmapping = 0.15;
+};
+
+function FirnAllFastField::onAdd(%data, %obj){
+   parent::onAdd(%data,%obj);
+   if(%obj.pz.getClassName() $= "PhysicalZone"){
+		%obj.pz.delete(); 
+   }
+}
+
 datablock ForceFieldBareData(powerMover)
 {
    fadeMS           = 1000;

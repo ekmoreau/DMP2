@@ -1966,6 +1966,12 @@ function t1VehStation::onAdd(%this, %obj)
    %obj.trigger = %trigger;
 }
 
+function t1VehStation::onRemove(%this, %obj){
+   parent::onRemove(%this, %obj);
+   if(isObject(%obj.trigger)){
+      %obj.trigger.delete();
+   }
+}
 
 datablock StaticShapeData(t1CMDStation)
 {
@@ -2023,6 +2029,13 @@ function t1CMDStation::onAdd(%this, %obj)
    // associate the trigger with the station
    %trigger.station =%obj;
    %obj.trigger = %trigger;
+}
+
+function t1CMDStation::onRemove(%this, %obj){
+   parent::onRemove(%this, %obj);
+   if(isObject(%obj.trigger)){
+      %obj.trigger.delete();
+   }
 }
 
 datablock TriggerData(t1StationTrigger)
@@ -2121,6 +2134,10 @@ function t1StationTrigger::onEnterTrigger(%data, %trigger, %player){
          %station.playAudio(2, invyPadActivate);
          %station.playAudio(3, invyPadRun);
          t1buyFavorites(%player.client);
+         %plrRot = getWords(%player.getTransform(), 3, 6);
+         %fvec = %station.getForwardVector();
+         %sPos = vectorAdd(%station.getPosition(),"0 0 0.25");
+         %player.setTransform(vectorAdd(%sPos,vectorScale(%fvec,1.5)) SPC %plrRot);
          %oldRate = %player.getRepairRate();
          %player.setRepairRate(%oldRate + 0.00625);
 
@@ -2182,14 +2199,18 @@ function t1StationTrigger::onleaveTrigger(%data, %trigger, %player){
       if(isObject(%station)){
          if(%targetname $= "t1ammoPad"){
             %station.setThreadDir(2, false);
-            %station.playAudio(2, ammoPadActivate);
+            if(!%station.isDestroyed && %station.isPowered() && !%station.isDisabled()){
+               %station.playAudio(2, ammoPadActivate);
+            }
             %player.setRepairRate(0);
             %station.stopAudio(3);
             cancel(%station.schRunHum);
          }
          else if(%targetname $= "t1InvyPad"){
             %station.setThreadDir(2, false);
-            %station.playAudio(2, invyPadActivate);   
+            if(!%station.isDestroyed && %station.isPowered() && !%station.isDisabled()){
+               %station.playAudio(2, invyPadActivate);   
+            }
             %player.setRepairRate(0);
             %station.stopAudio(3);
          }
@@ -2199,7 +2220,9 @@ function t1StationTrigger::onleaveTrigger(%data, %trigger, %player){
          }
          else if(%targetname $= "t1VehStation"){
             %station.setThreadDir(2, false);
-            %station.playAudio(2, invyPadActivate);   
+            if(!%station.isDestroyed && %station.isPowered() && !%station.isDisabled()){
+               %station.playAudio(2, invyPadActivate);   
+            }
             %station.stopAudio(3);
             commandToClient(%player.client,'PickVehMenu', 0);
             %player.atVPad = "";
@@ -2265,7 +2288,6 @@ function t1ammoPad::onRemove(%this, %obj){
    if(isObject(%obj.trigger)){
       %obj.trigger.delete();
    }
-
 }
 
 // function t1ammoPadCol::onDestroyed(%data, %obj, %prevState){
@@ -2367,10 +2389,10 @@ function t1InvyPad::onAdd(%this, %obj)
    %trigger = new Trigger()
    { 
       dataBlock = t1StationTrigger;
-      polyhedron = "-0.125 0.0 0.1 0.25 0.0 0.0 0.0 -0.8 0.0 0.0 0.0 1.0";//
+      polyhedron = "-1.0 0.0 0.1 2.0 0.0 0.0 0.0 -1 0.0 0.0 0.0 2.0";//
    };     
-   %obj.pwrTrigger = %trigger;
    MissionCleanup.add(%trigger);
+   %obj.trigger = %trigger;
 
    %trans = %obj.getTransform();
    %vSPos = getWords(%trans,0,2);
@@ -2378,12 +2400,11 @@ function t1InvyPad::onAdd(%this, %obj)
    %vAngle = getWord(%trans,6);
    %matrix = VectorOrthoBasis(%vRot @ " " @ %vAngle + 0.0);
    %yRot = getWords(%matrix, 3, 5);
-   %pos = vectorAdd(%vSPos, vectorScale(%yRot, 1));
+   %pos = vectorAdd(%vSPos, vectorScale(%yRot, 1.25));
    %trigger.setTransform(%pos @ " " @ %vRot @ " " @ %vAngle);
 
    // associate the trigger with the station
    %trigger.station = %obj;
-   %obj.trigger = %trigger;
 }
 
 function t1InvyPad::onRemove(%this, %obj){
@@ -2632,11 +2653,11 @@ datablock TurretData(hellFireTurret) : TurretDamageProfile
 
 
 };
+
 function hellFireTurret::onAdd(%data, %obj){
    Parent::onAdd(%data, %obj);
    %obj.mountImage(%data.barrel, 0, true);
 }
-
 
 datablock AudioProfile(T1BlasterFireSound)
 {
@@ -2644,8 +2665,6 @@ datablock AudioProfile(T1BlasterFireSound)
    description = AudioDefault3d;
    preload = true;
 };
-
-
 
 datablock ExplosionData(T1SentryTurretExplosion)
 {
@@ -3267,9 +3286,6 @@ function t1ElfTurret::onAdd(%data, %obj){
    Parent::onAdd(%data, %obj);
    %obj.mountImage(%data.barrel, 0, true);
 }
-
-
-
 
 datablock AudioProfile(t1FlyerEngineSound)
 {

@@ -27,15 +27,16 @@ function tdWaterSki(%this,%trigger){
       if(!%this.isJetting && %trigZDis < 1){
          if(%xyspeed < 20 || %this.getState() $= "Dead" || %trigZDis < -0.8 || !%this.isKeySki){
             %this.setVelocity(getWords(%vel,0,1) SPC getGravity() * 0.128);
-            //error("sink");
+            //error("xyspeed" SPC  %xyspeed SPC "state" SPC %this.getState() SPC "trigDist" SPC %trigZDis SPC "isKeySki" SPC %this.isKeySki);
             %this.waterSki = 0;
          }
          else{
+            //error("waterSki");
             %drag  = 1;
             %Upforce  = 0.3;
             %z = %trigZDis < 0.8 ? getWord(%vel,2)+%Upforce : 0;
             %this.setVelocity(getWord(%vel,0) * %drag SPC getWord(%vel,1) * %drag SPC %z);//water drag
-            schedule(128, 0, "tdWaterSki", %this, %trigger); 
+            %this.skiEvent = schedule(128, 0, "tdWaterSki", %this, %trigger); 
             %this.waterSki = 1;    
          }
       }
@@ -54,7 +55,7 @@ function waterSkiTrig::onEnterTrigger(%data, %trigger, %player){
    //error("water" SPC %zvel SPC %speed SPC %player.wski SPC %ping);
    if(%zvel > %minZ && %xyspeed > %maxSpeed && %zvel < 0){
       %player.setVelocity(getWords(vectorScale(%player.getVelocity(),%drag),0,1) SPC 0);
-      if(!%this.waterSki){
+      if(!%this.waterSki && !isEventPending(%player.skiEvent)){
          %player.jetCount = 0;
          tdWaterSki(%player, %trigger);
       }

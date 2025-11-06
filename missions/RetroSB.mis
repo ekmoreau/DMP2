@@ -1,5 +1,5 @@
 // DisplayName = Retro Snowblind
-// MissionTypes = CTF
+// MissionTypes = CTF LCTF
 
 //--- MISSION QUOTE BEGIN ---
 //The Starwolf and Blood Eagle battle each other in the inhospitable crags of the ice world of Ymir.
@@ -14,10 +14,10 @@
 new SimGroup(MissionGroup) {
 
 	CTF_timeLimit = "25";
-	CTF_scoreLimit = "8";
-	musicTrack = "ice";
-	cdTrack = "2";
 	powerCount = "0";
+	musicTrack = "ice";
+	CTF_scoreLimit = "8";
+	cdTrack = "2";
 
 	new MissionArea(MissionArea) {
 		area = "-792 -432 1168 1024";
@@ -63,13 +63,13 @@ new SimGroup(MissionGroup) {
 		cullDensity = "0.3";
 		customArea = "0 0 0 0";
 
-		position = "0 0 0 1";
 		YDimOverSize = "0";
-		conjoinBowlDev = "20";
+		position = "0 0 0 1";
 		rotation = "0 0 0 0";
+		conjoinBowlDev = "20";
 		coverage = "0";
-		scale = "1 1 1";
 		GraphFile = "Snowblind_nef.nav";
+		scale = "1 1 1";
 		XDimOverSize = "0";
 		locked = "true";
 	};
@@ -88,8 +88,8 @@ new SimGroup(MissionGroup) {
 		renderBottomTexture = "0";
 		SkySolidColor = "0.650000 0.650000 0.650000 1.000000";
 		fogDistance = "150";
-		fogColor = "0.650000 0.650000 0.650000 1.000000";
-		fogVolume1 = "0 0 0";
+		fogColor = "0.839216 0.882353 0.909804 1.000000";
+		fogVolume1 = "1 500 700";
 		fogVolume2 = "0 0 0";
 		fogVolume3 = "0 0 0";
 		materialList = "Lush_l4.dml";
@@ -120,8 +120,8 @@ new SimGroup(MissionGroup) {
 				powerCount = "0";
 
 				new SpawnSphere() {
-					position = "-166.85 -72.4343 232.903";
-					rotation = "1 0 0 0";
+					position = "-165.969 -79.0518 232.903";
+					rotation = "0 0 1 25.2102";
 					scale = "1 1 1";
 					dataBlock = "SpawnSphereMarker";
 					lockCount = "0";
@@ -164,8 +164,8 @@ new SimGroup(MissionGroup) {
 					locked = "false";
 				};
 				new InteriorInstance(InteriorInstance) {
-					position = "-161.323 -87.0405 240.8";
-					rotation = "0 0 -1 58";
+					position = "-167.19 -94.6209 240.8";
+					rotation = "-0 0 -1 32.7899";
 					scale = "1 1 1";
 					interiorFile = "dtowr_classic1.dif";
 					showTerrainInside = "0";
@@ -173,39 +173,40 @@ new SimGroup(MissionGroup) {
 					team = "2";
 					locked = "false";
 				};
-				new WayPoint() {
-					position = "-165.112 -71.9309 233.35";
-					rotation = "1 0 0 0";
+				new Turret() {
+					position = "155.325 103.318 179.06";
+					rotation = "0.999767 -0.0215913 0.000225514 180.087";
 					scale = "1 1 1";
-					nameTag = "Tower";
-					dataBlock = "WayPointMarker";
+					nameTag = "Sentry";
+					dataBlock = "T1SentryTurret";
 					lockCount = "0";
 					homingCount = "0";
-					name = "Tower";
-					team = "2";
+					initialBarrel = "T1SentryTurretBarrel";
 
-					locked = "false";
+					team = "2";
+					Target = "33";
 				};
 				new Item(Team1Flag) {
 					position = "160.685 108.45 191.111";
 					rotation = "0 0 1 93.5746";
 					scale = "1 1 1";
 					nameTag = "Flag";
-					dataBlock = "flag";
+					dataBlock = "Flag";
 					lockCount = "0";
 					homingCount = "0";
 					collideable = "0";
 					static = "1";
 					rotate = "0";
 
+					isHome = "1";
+					resetTime = "0";
 					team = "2";
-					WayPoint = "9909";
-					Trigger = "9910";
 					originalPosition = "160.685 108.45 191.111 0 0 1 1.63318";
-					Target = "33";
+					WayPoint = "16089";
+					Trigger = "16090";
+					Target = "34";
 					className = "FlagObj";
 					locked = "false";
-					isHome = "1";
 				};
 				new Turret() {
 					position = "-170.275 -18.4298 220.767";
@@ -218,64 +219,80 @@ new SimGroup(MissionGroup) {
 					initialBarrel = "hellFireTurretBarrel";
 
 					team = "2";
-					Target = "34";
+					Target = "35";
+					lastProjectile = "6305";
+					lastDamagedByTeam = "2";
+					damageTimeMS = "122143";
+					lastDamagedBy = "4306";
 				};
 				new Turret() {
-					position = "-171.145 -50.9075 235.759";
-					rotation = "-0 0 -1 17.371";
+					position = "-160.686 -57.7459 235.759";
+					rotation = "0 0 1 7.83913";
 					scale = "1 1 1";
+					nameTag = "Sentry";
 					dataBlock = "T1SentryTurret";
 					lockCount = "0";
 					homingCount = "0";
 					initialBarrel = "T1SentryTurretBarrel";
 
-					Target = "48";
+					team = "2";
+					Target = "36";
+					lastProjectile = "6309";
 				};
 				new Turret() {
-					position = "-144.931 -67.2815 235.732";
-					rotation = "0 0 1 73.3386";
+					position = "-143.943 -83.7259 235.732";
+					rotation = "0 0 1 98.5488";
 					scale = "1 1 1";
+					nameTag = "Sentry";
 					dataBlock = "T1SentryTurret";
 					lockCount = "0";
 					homingCount = "0";
 					initialBarrel = "T1SentryTurretBarrel";
 
-					Target = "49";
+					team = "2";
+					Target = "37";
+					lastProjectile = "6310";
 				};
 				new StaticShape() {
-					position = "-172.798 -73.7792 234.793";
-					rotation = "0 0 1 75.0573";
+					position = "-171.924 -77.735 234.793";
+					rotation = "0 0 1 100.267";
 					scale = "1 1 1";
+					nameTag = "Inventory";
 					dataBlock = "t1InvyPad";
 					lockCount = "0";
 					homingCount = "0";
 
-					Trigger = "13737";
-					init = "0";
-					pwrTrigger = "13737";
-					Target = "50";
+					team = "2";
+					Trigger = "16032";
+					Target = "38";
+					init = "1";
+					pwrTrigger = "16032";
 				};
 				new StaticShape() {
-					position = "-164.658 -78.7361 234.784";
-					rotation = "-0 0 -1 15.4699";
+					position = "-166.67 -85.687 234.784";
+					rotation = "0 0 1 9.74027";
 					scale = "1 1 1";
+					nameTag = "Inventory";
 					dataBlock = "t1InvyPad";
 					lockCount = "0";
 					homingCount = "0";
 
-					Trigger = "13740";
+					team = "2";
+					Trigger = "16035";
+					Target = "39";
 					init = "0";
-					pwrTrigger = "13740";
-					Target = "51";
+					pwrTrigger = "16035";
 				};
 				new TSStatic() {
-					position = "-166.214 -72.1721 234.24";
-					rotation = "0 0 1 212.567";
+					position = "-165.282 -79.0854 234.24";
+					rotation = "0 0 1 237.777";
 					scale = "1.537 2.03062 1";
 					shapeName = "bmiscf.dts";
+
+					team = "2";
 				};
 				new Item() {
-					position = "-166.585 -65.32 234.769";
+					position = "-162.699 -72.7279 234.769";
 					rotation = "1 0 0 0";
 					scale = "1 1 1";
 					dataBlock = "t1RepairPack";
@@ -285,19 +302,22 @@ new SimGroup(MissionGroup) {
 					static = "1";
 					rotate = "1";
 
+					team = "2";
 					Target = "-1";
 				};
 				new StaticShape() {
 					position = "149.761 125.884 191.062";
 					rotation = "0 0 1 141.13";
 					scale = "1 1 1";
+					nameTag = "Inventory";
 					dataBlock = "t1CMDStation";
 					lockCount = "0";
 					homingCount = "0";
 
-					Trigger = "14201";
+					team = "2";
+					Trigger = "16039";
+					Target = "40";
 					init = "0";
-					Target = "52";
 				};
 				new Item() {
 					position = "135.362 115.57 170.38";
@@ -310,55 +330,51 @@ new SimGroup(MissionGroup) {
 					static = "1";
 					rotate = "1";
 
+					team = "2";
 					Target = "-1";
 				};
 				new StaticShape() {
 					position = "135.492 105.719 170.096";
 					rotation = "0 0 1 48.3114";
 					scale = "1 1 1";
+					nameTag = "Inventory";
 					dataBlock = "t1InvyPad";
 					lockCount = "0";
 					homingCount = "0";
 
-					Trigger = "14205";
+					team = "2";
+					Trigger = "16043";
+					Target = "41";
 					init = "0";
-					pwrTrigger = "14205";
-					Target = "53";
+					pwrTrigger = "16043";
 				};
 				new StaticShape() {
 					position = "136.538 125.507 170.093";
 					rotation = "0 0 1 137.12";
 					scale = "1 1 1";
+					nameTag = "Inventory";
 					dataBlock = "t1InvyPad";
 					lockCount = "0";
 					homingCount = "0";
 
-					Trigger = "14208";
+					team = "2";
+					Trigger = "16046";
+					Target = "42";
 					init = "0";
-					pwrTrigger = "14208";
-					Target = "54";
+					pwrTrigger = "16046";
 				};
 				new Turret() {
 					position = "155.925 124.712 179.098";
 					rotation = "0.027385 0.999625 -0.000760189 180.026";
 					scale = "1 1 1";
+					nameTag = "Sentry";
 					dataBlock = "T1SentryTurret";
 					lockCount = "0";
 					homingCount = "0";
 					initialBarrel = "T1SentryTurretBarrel";
 
-					Target = "55";
-				};
-				new Turret() {
-					position = "155.325 103.318 179.06";
-					rotation = "0.999767 -0.0215913 0.000225514 180.087";
-					scale = "1 1 1";
-					dataBlock = "T1SentryTurret";
-					lockCount = "0";
-					homingCount = "0";
-					initialBarrel = "T1SentryTurretBarrel";
-
-					Target = "56";
+					team = "2";
+					Target = "43";
 				};
 			};
 		};
@@ -428,14 +444,16 @@ new SimGroup(MissionGroup) {
 					position = "-451.411 17.2461 158.303";
 					rotation = "0 0 -1 116.31";
 					scale = "1 1 1";
+					nameTag = "Inventory";
 					dataBlock = "t1InvyPad";
 					lockCount = "0";
 					homingCount = "0";
 
-					Trigger = "11652";
+					team = "1";
+					Trigger = "16057";
+					Target = "44";
 					init = "0";
-					pwrTrigger = "11652";
-					Target = "39";
+					pwrTrigger = "16057";
 				};
 				new Turret() {
 					position = "-207.242 88.2363 187.264";
@@ -448,20 +466,26 @@ new SimGroup(MissionGroup) {
 					initialBarrel = "hellFireTurretBarrel";
 
 					team = "1";
-					Target = "36";
+					Target = "45";
+					lastProjectile = "16304";
+					lastDamagedByTeam = "1";
+					damageTimeMS = "2773631";
+					lastDamagedBy = "16058";
 				};
 				new StaticShape() {
 					position = "-457.222 -1.54331 158.21";
 					rotation = "0 0 -1 27.5016";
 					scale = "1 1 1";
+					nameTag = "Inventory";
 					dataBlock = "t1InvyPad";
 					lockCount = "0";
 					homingCount = "0";
 
-					Trigger = "11907";
+					team = "1";
+					Trigger = "16061";
+					Target = "46";
 					init = "0";
-					pwrTrigger = "11907";
-					Target = "40";
+					pwrTrigger = "16061";
 				};
 				new Item() {
 					position = "-453.336 8.02541 158.397";
@@ -474,89 +498,106 @@ new SimGroup(MissionGroup) {
 					static = "1";
 					rotate = "1";
 
+					team = "1";
 					Target = "-1";
 				};
 				new Turret() {
 					position = "-469.9 24.8216 167.347";
 					rotation = "0.14528 0.98939 0.000788092 179.987";
 					scale = "1 1 1";
+					nameTag = "Sentry";
 					dataBlock = "T1SentryTurret";
 					lockCount = "0";
 					homingCount = "0";
 					initialBarrel = "T1SentryTurretBarrel";
 
-					Target = "41";
+					team = "1";
+					Target = "47";
 				};
 				new Turret() {
 					position = "-476.176 4.35907 167.315";
 					rotation = "0.988532 -0.151012 -0.00011801 179.91";
 					scale = "1 1 1";
+					nameTag = "Sentry";
 					dataBlock = "T1SentryTurret";
 					lockCount = "0";
 					homingCount = "0";
 					initialBarrel = "T1SentryTurretBarrel";
 
-					Target = "42";
+					team = "1";
+					Target = "48";
 				};
 				new StaticShape() {
 					position = "-470.274 1.45334 179.309";
 					rotation = "0 0 -1 23.4913";
 					scale = "1 1 1";
+					nameTag = "Inventory";
 					dataBlock = "t1CMDStation";
 					lockCount = "0";
 					homingCount = "0";
 
-					Trigger = "12227";
+					team = "1";
+					Trigger = "16066";
+					Target = "49";
 					init = "0";
-					Target = "43";
 				};
 				new Turret() {
 					position = "-252.415 173.367 180.172";
 					rotation = "0 0 -1 89.3814";
 					scale = "1 1 1";
+					nameTag = "Sentry";
 					dataBlock = "T1SentryTurret";
 					lockCount = "0";
 					homingCount = "0";
 					initialBarrel = "T1SentryTurretBarrel";
 
-					Target = "44";
+					team = "1";
+					Target = "50";
+					lastProjectile = "16305";
 				};
 				new Turret() {
 					position = "-232.541 149.693 180.199";
 					rotation = "0 0 1 179.909";
 					scale = "1 1 1";
+					nameTag = "Sentry";
 					dataBlock = "T1SentryTurret";
 					lockCount = "0";
 					homingCount = "0";
 					initialBarrel = "T1SentryTurretBarrel";
 
-					Target = "45";
+					team = "1";
+					Target = "51";
+					lastProjectile = "16306";
 				};
 				new StaticShape() {
 					position = "-230.149 178.193 179.164";
 					rotation = "0 0 1 181.81";
 					scale = "1 1 1";
+					nameTag = "Inventory";
 					dataBlock = "t1InvyPad";
 					lockCount = "0";
 					homingCount = "0";
 
-					Trigger = "12792";
+					team = "1";
+					Trigger = "16071";
+					Target = "52";
 					init = "0";
-					pwrTrigger = "12792";
-					Target = "46";
+					pwrTrigger = "16071";
 				};
 				new StaticShape() {
 					position = "-223.849 171.042 179.183";
 					rotation = "0 0 -1 87.6627";
 					scale = "1 1 1";
+					nameTag = "Inventory";
 					dataBlock = "t1InvyPad";
 					lockCount = "0";
 					homingCount = "0";
 
-					Trigger = "12880";
+					team = "1";
+					Trigger = "16074";
+					Target = "53";
 					init = "0";
-					pwrTrigger = "12880";
-					Target = "47";
+					pwrTrigger = "16074";
 				};
 				new Item() {
 					position = "-232.294 164.81 179.209";
@@ -569,6 +610,7 @@ new SimGroup(MissionGroup) {
 					static = "1";
 					rotate = "1";
 
+					team = "1";
 					Target = "-1";
 				};
 				new TSStatic() {
@@ -576,40 +618,30 @@ new SimGroup(MissionGroup) {
 					rotation = "0 0 1 49.8474";
 					scale = "1.537 2.03062 1";
 					shapeName = "bmiscf.dts";
-				};
-			};
-			new WayPoint() {
-				position = "-230.641 170.738 177.329";
-				rotation = "1 0 0 0";
-				scale = "1 1 1";
-				nameTag = "Tower";
-				dataBlock = "WayPointMarker";
-				lockCount = "0";
-				homingCount = "0";
-				name = "Tower";
-				team = "1";
 
-				locked = "false";
+					team = "1";
+				};
 			};
 			new Item(Team2Flag) {
 				position = "-476.042 22.4832 179.334";
 				rotation = "0 0 1 106.753";
 				scale = "1 1 1";
 				nameTag = "Flag";
-				dataBlock = "flag";
+				dataBlock = "Flag";
 				lockCount = "0";
 				homingCount = "0";
 				collideable = "0";
 				static = "1";
 				rotate = "0";
 
-				team = "1";
-				WayPoint = "9911";
-				Trigger = "9912";
-				originalPosition = "-476.042 22.4832 179.334 0 0 1 1.86319";
-				Target = "35";
-				locked = "false";
 				isHome = "1";
+				resetTime = "0";
+				team = "1";
+				originalPosition = "-476.042 22.4832 179.334 0 0 1 1.86319";
+				WayPoint = "16091";
+				Trigger = "16092";
+				Target = "54";
+				locked = "false";
 			};
 		};
 		new SimGroup(team0) {

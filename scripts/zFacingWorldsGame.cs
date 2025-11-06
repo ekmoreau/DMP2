@@ -13,12 +13,31 @@ datablock TriggerData(faceDeathTrigger){
 
 function faceBox::onAdd(%this, %obj){
    Parent::onAdd(%this, %obj);
-   
+   if (!isActivePackage(deployfix)){
+         activatePackage(deployfix);
+   }
    if(!isEventPending($faceEvent)){
       faceFlagReset();
    }
    
 }
+function faceBox::onRemove(%this, %obj){
+   if (isActivePackage(deployfix)){
+      deactivatePackage(deployfix);
+   }
+}
+ 
+ package deployfix{
+   function ShapeBaseImageData::testObjectTooClose(%item)
+   {
+      %obj = parent::testObjectTooClose(%item);
+      if(%obj.getDatablock().getName() $= "faceBox"){
+         return 0;
+      }
+
+   }
+
+ };
 
 function faceDeathTrigger::onEnterTrigger(%data, %trigger, %player){
 	%player.damage(0, %player.getPosition(), 100, $DamageType::Suicide);
@@ -512,12 +531,12 @@ function RedeemerVeh::onDestroyed(%this, %veh, %prevState){
    %pos = %veh.getPosition();
    %player = %veh.client.player;
    Parent::onDestroyed(%this, %veh, %prevState);
-   RadiusExplosion(%veh, %pos, 100, 50, 9000, %player, $DamageType::Missile);
-   InitContainerRadiusSearch(%pos,  100, $TypeMasks::PlayerObjectType); 
-   while ((%targetObject = containerSearchNext()) != 0){
-      %targetObject.setdamageflash(0.3);
-      %targetObject.damage(%player, %pos, 50, $DamageType::Missile);
-   }
+   RadiusExplosion(%veh, %pos, 100, 100, 9000, %player, $DamageType::Missile);
+   // InitContainerRadiusSearch(%pos,  100, $TypeMasks::PlayerObjectType); 
+   // while ((%targetObject = containerSearchNext()) != 0){
+   //    %targetObject.setdamageflash(0.3);
+   //    %targetObject.damage(%player, %pos, 50, $DamageType::Missile);
+   // }
    resetControlObject(%veh.client);  
    %fakeflyer = %veh.getMountNodeObject(1);
    %fakeflyer.schedule(10, "delete");
@@ -556,8 +575,19 @@ function RedeemerImage::onFire(%data, %obj, %slot){
    %veh.client = %obj.client;
    %obj.client.veh = %veh;
    %obj.client.setControlObject(%veh);
-   %speed = vectorLen(getWords(%obj.getVelocity(),0,1) SPC 0);
-   %veh.applyImpulse(vectorAdd(%veh.getPosition(),"0 0 0.01"), vectorScale(%obj.getMuzzleVector(%slot),(%speed+20)*30));
+   %objVel = %obj.getVelocity();
+
+   %vehMass = %veh.getDataBlock().mass;
+   %inheritImpulse = vectorScale(%objVel, %vehMass);
+
+   // --- Add a forward launch impulse ---
+   %forwardImpulse = vectorScale(%obj.getMuzzleVector(%slot), 600); // tweak this launch power
+
+   // --- Combine both impulses ---
+   %totalImpulse = vectorAdd(%inheritImpulse, %forwardImpulse);
+
+   // Apply at a small offset to avoid torque weirdness
+   %veh.applyImpulse(vectorAdd(%veh.getPosition(), "0 0 0.01"), %totalImpulse);
 }
 
 function Item::respawnRedeemer(%this){
