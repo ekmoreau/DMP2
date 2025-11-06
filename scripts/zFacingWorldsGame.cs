@@ -2,7 +2,7 @@ $FW::RedeemerRespawnTime  = 3 * 60000;// its 2 min in unreal
 
 datablock StaticShapeData(faceBox){
    catagory = "MISC";
-   shapeFile = "faceSphere.dts";
+   shapeFile = "faceBox.dts";
    alwaysAmbient = true;
    isInvincible = true;
 };
@@ -626,4 +626,3 @@ function RedeemerImage::onUnmount(%this,%obj,%slot){
    Parent::onUnmount(%this, %obj, %slot);
    %obj.client.setWeaponsHudActive("Blaster", 1);
 }
-
