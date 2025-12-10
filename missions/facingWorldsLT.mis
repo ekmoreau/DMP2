@@ -16,7 +16,7 @@ new SimGroup(MissionGroup) {
 	CTF_timeLimit = "25";
 	musicTrack = "lush";
 	cdTrack = "2";
-	CTF_scoreLimit = "8";
+	CTF_scoreLimit = "12";
 	powerCount = "0";
 
 	new MissionArea(MissionArea) {

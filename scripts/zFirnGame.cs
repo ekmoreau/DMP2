@@ -29,38 +29,6 @@ function FirnAllFastField::onAdd(%data, %obj){
    }
 }
 
-datablock ForceFieldBareData(powerMover)
-{
-   fadeMS           = 1000;
-   baseTranslucency = 0.25;
-   powerOffTranslucency = 0.0;
-   teamPermiable    = true;
-   otherPermiable   = false;
-   // it's RGB (red green blue)
-   color            = "0.305882 0.000000 1.000000";
-   powerOffColor    = "0.305882 0.000000 1.000000";
-   targetTypeTag    = 'ForceField';
-
-   texture[0] = "skins/forcef1";
-   texture[1] = "skins/forcef2";
-   texture[2] = "skins/forcef3";
-   texture[3] = "skins/forcef4";
-   texture[4] = "skins/forcef5";
-
-   framesPerSec = 10;
-   numFrames = 5;
-   scrollSpeed = -8;
-   umapping = 1.0;
-   vmapping = 0.15;
-};
-
-function powerMover::onAdd(%data, %obj){
-   parent::onAdd(%data,%obj);
-   if(%obj.pz.getClassName() $= "PhysicalZone"){
-		%obj.pz.delete(); 
-   }
-}
-
 datablock TriggerData(BoostTrigFirn){
    tickPeriodMS =  32;
 };

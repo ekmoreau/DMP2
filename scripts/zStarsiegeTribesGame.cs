@@ -9,6 +9,12 @@ function T1StartObj::onAdd(%this, %obj){
    Parent::onAdd(%this, %obj);
    if(!isObject(StarsiegeTribesMap)){
       %obj.setName("StarsiegeTribesMap");
+      StarsiegeTribesMap.teamOnly = 0;
+      for(%i = 0; %i <= 4; %i++){
+         $TeamDeployedCount[%i, T1RemoteTurret] = 0;
+         $TeamDeployedCount[%i, T1InvyDeployable] = 0;
+         $TeamDeployedCount[%i, T1AmmoDeployable] = 0; 
+      }
    }
 }
 
@@ -421,7 +427,7 @@ function T1TargetingLaserImage::onUnmount(%this,%obj,%slot){
 function TargetingLaser::onUse(%data, %obj){
     if(Game.weaponOnUse(%data, %obj)){
        if (%obj.getDataBlock().className $= Armor){
-         if(isObject(StarsiegeTribesMap)){
+         if(isObject(StarsiegeTribesMap) && (StarsiegeTribesMap.teamOnly == %player.team || !StarsiegeTribesMap.teamOnly)){
             %obj.mountImage(T1TargetingLaserImage, $WeaponSlot);
          }
          else{
@@ -1997,7 +2003,7 @@ datablock StaticShapeData(t1CMDStation)
    cmdCategory = "Support";
    cmdIcon = CMDStationIcon;
    cmdMiniIconName = "commander/MiniIcons/com_inventory_grey";
-   targetNameTag = 'Inventory';
+   targetNameTag = 'Command';
    targetTypeTag = 'Station';
    debrisShapeName = "debris_generic.dts";
    debris = StationDebris;
@@ -2098,8 +2104,8 @@ function t1StationTrigger::onEnterTrigger(%data, %trigger, %player){
    }
 
    if((%station.team != %player.client.team) && (%station.team != 0)){
-         //%obj.station.playAudio(2, StationAccessDeniedSound);
-         messageClient(%player.client, 'msgStationDenied', '\c2Access Denied -- Wrong team.~wt1sounds/Access_Denied.wav');
+      //%obj.station.playAudio(2, StationAccessDeniedSound);
+      messageClient(%player.client, 'msgStationDenied', '\c2Access Denied -- Wrong team.~wt1sounds/Access_Denied.wav');
    }
    else if(%station.isDisabled()){
       messageClient(%player.client, 'msgStationDisabled', '\c2Station is disabled.');
@@ -3424,7 +3430,7 @@ datablock FlyingVehicleData(T1ScoutFlyer) : ShrikeDamageProfile
    cmdCategory = "Tactical";
    cmdIcon = CMDFlyingScoutIcon;
    cmdMiniIconName = "commander/MiniIcons/com_scout_grey";
-   targetNameTag = 'Shrike';
+   targetNameTag = 'Scout';
    targetTypeTag = 'Turbograv';
    sensorData = AWACPulseSensor;
    sensorRadius = AWACPulseSensor.detectRadius;
@@ -3851,7 +3857,7 @@ datablock FlyingVehicleData(T12ScoutFlyer) : ShrikeDamageProfile
    cmdCategory = "Tactical";
    cmdIcon = CMDFlyingScoutIcon;
    cmdMiniIconName = "commander/MiniIcons/com_scout_grey";
-   targetNameTag = 'Shrike';
+   targetNameTag = 'Scout';
    targetTypeTag = 'Turbograv';
    sensorData = AWACPulseSensor;
    sensorRadius = AWACPulseSensor.detectRadius;
@@ -4392,7 +4398,7 @@ datablock StaticShapeData(T1AmmoDeployableObj) : StaticShapeDamageProfile
    cmdCategory = "DSupport";
    cmdIcon = CMDStationIcon;
    cmdMiniIconName = "commander/MiniIcons/com_inventory_grey";
-   targetNameTag = 'Deployable';
+   targetNameTag = 'Ammo';
    targetTypeTag = 'Station';
 
    debrisShapeName = "debris_generic_small.dts";
@@ -4663,7 +4669,7 @@ datablock TurretData(T1RemoteTurretObj) : TurretDamageProfile
    cmdCategory = "DTactical";
    cmdIcon = CMDTurretIcon;
    cmdMiniIconName = "commander/MiniIcons/com_turret_grey";
-   targetNameTag = 'Landspike';
+   targetNameTag = 'Remote';
    targetTypeTag = 'Turret';
    sensorData = DeployedOutdoorTurretSensor;
    sensorRadius = DeployedOutdoorTurretSensor.detectRadius;
@@ -5435,8 +5441,7 @@ function buyt1Veh(%client, %index){
       case 2: %db = T1ScoutFlyer;
       case 3: %db = T1LAPCFlyer;
       case 4: %db = T1HAPCFlyer;
-      default:
-      return;
+      default: return;
    }
    if(vehicleCheck(%db, %client.team)){
       if(isObject(%station) && isObject(%vpad)){
@@ -5526,6 +5531,32 @@ function vpadLockOut(%obj){
    %obj.isNotReady = 0;  
 }
 
+function CTFGame::equip(%game, %player){
+
+   if(isObject(StarsiegeTribesMap) && (StarsiegeTribesMap.teamOnly == %player.team || StarsiegeTribesMap.teamOnly == 0)){
+      for(%i =0; %i<$InventoryHudCount; %i++)
+         %player.client.setInventoryHudItem($InventoryHudData[%i, itemDataName], 0, 1);
+      %player.client.clearBackpackIcon();
+
+      //%player.setArmor("Light");
+      %player.setInventory(RepairKit,1);
+      %player.setInventory(Grenade,6);
+      %player.setInventory(T1Blaster,1);
+      %player.setInventory(T1Disc,1);
+      %player.setInventory(T1ChainGun, 1);
+      %player.setInventory(T1ChainGunAmmo, 100);
+      %player.setInventory(T1DiscAmmo, 20);
+      %player.setInventory(Beacon, 3);
+      %player.setInventory(TargetingLaser, 1);
+      %player.weaponCount = 3;
+      
+      %player.use("T1Blaster");
+
+   }
+   else{
+      parent::equip(%game, %player);
+   }
+}  
 
 $t1wepSub["TargetingLaser"] = "T1TargetingLaser";
 $t1wepSub["ELFGun"] = "T1ELF";

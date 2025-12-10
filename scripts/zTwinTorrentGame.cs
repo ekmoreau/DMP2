@@ -170,12 +170,27 @@ function wpDeathTrigger::onleaveTrigger(%data, %trigger, %player){
    
 }
 function wpDeathTrigger::onTickTrigger(%data, %trig){
-   %center = %trig.getWorldBoxCenter();
- InitContainerRadiusSearch(%center,  100,  $TypeMasks::PlayerObjectType);
+   %center = %trig.getWorldBoxCenter();   
+   if(!isObject($TeamFlag[1].carrier) && !$TeamFlag[1].isHome){
+      %radius = vectorDist(getWords(%center,0,1) SPC 0,getWords($TeamFlag[1].getPosition(),0,1) SPC 0);
+      %z = getWord($TeamFlag[1].getPosition(),2);
+      if(%radius > 37 && %radius < 115 && %z < 67 && !isEventPending($TeamFlag[1].lavaEnterThread)){ 
+         $TeamFlag[1].lavaEnterThread = Game.schedule(3000, "flagReturn", $TeamFlag[1]);
+      }
+   }
+   if(!isObject($TeamFlag[2].carrier) && !$TeamFlag[2].isHome){
+      %radius = vectorDist(getWords(%center,0,1) SPC 0,getWords($TeamFlag[2].getPosition(),0,1) SPC 0);
+      %z = getWord($TeamFlag[2].getPosition(),2);
+      if(%radius > 37 && %radius < 115 && %z < 67 && !isEventPending($TeamFlag[2].lavaEnterThread)){ 
+         $TeamFlag[2].lavaEnterThread = Game.schedule(3000, "flagReturn", $TeamFlag[2]);
+      }
+   }
+
+   InitContainerRadiusSearch(%center,  100,  $TypeMasks::PlayerObjectType);
    while ((%player = containerSearchNext()) != 0){
       if(isObject(%player) && %player.getState() !$= "Dead"){
          %radius = vectorDist(getWords(%center,0,1) SPC 0,getWords(%player.getPosition(),0,1) SPC 0);
-         if(%radius > 40 && %radius < 95){
+         if(%radius > 40 && %radius < 95){ 
             if(!%player.lastWpTime || (getSimTime() - %player.lastWpTime) > 6000){// if they stay out for 10 secs reset
                %player.wpWarn = 0;  
                %player.wpTime = 0;

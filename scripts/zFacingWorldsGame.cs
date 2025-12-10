@@ -1,4 +1,4 @@
-$FW::RedeemerRespawnTime  = 3 * 60000;// its 2 min in unreal
+$FW::RedeemerRespawnTime  = 2 * 60000;// its 2 min in unreal
 
 datablock StaticShapeData(faceBox){
    catagory = "MISC";
@@ -14,13 +14,51 @@ datablock TriggerData(faceDeathTrigger){
 function faceBox::onAdd(%this, %obj){
    Parent::onAdd(%this, %obj);
    if (!isActivePackage(deployfix)){
-         activatePackage(deployfix);
+      activatePackage(deployfix);
+      if(%this.shapeFile $= "faceSphereNoSpin.dts"){
+         %this.StartSpin(%obj);
+      }
    }
    if(!isEventPending($faceEvent)){
       faceFlagReset();
    }
    
 }
+
+function faceBox::StartSpin(%this, %obj)
+{
+   if (!isObject(%obj))
+      return;
+
+   %timeFrame = 64;
+   // Rotation step: full rotation in 120 seconds
+  // %step = 0.001675; // radians per 32 ms tick
+   %step = (6.28318 / 320) * (%timeFrame/1000);
+   // Get current transform
+   %transform = %obj.getTransform();
+   %pos = getWords(%transform, 0, 2);
+   %rot = getWords(%transform, 3, 6);
+
+   // Extract current angle (fourth element of rotation axis/angle)
+   %axisX = getWord(%rot, 0);
+   %axisY = getWord(%rot, 1);
+   %axisZ = getWord(%rot, 2);
+   %angle = getWord(%rot, 3);
+
+   // Spin around the Y-axis
+   %newAngle = %angle + %step;
+
+   // Normalize angle so it doesn't grow indefinitely
+   if (%newAngle > 6.28318)
+      %newAngle -= 6.28318;
+
+   // Apply new rotation
+   %obj.setTransform(%pos SPC "0 1 0" SPC %newAngle);
+
+   // Schedule the next update
+   %this.schedule(%timeFrame, "StartSpin", %obj);
+}
+
 function faceBox::onRemove(%this, %obj){
    if (isActivePackage(deployfix)){
       deactivatePackage(deployfix);
@@ -121,7 +159,7 @@ if(!isActivePackage(lctfDelete))
    pickUpName = "a redeemer weapon";
    computeCRC = false; 
    
-   description = "The Redeemer is a portable thermonuclear warhead launcher."; 
+   description = "The Redeemer is a portable thermonuclear warhead launcher.\n Press jump to detonate"; 
 };
 
 datablock ItemData(RedeemerAmmo){
@@ -451,10 +489,10 @@ datablock FlyingVehicleData(RedeemerVeh) : ShrikeDamageProfile{
    maxForwardSpeed = 130;  // speed in which forward thrust force is no longer applied (meters/second)
 
    // Turbo Jet
-   jetForce = 130;      // Afterburner thrust (this is in addition to normal thrust)
+   jetForce = 2000;      // Afterburner thrust (this is in addition to normal thrust)
    minJetEnergy = 25;     // Afterburner can't be used if below this threshhold.
    jetEnergyDrain = 0.0;       // Energy use of the afterburners (low number is less drain...can be fractional)                                                                                                                                                                                                                                                                                          // Auto stabilize speed
-   vertThrustMultiple = 9.5;
+   vertThrustMultiple = 2;
 
    // Rigid body
    mass = 30;        // Mass of the vehicle
@@ -465,11 +503,11 @@ datablock FlyingVehicleData(RedeemerVeh) : ShrikeDamageProfile{
    hardImpactSpeed = 25;    
 
    
-   minImpactSpeed = 100;     
+   minImpactSpeed = 10;     
    speedDamageScale = 0.06;
 
    
-   collDamageThresholdVel = 23.0;
+   collDamageThresholdVel = 15.0;
    collDamageMultiplier   = 0.02;
 
    minTrailSpeed = 15;      
@@ -510,7 +548,7 @@ datablock FlyingVehicleData(RedeemerVeh) : ShrikeDamageProfile{
    cmdIcon = CMDFlyingScoutIcon;
    cmdMiniIconName = "commander/MiniIcons/com_scout_grey";
    targetNameTag = '';
-   targetTypeTag = 'RC Bomb';
+   targetTypeTag = 'Redeemer Bomb';
    sensorData = AWACPulseSensor;
    sensorRadius = AWACPulseSensor.detectRadius;
    sensorColor = "255 194 9";
@@ -554,7 +592,7 @@ function RedeemerVeh::onAdd(%this, %veh){
 }
 
 function RedeemerVeh::onTrigger(%data, %vehicle, %trigger, %state){
-   if (%Trigger == 3 || %Trigger == 2){
+   if (%Trigger == 2){
       if (%state){
          %vehicle.setDamagestate(Destroyed);
       }
@@ -564,6 +602,7 @@ function RedeemerVeh::onTrigger(%data, %vehicle, %trigger, %state){
 
 function RedeemerImage::onFire(%data, %obj, %slot){
    %obj.decInventory(%data.ammo, 1);
+   %obj.hasFired = 1; // player has fired the gun this is to lock out from resetting ammo state 
    %veh = new FlyingVehicle(){ 
       datablock = RedeemerVeh; 
       position =  vectorAdd(%obj.getMuzzlePoint(%slot), VectorScale(%obj.getMuzzleVector(%slot), 8));
@@ -598,7 +637,7 @@ function Item::respawnRedeemer(%this){
 }
 
 function Redeemer::onCollision(%data,%obj,%col){
-   if (%col.getDataBlock().className $= Armor && %col.getState() !$= "Dead" && !%col.isMounted()){
+   if (%col.getDataBlock().className $= Armor && %col.getState() !$= "Dead" && !%col.isMounted() && !%obj.hasFired){//check if its been fired
       if (%col.client){
          messageClient(%col.client, 'MsgItemPickup', '\c0You picked up %1.', %data.pickUpName);
          serverPlay3D(ItemPickupSound, %col.getTransform());
@@ -612,6 +651,7 @@ function Redeemer::onCollision(%data,%obj,%col){
       %col.setInventory(Redeemer, 1, true);
       %col.setInventory(RedeemerAmmo, 1, true);
       %col.use(Redeemer);
+      %col.hasFired = 0;//reset fire state on player
    }
 }
 
@@ -626,3 +666,7 @@ function RedeemerImage::onUnmount(%this,%obj,%slot){
    Parent::onUnmount(%this, %obj, %slot);
    %obj.client.setWeaponsHudActive("Blaster", 1);
 }
+ function Redeemer::onThrow(%data,%obj,%plr){
+   parent::onThrow(%data,%obj,%plr);
+    %obj.hasFired = %plr.hasFired;// player has fired the gun so pass it on to the obj so it cant be picked up again 
+ }

@@ -14,9 +14,9 @@
 new SimGroup(MissionGroup) {
 
 	powerCount = "0";
-	CTF_scoreLimit = "6";
-	cdTrack = "5";
 	musicTrack = "ice";
+	cdTrack = "5";
+	CTF_scoreLimit = "6";
 
 	new MissionArea(MissionArea) {
 		area = "-496 -840 992 1712";
@@ -56,8 +56,8 @@ new SimGroup(MissionGroup) {
 		high_fogVolume2 = "-1 0 0";
 		high_fogVolume3 = "-1 0 0";
 
-		locked = "true";
 		cloudSpeed0 = "0.000000 0.000000";
+		locked = "true";
 	};
 	new TerrainBlock(Terrain) {
 		rotation = "1 0 0 0";
@@ -67,21 +67,21 @@ new SimGroup(MissionGroup) {
 		squareSize = "8";
 		emptySquares = "149633 280960 739962 740218 806009 806265 282234 483706 158329 158339 169091 169337 169347 104057 302717 171650 307584 766585 766841 767097 767353 374393 243578";
 
-		locked = "true";
 		position = "-1024 -1024 0";
+		locked = "true";
 	};
 	new NavigationGraph(navGraph) {
 		conjoinAngleDev = "75";
 		cullDensity = "0.1";
 		customArea = "0 0 0 0";
 
-		locked = "true";
-		position = "0 0 0 1";
 		GraphFile = "Gridwave.nav";
-		rotation = "0 0 0 0";
+		position = "0 0 0 1";
 		conjoinBowlDev = "20";
-		scale = "1 1 1";
+		rotation = "0 0 0 0";
 		coverage = "0";
+		scale = "1 1 1";
+		locked = "true";
 	};
 	new SimGroup(ObserverDropPoints) {
 
@@ -94,6 +94,8 @@ new SimGroup(MissionGroup) {
 			dataBlock = "Observer";
 			lockCount = "0";
 			homingCount = "0";
+
+			locked = "true";
 		};
 		new Camera() {
 			position = "-27.0159 370.081 64.0875";
@@ -102,6 +104,8 @@ new SimGroup(MissionGroup) {
 			dataBlock = "Observer";
 			lockCount = "0";
 			homingCount = "0";
+
+			locked = "true";
 		};
 		new Camera() {
 			position = "-34.5966 489.067 83.4372";
@@ -110,6 +114,8 @@ new SimGroup(MissionGroup) {
 			dataBlock = "Observer";
 			lockCount = "0";
 			homingCount = "0";
+
+			locked = "true";
 		};
 		new Camera() {
 			position = "37.2363 -486.171 83.7584";
@@ -118,6 +124,8 @@ new SimGroup(MissionGroup) {
 			dataBlock = "Observer";
 			lockCount = "0";
 			homingCount = "0";
+
+			locked = "true";
 		};
 	};
 	new AudioEmitter() {
@@ -140,6 +148,8 @@ new SimGroup(MissionGroup) {
 		minLoopGap = "0";
 		maxLoopGap = "0";
 		type = "EffectAudioType";
+
+		locked = "true";
 	};
 	new SimGroup(Teams) {
 
@@ -164,6 +174,8 @@ new SimGroup(MissionGroup) {
 					sphereWeight = "100";
 					indoorWeight = "100";
 					outdoorWeight = "100";
+
+					locked = "true";
 				};
 			};
 			new SimGroup(AIObjectives) {
@@ -187,9 +199,9 @@ new SimGroup(MissionGroup) {
 						lockCount = "0";
 						homingCount = "0";
 
-						locked = "false";
 						team = "1";
 						Target = "33";
+						locked = "true";
 					};
 					new StaticShape(Team1GeneratorLarge2) {
 						position = "20.2065 -441.549 33.7992";
@@ -200,9 +212,9 @@ new SimGroup(MissionGroup) {
 						lockCount = "0";
 						homingCount = "0";
 
-						locked = "false";
 						team = "1";
 						Target = "34";
+						locked = "true";
 					};
 					new SimGroup(MainBase1Misc) {
 
@@ -217,10 +229,10 @@ new SimGroup(MissionGroup) {
 							lockCount = "0";
 							homingCount = "0";
 
-							locked = "false";
-							Flag = "4311";
+							Flag = "4312";
 							team = "1";
 							Target = "-1";
+							locked = "true";
 						};
 						new Item(Team1flag1) {
 							position = "-8.2998 -417.638 59.4151";
@@ -234,15 +246,15 @@ new SimGroup(MissionGroup) {
 							static = "1";
 							rotate = "0";
 
-							resetTime = "0";
-							originalPosition = "-8.2998 -417.638 59.4151 0 0 -1 0.000976563";
-							locked = "false";
 							team = "1";
-							stand = "4310";
-							WayPoint = "4533";
-							Trigger = "4534";
+							WayPoint = "4532";
+							Trigger = "4533";
 							isHome = "1";
 							Target = "35";
+							resetTime = "0";
+							stand = "4311";
+							originalPosition = "-8.2998 -417.638 59.4151 0 0 -1 0.000976563";
+							locked = "true";
 						};
 					};
 					new SimGroup(MainBase1Buildings) {
@@ -258,8 +270,8 @@ new SimGroup(MissionGroup) {
 							AudioProfile = "Universal_Base_2";
 							AudioEnvironment = "SmallRoom";
 
-							locked = "false";
 							team = "1";
+							locked = "true";
 						};
 						new InteriorInstance() {
 							position = "-99.5482 -418.949 65.1313";
@@ -268,8 +280,8 @@ new SimGroup(MissionGroup) {
 							interiorFile = "svpad.dif";
 							showTerrainInside = "0";
 
-							locked = "false";
 							team = "1";
+							locked = "true";
 						};
 					};
 					new SimGroup(MainBase1Turrets) {
@@ -286,9 +298,10 @@ new SimGroup(MissionGroup) {
 							homingCount = "0";
 							initialBarrel = "AABarrelLarge";
 
-							locked = "false";
 							team = "1";
 							Target = "36";
+							lastProjectile = "8593";
+							locked = "true";
 						};
 					};
 					new SimGroup(MainBase1Stations) {
@@ -304,17 +317,17 @@ new SimGroup(MissionGroup) {
 							lockCount = "0";
 							homingCount = "0";
 
-							hapcFlyer = "removed";
-							locked = "false";
-							AssaultVehicle = "Removed";
-							team = "1";
-							ScoutFlyer = "removed";
 							inUse = "Down";
-							Target = "37";
+							team = "1";
 							BomberFlyer = "removed";
-							Ready = "1";
-							station = "4549";
+							station = "4548";
 							MobileBaseVehicle = "removed";
+							Target = "37";
+							ScoutFlyer = "removed";
+							Ready = "1";
+							AssaultVehicle = "Removed";
+							hapcFlyer = "removed";
+							locked = "true";
 						};
 						new StaticShape(Team1StationInventory1) {
 							position = "-43.6968 -413.073 58.8134";
@@ -325,10 +338,10 @@ new SimGroup(MissionGroup) {
 							lockCount = "0";
 							homingCount = "0";
 
-							locked = "false";
 							team = "1";
-							Trigger = "4321";
+							Trigger = "4322";
 							Target = "38";
+							locked = "true";
 						};
 						new StaticShape(Team1StationInventory2) {
 							position = "4.66673 -469.87 33.8039";
@@ -339,10 +352,10 @@ new SimGroup(MissionGroup) {
 							lockCount = "0";
 							homingCount = "0";
 
-							locked = "false";
 							team = "1";
-							Trigger = "4323";
+							Trigger = "4324";
 							Target = "39";
+							locked = "true";
 						};
 						new StaticShape(Team1StationInventory3) {
 							position = "11.7565 -469.734 33.79";
@@ -353,10 +366,10 @@ new SimGroup(MissionGroup) {
 							lockCount = "0";
 							homingCount = "0";
 
-							locked = "false";
 							team = "1";
-							Trigger = "4325";
+							Trigger = "4326";
 							Target = "40";
+							locked = "true";
 						};
 						new StaticShape(Team1StationInventory4) {
 							position = "-38.3332 -425.607 42.8032";
@@ -367,10 +380,10 @@ new SimGroup(MissionGroup) {
 							lockCount = "0";
 							homingCount = "0";
 
-							locked = "false";
 							team = "1";
-							Trigger = "4327";
+							Trigger = "4328";
 							Target = "41";
+							locked = "true";
 						};
 						new StaticShape(Team1StationInventory5) {
 							position = "22.0108 -409.522 42.7954";
@@ -381,10 +394,10 @@ new SimGroup(MissionGroup) {
 							lockCount = "0";
 							homingCount = "0";
 
-							locked = "false";
 							team = "1";
-							Trigger = "4329";
+							Trigger = "4330";
 							Target = "42";
+							locked = "true";
 						};
 						new StaticShape(Team1StationInventory6) {
 							position = "25.8679 -408.573 58.8012";
@@ -395,12 +408,12 @@ new SimGroup(MissionGroup) {
 							lockCount = "0";
 							homingCount = "0";
 
-							notReady = "1";
-							locked = "false";
-							team = "1";
-							Trigger = "4331";
 							inUse = "Down";
+							team = "1";
+							Trigger = "4332";
 							Target = "43";
+							notReady = "1";
+							locked = "true";
 						};
 					};
 					new StaticShape() {
@@ -414,20 +427,51 @@ new SimGroup(MissionGroup) {
 
 						team = "1";
 						Target = "44";
+						locked = "true";
 					};
 					new ForceFieldBare() {
-						position = "-26.3647 -302.419 57.3611";
+						position = "-26.3647 -301.695 57.3811";
 						rotation = "1 0 0 0";
-						scale = "35.9092 1.95566 20.9956";
+						scale = "35.9092 0.5 20.9956";
 						nameTag = "Base";
 						dataBlock = "FirnAllFastField";
 						lockCount = "0";
 						homingCount = "0";
 
 						team = "1";
+						originalscale = "35.9092 0.5 20.9956";
+						pz = "4335";
 						Target = "45";
-						pz = "4334";
-						originalscale = "35.9092 1.95566 20.9956";
+					};
+					new Item() {
+						position = "-39.109 -417.624 43.319";
+						rotation = "0 0 -1 89.9544";
+						scale = "1 1 1";
+						dataBlock = "RepairPack";
+						lockCount = "0";
+						homingCount = "0";
+						collideable = "0";
+						static = "1";
+						rotate = "0";
+
+						team = "1";
+						Target = "-1";
+						locked = "true";
+					};
+					new Item() {
+						position = "22.8127 -417.618 43.3105";
+						rotation = "0 0 1 90.5273";
+						scale = "1 1 1";
+						dataBlock = "RepairPack";
+						lockCount = "0";
+						homingCount = "0";
+						collideable = "0";
+						static = "1";
+						rotate = "0";
+
+						team = "1";
+						Target = "-1";
+						locked = "true";
 					};
 				};
 				new SimGroup(Crates) {
@@ -440,8 +484,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable4l.dts";
 
-						locked = "false";
 						team = "1";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "-16.1349 -360.719 33.8135";
@@ -449,8 +493,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable4l.dts";
 
-						locked = "false";
 						team = "1";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "-14.6573 -361.594 33.8135";
@@ -458,8 +502,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable1l.dts";
 
-						locked = "false";
 						team = "1";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "-9.3301 -360.786 33.8135";
@@ -467,8 +511,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable3s.dts";
 
-						locked = "false";
 						team = "1";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "-9.55908 -358.796 33.8135";
@@ -476,8 +520,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable3s.dts";
 
-						locked = "false";
 						team = "1";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "-9.40191 -359.771 33.8135";
@@ -485,8 +529,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable3s.dts";
 
-						locked = "false";
 						team = "1";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "-14.6886 -372.927 35.8135";
@@ -494,8 +538,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable3m.dts";
 
-						locked = "false";
 						team = "1";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "-14.2272 -370.391 33.8135";
@@ -503,8 +547,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable3m.dts";
 
-						locked = "false";
 						team = "1";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "-14.8022 -372.665 33.8135";
@@ -512,8 +556,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable3m.dts";
 
-						locked = "false";
 						team = "1";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "-14.5999 -374.98 33.8135";
@@ -521,8 +565,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable3m.dts";
 
-						locked = "false";
 						team = "1";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "-26.9797 -380.433 33.8135";
@@ -530,8 +574,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable2m.dts";
 
-						locked = "false";
 						team = "1";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "-31.7793 -374.062 33.8135";
@@ -539,8 +583,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable2l.dts";
 
-						locked = "false";
 						team = "1";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "-28.5506 -367.292 33.8135";
@@ -548,8 +592,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable2m.dts";
 
-						locked = "false";
 						team = "1";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "-27.3491 -367.786 34.8135";
@@ -557,8 +601,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable2m.dts";
 
-						locked = "false";
 						team = "1";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "-27.4192 -367.758 33.8135";
@@ -566,8 +610,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable2m.dts";
 
-						locked = "false";
 						team = "1";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "-28.6519 -381.546 35.6326";
@@ -575,8 +619,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable3l.dts";
 
-						locked = "false";
 						team = "1";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "-33.6697 -375.968 35.8135";
@@ -584,8 +628,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable2l.dts";
 
-						locked = "false";
 						team = "1";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "-34.4337 -374.061 35.8135";
@@ -593,8 +637,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable2l.dts";
 
-						locked = "false";
 						team = "1";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "-34.422 -373.374 33.8135";
@@ -602,8 +646,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable2l.dts";
 
-						locked = "false";
 						team = "1";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "-33.7115 -375.511 33.8135";
@@ -611,8 +655,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable2l.dts";
 
-						locked = "false";
 						team = "1";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "-34.2095 -377.615 33.8135";
@@ -620,8 +664,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable2l.dts";
 
-						locked = "false";
 						team = "1";
+						locked = "true";
 					};
 				};
 				new StaticShape() {
@@ -633,9 +677,9 @@ new SimGroup(MissionGroup) {
 					lockCount = "0";
 					homingCount = "0";
 
-					locked = "false";
 					team = "1";
 					Target = "-1";
+					locked = "true";
 				};
 				new StaticShape() {
 					position = "-14.6193 -422.41 43.1966";
@@ -646,41 +690,14 @@ new SimGroup(MissionGroup) {
 					lockCount = "0";
 					homingCount = "0";
 
-					locked = "false";
 					team = "1";
 					Target = "-1";
+					locked = "true";
 				};
 				new SimGroup(powerGrp1) {
 
-					powerCount = "1";
 					providesPower = "1";
-
-					new ForceFieldBare() {
-						position = "-41.227 -252.54 65.4141";
-						rotation = "1 0 0 0";
-						scale = "8.44491 237.054 8.54034";
-						nameTag = "Base";
-						dataBlock = "powerMover";
-						lockCount = "0";
-						homingCount = "0";
-
-						team = "1";
-						Target = "46";
-						pz = "4362";
-						originalscale = "8.44491 237.054 8.54034";
-					};
-					new PhysicalZone() {
-						position = "-41.475 -15.5268 65.3848";
-						rotation = "1 0 0 0";
-						scale = "8.74105 237.488 8.62795";
-						velocityMod = "1";
-						gravityMod = "0.1";
-						appliedForce = "0 2000 0";
-						polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
-
-						nameTag = "Base";
-						team = "1";
-					};
+					powerCount = "1";
 				};
 			};
 		};
@@ -703,6 +720,8 @@ new SimGroup(MissionGroup) {
 					sphereWeight = "100";
 					indoorWeight = "100";
 					outdoorWeight = "100";
+
+					locked = "true";
 				};
 			};
 			new SimGroup(MainBase2) {
@@ -722,9 +741,9 @@ new SimGroup(MissionGroup) {
 						lockCount = "0";
 						homingCount = "0";
 
-						locked = "false";
 						team = "2";
-						Target = "47";
+						Target = "46";
+						locked = "true";
 					};
 					new StaticShape(Team2GeneratorLarge2) {
 						position = "-36.5953 441.8 33.7991";
@@ -735,9 +754,9 @@ new SimGroup(MissionGroup) {
 						lockCount = "0";
 						homingCount = "0";
 
-						locked = "false";
 						team = "2";
-						Target = "48";
+						Target = "47";
+						locked = "true";
 					};
 					new SimGroup(MainBase2Misc) {
 
@@ -752,10 +771,10 @@ new SimGroup(MissionGroup) {
 							lockCount = "0";
 							homingCount = "0";
 
-							locked = "false";
 							Flag = "4373";
 							team = "2";
 							Target = "-1";
+							locked = "true";
 						};
 						new Item(Team2flag1) {
 							position = "-8.29087 417.651 59.4151";
@@ -769,16 +788,16 @@ new SimGroup(MissionGroup) {
 							static = "1";
 							rotate = "0";
 
-							resetTime = "0";
-							originalPosition = "-8.29087 417.651 59.4151 0 0 1 3.14901";
-							locked = "false";
 							team = "2";
-							stand = "4372";
-							WayPoint = "4535";
-							Trigger = "4536";
 							lastFlagCallms = "535548";
+							WayPoint = "4534";
+							Trigger = "4535";
 							isHome = "1";
-							Target = "49";
+							Target = "48";
+							resetTime = "0";
+							stand = "4372";
+							originalPosition = "-8.29087 417.651 59.4151 0 0 1 3.14901";
+							locked = "true";
 						};
 					};
 					new SimGroup(MainBase2Buildings) {
@@ -794,8 +813,8 @@ new SimGroup(MissionGroup) {
 							AudioProfile = "Universal_Base_2";
 							AudioEnvironment = "SmallRoom";
 
-							locked = "false";
 							team = "2";
+							locked = "true";
 						};
 						new InteriorInstance() {
 							position = "83.7142 418.715 65.7312";
@@ -804,8 +823,8 @@ new SimGroup(MissionGroup) {
 							interiorFile = "svpad.dif";
 							showTerrainInside = "0";
 
-							locked = "false";
 							team = "2";
+							locked = "true";
 						};
 					};
 					new SimGroup(MainBase2Turrets) {
@@ -822,10 +841,10 @@ new SimGroup(MissionGroup) {
 							homingCount = "0";
 							initialBarrel = "AABarrelLarge";
 
-							locked = "false";
 							team = "2";
-							Target = "50";
+							Target = "49";
 							lastProjectile = "6629";
+							locked = "true";
 						};
 					};
 					new SimGroup(MainBase2Stations) {
@@ -841,16 +860,16 @@ new SimGroup(MissionGroup) {
 							lockCount = "0";
 							homingCount = "0";
 
-							hapcFlyer = "removed";
-							locked = "false";
-							AssaultVehicle = "Removed";
 							team = "2";
-							ScoutFlyer = "removed";
-							Target = "51";
 							BomberFlyer = "removed";
-							Ready = "1";
-							station = "4551";
+							station = "4550";
 							MobileBaseVehicle = "removed";
+							Target = "50";
+							ScoutFlyer = "removed";
+							Ready = "1";
+							AssaultVehicle = "Removed";
+							hapcFlyer = "removed";
+							locked = "true";
 						};
 						new StaticShape(Team1StationInventory1) {
 							position = "27.0663 412.789 58.8134";
@@ -861,10 +880,10 @@ new SimGroup(MissionGroup) {
 							lockCount = "0";
 							homingCount = "0";
 
-							locked = "false";
 							team = "2";
 							Trigger = "4383";
-							Target = "52";
+							Target = "51";
+							locked = "true";
 						};
 						new StaticShape(Team1StationInventory2) {
 							position = "-20.8179 469.99 33.8038";
@@ -875,10 +894,10 @@ new SimGroup(MissionGroup) {
 							lockCount = "0";
 							homingCount = "0";
 
-							locked = "false";
 							team = "2";
 							Trigger = "4385";
-							Target = "53";
+							Target = "52";
+							locked = "true";
 						};
 						new StaticShape(Team1StationInventory3) {
 							position = "-27.9083 469.913 33.7899";
@@ -889,10 +908,10 @@ new SimGroup(MissionGroup) {
 							lockCount = "0";
 							homingCount = "0";
 
-							locked = "false";
 							team = "2";
 							Trigger = "4387";
-							Target = "54";
+							Target = "53";
+							locked = "true";
 						};
 						new StaticShape(Team1StationInventory4) {
 							position = "21.8083 425.367 42.8032";
@@ -903,10 +922,10 @@ new SimGroup(MissionGroup) {
 							lockCount = "0";
 							homingCount = "0";
 
-							locked = "false";
 							team = "2";
 							Trigger = "4389";
-							Target = "55";
+							Target = "54";
+							locked = "true";
 						};
 						new StaticShape(Team1StationInventory5) {
 							position = "-38.6685 409.79 42.7954";
@@ -917,10 +936,10 @@ new SimGroup(MissionGroup) {
 							lockCount = "0";
 							homingCount = "0";
 
-							locked = "false";
 							team = "2";
 							Trigger = "4391";
-							Target = "56";
+							Target = "55";
+							locked = "true";
 						};
 						new StaticShape(Team1StationInventory6) {
 							position = "-42.5337 408.873 58.8012";
@@ -931,10 +950,10 @@ new SimGroup(MissionGroup) {
 							lockCount = "0";
 							homingCount = "0";
 
-							locked = "false";
 							team = "2";
 							Trigger = "4393";
-							Target = "57";
+							Target = "56";
+							locked = "true";
 						};
 					};
 					new StaticShape() {
@@ -947,7 +966,8 @@ new SimGroup(MissionGroup) {
 						homingCount = "0";
 
 						team = "2";
-						Target = "58";
+						Target = "57";
+						locked = "true";
 					};
 					new InteriorInstance(InteriorInstance) {
 						position = "-7.41789 301.434 57.3527";
@@ -957,20 +977,21 @@ new SimGroup(MissionGroup) {
 						showTerrainInside = "0";
 
 						team = "2";
+						locked = "true";
 					};
 					new ForceFieldBare() {
-						position = "-24.3723 300.472 57.3548";
+						position = "-24.3723 301.172 57.3548";
 						rotation = "1 0 0 0";
-						scale = "35.9092 1.95566 20.9956";
+						scale = "35.9092 0.5 20.9956";
 						nameTag = "Base";
 						dataBlock = "FirnAllFastField";
 						lockCount = "0";
 						homingCount = "0";
 
 						team = "2";
-						Target = "59";
+						originalscale = "35.9092 0.5 20.9956";
 						pz = "4397";
-						originalscale = "35.9092 1.95566 20.9956";
+						Target = "58";
 					};
 				};
 				new SimGroup(Crates) {
@@ -983,8 +1004,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable4l.dts";
 
-						locked = "false";
 						team = "2";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "-0.934709 360.668 33.8134";
@@ -992,8 +1013,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable4l.dts";
 
-						locked = "false";
 						team = "2";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "-2.40514 361.556 33.8134";
@@ -1001,8 +1022,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable1l.dts";
 
-						locked = "false";
 						team = "2";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "-7.73874 360.792 33.8134";
@@ -1010,8 +1031,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable3s.dts";
 
-						locked = "false";
 						team = "2";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "-7.5264 358.8 33.8134";
@@ -1019,8 +1040,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable3s.dts";
 
-						locked = "false";
 						team = "2";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "-7.67548 359.777 33.8134";
@@ -1028,8 +1049,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable3s.dts";
 
-						locked = "false";
 						team = "2";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "-2.2783 372.887 35.8134";
@@ -1037,8 +1058,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable3m.dts";
 
-						locked = "false";
 						team = "2";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "-2.76098 370.356 33.8134";
@@ -1046,8 +1067,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable3m.dts";
 
-						locked = "false";
 						team = "2";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "-2.16702 372.625 33.8134";
@@ -1055,8 +1076,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable3m.dts";
 
-						locked = "false";
 						team = "2";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "-2.34963 374.941 33.8134";
@@ -1064,8 +1085,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable3m.dts";
 
-						locked = "false";
 						team = "2";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "10.0756 380.29 33.8134";
@@ -1073,8 +1094,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable2m.dts";
 
-						locked = "false";
 						team = "2";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "14.8213 373.879 33.8134";
@@ -1082,8 +1103,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable2l.dts";
 
-						locked = "false";
 						team = "2";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "11.5359 367.136 33.8134";
@@ -1091,8 +1112,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable2m.dts";
 
-						locked = "false";
 						team = "2";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "10.3385 367.64 34.8134";
@@ -1100,8 +1121,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable2m.dts";
 
-						locked = "false";
 						team = "2";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "10.4084 367.612 33.8134";
@@ -1109,8 +1130,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable2m.dts";
 
-						locked = "false";
 						team = "2";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "11.7571 381.389 35.6325";
@@ -1118,8 +1139,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable3l.dts";
 
-						locked = "false";
 						team = "2";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "16.7278 375.769 35.8134";
@@ -1127,8 +1148,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable2l.dts";
 
-						locked = "false";
 						team = "2";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "17.4758 373.855 35.8134";
@@ -1136,8 +1157,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable2l.dts";
 
-						locked = "false";
 						team = "2";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "17.4583 373.169 33.8134";
@@ -1145,8 +1166,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable2l.dts";
 
-						locked = "false";
 						team = "2";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "16.7656 375.312 33.8134";
@@ -1154,8 +1175,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable2l.dts";
 
-						locked = "false";
 						team = "2";
+						locked = "true";
 					};
 					new TSStatic() {
 						position = "17.2813 377.411 33.8134";
@@ -1163,8 +1184,8 @@ new SimGroup(MissionGroup) {
 						scale = "1 1 1";
 						shapeName = "stackable2l.dts";
 
-						locked = "false";
 						team = "2";
+						locked = "true";
 					};
 				};
 				new StaticShape() {
@@ -1176,9 +1197,9 @@ new SimGroup(MissionGroup) {
 					lockCount = "0";
 					homingCount = "0";
 
-					locked = "false";
 					team = "2";
 					Target = "-1";
+					locked = "true";
 				};
 				new StaticShape() {
 					position = "-1.93155 422.37 43.1966";
@@ -1189,41 +1210,44 @@ new SimGroup(MissionGroup) {
 					lockCount = "0";
 					homingCount = "0";
 
-					locked = "false";
 					team = "2";
 					Target = "-1";
+					locked = "true";
 				};
 				new SimGroup(powerGrp2) {
 
-					powerCount = "1";
 					providesPower = "1";
+					powerCount = "1";
+				};
+				new Item() {
+					position = "22.5653 417.413 43.3215";
+					rotation = "0 0 1 90.5273";
+					scale = "1 1 1";
+					dataBlock = "RepairPack";
+					lockCount = "0";
+					homingCount = "0";
+					collideable = "0";
+					static = "1";
+					rotate = "0";
 
-					new ForceFieldBare() {
-						position = "16.973 15.3 65.4141";
-						rotation = "1 0 0 0";
-						scale = "8.44491 237.054 8.54034";
-						nameTag = "Base";
-						dataBlock = "powerMover";
-						lockCount = "0";
-						homingCount = "0";
+					team = "2";
+					Target = "-1";
+					locked = "true";
+				};
+				new Item() {
+					position = "-39.4223 417.798 43.3081";
+					rotation = "0 0 -1 89.3814";
+					scale = "1 1 1";
+					dataBlock = "RepairPack";
+					lockCount = "0";
+					homingCount = "0";
+					collideable = "0";
+					static = "1";
+					rotate = "0";
 
-						team = "2";
-						Target = "60";
-						pz = "4424";
-						originalscale = "8.44491 237.054 8.54034";
-					};
-					new PhysicalZone() {
-						position = "16.725 252.313 65.3848";
-						rotation = "1 0 0 0";
-						scale = "8.74105 237.488 8.62795";
-						velocityMod = "1";
-						gravityMod = "0.1";
-						appliedForce = "0 -2000 0";
-						polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
-
-						nameTag = "Base";
-						team = "2";
-					};
+					team = "2";
+					Target = "-1";
+					locked = "true";
 				};
 			};
 			new SimGroup(AIObjectives) {
@@ -1233,8 +1257,8 @@ new SimGroup(MissionGroup) {
 		};
 		new SimGroup(Team0) {
 
-			powerCount = "1";
 			providesPower = "1";
+			powerCount = "1";
 
 			new Item() {
 				position = "6.22516 883.349 230.578";
@@ -1247,9 +1271,9 @@ new SimGroup(MissionGroup) {
 				static = "1";
 				rotate = "0";
 
-				locked = "true";
 				team = "2";
 				Target = "-1";
+				locked = "true";
 			};
 			new SimGroup(AIObjectives) {
 
@@ -1266,9 +1290,9 @@ new SimGroup(MissionGroup) {
 				static = "1";
 				rotate = "0";
 
-				locked = "true";
 				team = "1";
 				Target = "-1";
+				locked = "true";
 			};
 			new StaticShape() {
 				position = "-59.0304 1.04085 65.7247";
@@ -1280,9 +1304,10 @@ new SimGroup(MissionGroup) {
 				homingCount = "0";
 
 				team = "0";
-				Trigger = "4432";
+				Trigger = "4431";
+				Target = "59";
 				invincible = "1";
-				Target = "61";
+				locked = "true";
 			};
 			new StaticShape() {
 				position = "43.0257 0.98181 65.7211";
@@ -1294,9 +1319,10 @@ new SimGroup(MissionGroup) {
 				homingCount = "0";
 
 				team = "0";
-				Trigger = "4434";
+				Trigger = "4433";
+				Target = "60";
 				invincible = "1";
-				Target = "62";
+				locked = "true";
 			};
 		};
 	};
@@ -1310,6 +1336,8 @@ new SimGroup(MissionGroup) {
 			scale = "1 1 1";
 			interiorFile = "cannonTunnel.dif";
 			showTerrainInside = "0";
+
+			locked = "true";
 		};
 		new InteriorInstance(InteriorInstance) {
 			position = "-58.7653 -173.817 105.446";
@@ -1317,6 +1345,8 @@ new SimGroup(MissionGroup) {
 			scale = "0.89387 1.91416 1.79737";
 			interiorFile = "8mCube.dif";
 			showTerrainInside = "0";
+
+			locked = "true";
 		};
 		new InteriorInstance(InteriorInstance) {
 			position = "-43.1653 -171.87 104.924";
@@ -1324,6 +1354,8 @@ new SimGroup(MissionGroup) {
 			scale = "0.89387 2.41807 1.79737";
 			interiorFile = "8mCube.dif";
 			showTerrainInside = "0";
+
+			locked = "true";
 		};
 		new InteriorInstance(InteriorInstance) {
 			position = "-50.9837 -165.295 117.225";
@@ -1331,6 +1363,8 @@ new SimGroup(MissionGroup) {
 			scale = "2.83927 3.20974 0.322531";
 			interiorFile = "8mCube.dif";
 			showTerrainInside = "0";
+
+			locked = "true";
 		};
 		new InteriorInstance(InteriorInstance) {
 			position = "42.8547 -173.817 105.166";
@@ -1338,6 +1372,8 @@ new SimGroup(MissionGroup) {
 			scale = "0.89387 1.91416 1.79737";
 			interiorFile = "8mCube.dif";
 			showTerrainInside = "0";
+
+			locked = "true";
 		};
 		new InteriorInstance(InteriorInstance) {
 			position = "27.2547 -170.298 104.223";
@@ -1345,6 +1381,8 @@ new SimGroup(MissionGroup) {
 			scale = "0.89387 2.82488 1.79737";
 			interiorFile = "8mCube.dif";
 			showTerrainInside = "0";
+
+			locked = "true";
 		};
 		new InteriorInstance(InteriorInstance) {
 			position = "35.0363 -166.622 117.3";
@@ -1352,6 +1390,8 @@ new SimGroup(MissionGroup) {
 			scale = "2.83927 2.86627 0.322531";
 			interiorFile = "8mCube.dif";
 			showTerrainInside = "0";
+
+			locked = "true";
 		};
 		new InteriorInstance(InteriorInstance) {
 			position = "-58.7144 169.964 104.548";
@@ -1359,6 +1399,8 @@ new SimGroup(MissionGroup) {
 			scale = "0.89387 1.91416 1.79073";
 			interiorFile = "8mCube.dif";
 			showTerrainInside = "0";
+
+			locked = "true";
 		};
 		new InteriorInstance(InteriorInstance) {
 			position = "-50.9933 166.441 117.698";
@@ -1366,6 +1408,8 @@ new SimGroup(MissionGroup) {
 			scale = "2.81957 1.91416 0.442366";
 			interiorFile = "8mCube.dif";
 			showTerrainInside = "0";
+
+			locked = "true";
 		};
 		new InteriorInstance(InteriorInstance) {
 			position = "-43.3144 169.963 104.551";
@@ -1373,6 +1417,8 @@ new SimGroup(MissionGroup) {
 			scale = "0.89387 1.91416 1.79737";
 			interiorFile = "8mCube.dif";
 			showTerrainInside = "0";
+
+			locked = "true";
 		};
 		new InteriorInstance(InteriorInstance) {
 			position = "35.0067 163.645 116.949";
@@ -1380,6 +1426,8 @@ new SimGroup(MissionGroup) {
 			scale = "2.81957 2.63775 0.442366";
 			interiorFile = "8mCube.dif";
 			showTerrainInside = "0";
+
+			locked = "true";
 		};
 		new InteriorInstance(InteriorInstance) {
 			position = "42.6856 169.963 104.551";
@@ -1387,6 +1435,8 @@ new SimGroup(MissionGroup) {
 			scale = "0.89387 1.91416 1.79737";
 			interiorFile = "8mCube.dif";
 			showTerrainInside = "0";
+
+			locked = "true";
 		};
 		new InteriorInstance(InteriorInstance) {
 			position = "27.2856 167.317 103.839";
@@ -1394,6 +1444,8 @@ new SimGroup(MissionGroup) {
 			scale = "0.89387 2.59914 1.79073";
 			interiorFile = "8mCube.dif";
 			showTerrainInside = "0";
+
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-52.9725 -13.6994 75.9605";
@@ -1405,6 +1457,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-52.9725 -19.6881 77.5652";
@@ -1416,6 +1469,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-52.9725 -26.0632 79.2734";
@@ -1427,6 +1481,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-52.9725 -32.8247 81.0851";
@@ -1438,6 +1493,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-52.9725 -40.9385 83.2592";
@@ -1449,6 +1505,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-52.9725 -51.3705 86.0545";
@@ -1460,6 +1517,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-52.9725 -62.1889 88.9533";
@@ -1471,6 +1529,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-52.9725 -71.655 91.4897";
@@ -1482,6 +1541,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-52.9725 -80.9279 93.9744";
@@ -1493,6 +1553,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-52.9725 -92.1326 96.9767";
@@ -1504,6 +1565,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-52.9725 -103.531 100.031";
@@ -1515,6 +1577,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-52.9725 -116.668 103.551";
@@ -1526,6 +1589,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-52.9725 -132.316 107.744";
@@ -1537,6 +1601,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-52.9725 -148.737 112.144";
@@ -1548,6 +1613,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-52.9725 -165.158 116.544";
@@ -1559,6 +1625,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-52.9725 -177.522 119.857";
@@ -1570,6 +1637,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-52.9725 -188.34 122.756";
@@ -1581,6 +1649,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "2";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-48.8149 189.259 122.756";
@@ -1592,6 +1661,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "2";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-48.8149 178.441 119.857";
@@ -1603,6 +1673,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "32.8475 -13.6994 75.9605";
@@ -1614,6 +1685,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "32.8475 -19.6881 77.5652";
@@ -1625,6 +1697,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "32.8475 -26.0632 79.2734";
@@ -1636,6 +1709,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "32.8475 -40.9385 83.2592";
@@ -1647,6 +1721,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "32.8475 -32.8247 81.0851";
@@ -1658,6 +1733,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "32.8475 -51.3705 86.0545";
@@ -1669,6 +1745,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "32.8475 -62.1889 88.9533";
@@ -1680,6 +1757,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "32.8475 -80.9279 93.9744";
@@ -1691,6 +1769,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "32.8475 -92.1326 96.9767";
@@ -1702,6 +1781,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "32.8475 -71.655 91.4897";
@@ -1713,6 +1793,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "32.8475 -103.531 100.031";
@@ -1724,6 +1805,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "32.8475 -116.668 103.551";
@@ -1735,6 +1817,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "32.8475 -132.316 107.744";
@@ -1746,6 +1829,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "32.8475 -148.737 112.144";
@@ -1757,6 +1841,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "32.8475 -165.158 116.544";
@@ -1768,6 +1853,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "32.8475 -177.522 119.857";
@@ -1779,6 +1865,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "32.8475 -188.34 122.756";
@@ -1790,6 +1877,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "2";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "36.9404 12.5222 75.9605";
@@ -1801,6 +1889,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "36.9403 18.5109 77.5652";
@@ -1812,6 +1901,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "36.9404 24.886 79.2734";
@@ -1823,6 +1913,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "36.9401 39.7611 83.2592";
@@ -1834,6 +1925,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "36.9403 31.6474 81.0851";
@@ -1845,6 +1937,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "36.9401 50.1933 86.0545";
@@ -1856,6 +1949,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "36.94 61.0116 88.9533";
@@ -1867,6 +1961,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "36.9399 79.7507 93.9744";
@@ -1878,6 +1973,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "36.9399 90.9554 96.9767";
@@ -1889,6 +1985,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "36.94 70.4777 91.4897";
@@ -1900,6 +1997,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "36.9398 102.354 100.031";
@@ -1911,6 +2009,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "36.9396 115.491 103.551";
@@ -1922,6 +2021,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "36.9395 131.139 107.744";
@@ -1933,6 +2033,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "36.9394 147.56 112.144";
@@ -1944,6 +2045,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "36.9393 163.981 116.544";
@@ -1955,6 +2057,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "36.9392 176.345 119.857";
@@ -1966,6 +2069,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "36.9392 187.163 122.756";
@@ -1977,6 +2081,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "2";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-48.8137 14.618 75.9605";
@@ -1988,6 +2093,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-48.8138 20.6067 77.5652";
@@ -1999,6 +2105,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-48.8137 26.9818 79.2734";
@@ -2010,6 +2117,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-48.814 41.8569 83.2592";
@@ -2021,6 +2129,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-48.8138 33.7432 81.0851";
@@ -2032,6 +2141,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-48.814 52.2891 86.0545";
@@ -2043,6 +2153,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-48.8141 63.1074 88.9533";
@@ -2054,6 +2165,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-48.8142 81.8465 93.9744";
@@ -2065,6 +2177,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-48.8142 93.0512 96.9767";
@@ -2076,6 +2189,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-48.8141 72.5735 91.4897";
@@ -2087,6 +2201,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-48.8143 104.45 100.031";
@@ -2098,6 +2213,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-48.8145 117.587 103.551";
@@ -2109,6 +2225,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-48.8146 133.235 107.744";
@@ -2120,6 +2237,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-48.8147 149.656 112.144";
@@ -2131,6 +2249,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 		new Trigger() {
 			position = "-48.8148 166.077 116.544";
@@ -2142,6 +2261,7 @@ new SimGroup(MissionGroup) {
 			polyhedron = "0.0000000 0.0000000 0.0000000 1.0000000 0.0000000 0.0000000 -0.0000000 -1.0000000 -0.0000000 -0.0000000 -0.0000000 1.0000000";
 
 			mode = "1";
+			locked = "true";
 		};
 	};
 	new Sun() {
@@ -2161,6 +2281,8 @@ new SimGroup(MissionGroup) {
 		frontFlareSize = "300";
 		backFlareSize = "450";
 		flareColor = "1.000000 1.000000 1.000000 1.000000";
+
+		locked = "true";
 	};
 	new SimGroup() {
 
@@ -2175,6 +2297,8 @@ new SimGroup(MissionGroup) {
 			homingCount = "0";
 			emitter = "HvySnowMistEmitter";
 			velocity = "1";
+
+			locked = "true";
 		};
 		new ParticleEmissionDummy(seeB) {
 			position = "-839.812 0.9768 168.187";
@@ -2185,6 +2309,8 @@ new SimGroup(MissionGroup) {
 			homingCount = "0";
 			emitter = "HvySnowMistEmitter";
 			velocity = "1";
+
+			locked = "true";
 		};
 		new ParticleEmissionDummy(seeA) {
 			position = "-813.572 -400.875 143.32";
@@ -2195,6 +2321,8 @@ new SimGroup(MissionGroup) {
 			homingCount = "0";
 			emitter = "HvySnowMistEmitter";
 			velocity = "1";
+
+			locked = "true";
 		};
 	};
 	new Precipitation(Precipitation) {
@@ -2213,42 +2341,56 @@ new SimGroup(MissionGroup) {
 		maxVelocity = "4";
 		maxNumDrops = "2000";
 		maxRadius = "80";
+
+		locked = "true";
 	};
 	new VehicleBlocker() {
 		position = "10.1346 0.436167 64.2121";
 		rotation = "0 0 -1 0.0559529";
 		scale = "1 1.86282 1.92957";
 		dimensions = "2 2 4";
+
+		locked = "true";
 	};
 	new VehicleBlocker() {
 		position = "-26.1454 0.400737 64.2121";
 		rotation = "0 0 -1 0.0559529";
 		scale = "1 1.86282 1.92957";
 		dimensions = "2 2 4";
+
+		locked = "true";
 	};
 	new VehicleBlocker() {
 		position = "-50.66 -184.848 104.219";
 		rotation = "0 0 -1 0.0559529";
 		scale = "3.10375 4.69316 5.44071";
 		dimensions = "2 2 4";
+
+		locked = "true";
 	};
 	new VehicleBlocker() {
 		position = "34.7419 -186.705 100.899";
 		rotation = "0 0 -1 0.0559529";
 		scale = "3.10375 4.69316 6.27514";
 		dimensions = "2 2 4";
+
+		locked = "true";
 	};
 	new VehicleBlocker() {
 		position = "34.7431 185.035 100.899";
 		rotation = "0 0 -1 0.0559529";
 		scale = "3.10375 4.69316 6.27514";
 		dimensions = "2 2 4";
+
+		locked = "true";
 	};
 	new VehicleBlocker() {
 		position = "-50.6596 187.692 104.219";
 		rotation = "0 0 -1 0.0559529";
 		scale = "3.10375 4.69316 5.44071";
 		dimensions = "2 2 4";
+
+		locked = "true";
 	};
 	new InteriorInstance(InteriorInstance) {
 		position = "-7.41789 -301.434 57.3527";
@@ -2256,6 +2398,8 @@ new SimGroup(MissionGroup) {
 		scale = "1 1 1";
 		interiorFile = "ffWall.dif";
 		showTerrainInside = "0";
+
+		locked = "true";
 	};
 };
 //--- OBJECT WRITE END ---

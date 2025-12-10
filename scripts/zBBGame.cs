@@ -1,3 +1,5 @@
+$bbGame::ionCannonMode = 1;// if one turns the game into lctf 0 just wipe the map and reset flags 
+
 datablock ForceFieldBareData(CannonBlocker)
 {
    fadeMS           = 1000;
@@ -158,7 +160,7 @@ datablock AudioDescription(AudioBIGXExplosion3d){
    isLooping= false;
 
    is3D     = true;
-   minDistance= 50.0;
+   minDistance= 150.0;
    MaxDistance= 440.0;
    type     = $EffectAudioType;
    environmentLevel = 1.0;
@@ -242,7 +244,7 @@ datablock ParticleData(FCannonExplosionSmoke){
    inheritedVelFactor   = 0.025;
    lifetimeMS           = 100;
    lifetimeVarianceMS   = 0;
-   textureName          = "particleTest";
+   textureName          = "smoke02";
    useInvAlpha =  0;
    spinRandomMin = -200.0;
    spinRandomMax =  200.0;
@@ -277,7 +279,7 @@ datablock ParticleData(FireSmoke){
    inheritedVelFactor   = 0.025;
    lifetimeMS           = 500;
    lifetimeVarianceMS   = 0;
-   textureName          = "particleTest";
+   textureName          = "smoke02";
    useInvAlpha =  0;
    spinRandomMin = -200.0;
    spinRandomMax =  200.0;
@@ -493,6 +495,14 @@ datablock ExplosionData(CamExplosion){
    camShakeRadius = 32.0;
 };
 
+datablock ExplosionData(CamExplosion2){
+
+   shakeCamera = true;
+   camShakeFreq = "10.0 6.0 9.0";
+   camShakeAmp = "2.0 2.0 2.0";
+   camShakeDuration = 8;
+   camShakeRadius = 32.0;
+};
 datablock LinearFlareProjectileData(CamShakeEffect){
    projectileShapeName = "plasmabolt.dts";
    scale               = "0.1 0.1 0.1";
@@ -538,7 +548,51 @@ datablock LinearFlareProjectileData(CamShakeEffect){
    lightRadius = 3.0;
    lightColor  = "1 0.75 0.25";
 };
+datablock LinearFlareProjectileData(CamShakeEffect2){
+   projectileShapeName = "plasmabolt.dts";
+   scale               = "0.1 0.1 0.1";
+   faceViewer          = true;
+   directDamage        = 0.0;
+   hasDamageRadius     = false;
+   indirectDamage      = 0.0;
+   damageRadius        = 0.0;
+   kickBackStrength    = 0.0;
+   radiusDamageType    = $DamageType::Plasma;
 
+   explosion           = "CamExplosion2";
+
+   dryVelocity       = 32; 
+   wetVelocity       = -1;
+   velInheritFactor  = 0.3;
+   fizzleTimeMS      = 0;
+   lifetimeMS        = 125;
+   explodeOnDeath    = true;
+   reflectOnWaterImpactAngle = 0.0;
+   explodeOnWaterImpact      = true;
+   deflectionOnWaterImpact   = 0.0;
+   fizzleUnderwaterMS        = -1;
+
+   //activateDelayMS = 100;
+   activateDelayMS = -1;
+
+   size[0]           = 0.01;
+   size[1]           = 0.01;
+   size[2]           = 0.01;
+
+
+   numFlares         = 1;
+   flareColor        = "1 0.75 0.25";
+   flareModTexture   = "flaremod";
+   flareBaseTexture  = "flarebase";
+
+	//sound        = PlasmaProjectileSound;
+   //fireSound    = PlasmaFireSound;
+   //wetFireSound = PlasmaFireWetSound;
+   
+   hasLight    = false;
+   lightRadius = 3.0;
+   lightColor  = "1 0.75 0.25";
+};
 datablock ParticleData(thetaSExplosionParticle) {//fire
    dragCoefficient = "9";
    windCoefficient = "0";
@@ -551,7 +605,7 @@ datablock ParticleData(thetaSExplosionParticle) {//fire
    spinRandomMin = "-360";
    spinRandomMax = "720";
    useInvAlpha = "0";
-   textureName = "particleTest";
+   textureName = "smoke02";
    colors[0] = "0.992 0.4 0 1";
    colors[1] = "0.992 0.301961 0.00784314 1";
    colors[2] = "0.996078 0.301961 0.00784314 0";
@@ -664,7 +718,7 @@ datablock ParticleData(thetaSExplosionParticleS) {
    spinRandomMin = "-360";
    spinRandomMax = "720";
    useInvAlpha = "0";
-   textureName = "particleTest";
+   textureName = "smoke02";
    colors[0] = "0.984 0.992 0.992 0.1";
    colors[1] = "0.984 0.984 0.992 0.1";
    colors[2] = "0.996 0.996 0.992 0.1";
@@ -795,7 +849,7 @@ datablock ParticleData(thetaSExplosionParticleMid) {//fire
    spinRandomMin = "-360";
    spinRandomMax = "720";
    useInvAlpha = "0";
-   textureName = "particleTest";
+   textureName = "smoke02";
    colors[0] = "0.992 0.4 0 1";
    colors[1] = "0.992 0.301961 0.00784314 1";
    colors[2] = "0.996078 0.301961 0.00784314 0";
@@ -973,7 +1027,7 @@ datablock ParticleData(thetaSExplosionParticleTop) {//fire
    spinRandomMin = "-360";
    spinRandomMax = "720";
    useInvAlpha = "0";
-   textureName = "particleTest";
+   textureName = "smoke02";
    colors[0] = "0.992 0.4 0 1";
    colors[1] = "0.992 0.301961 0.00784314 1";
    colors[2] = "0.996078 0.301961 0.00784314 0";
@@ -1404,7 +1458,7 @@ datablock ParticleData(ArtExplosionSmoke)
    lifetimeMS           = 4000;
    lifetimeVarianceMS   = 0;
 
-   textureName          = "particleTest";
+   textureName          = "smoke02";
 
    useInvAlpha =  true;
    spinRandomMin = -200.0;
@@ -1872,13 +1926,22 @@ function nukeCamShake(%obj){
    MissionCleanup.add(%p);   
 }
 
-
+function nukeCamShake2(%obj){
+   %p = new LinearFlareProjectile() {
+      dataBlock        = CamShakeEffect2;
+      initialDirection = "0 0 -1";
+      initialPosition  = %obj.getPosition();
+      sourceObject     = -1;
+      sourceSlot       = 0;
+      vehicleObject    = 0;
+   };
+   MissionCleanup.add(%p);   
+}
 
 
 function longGunProj::onExplode(%data, %proj, %pos, %mod){
    parent::onExplode(%data, %proj, %pos, %mod);
 }
-
 
 function fireLongGuns(%team){
    if(%team == 1){
@@ -1905,7 +1968,7 @@ function fireLongGuns(%team){
 function fireMortarGuns(%team){
    if(%team == 1){
       %v = 0;
-      for(%x = 0; %x < 10; %x++){
+      for(%x = 0; %x < 6; %x++){
          for(%i = 0; %i < team1MortarGuns.getCount(); %i++){
             %obj = team1MortarGuns.getObject(%i);
             schedule(%v++ * 256, 0, "fireMGun", %obj, %team); 
@@ -1914,7 +1977,7 @@ function fireMortarGuns(%team){
    }
    else if(%team == 2){
       %v = 0;
-      for(%x = 0; %x < 10; %x++){
+      for(%x = 0; %x < 6; %x++){
          for(%i = 0; %i < team2MortarGuns.getCount(); %i++){
             %obj = team2MortarGuns.getObject(%i);
             schedule(%v++ * 256, 0, "fireMGun", %obj, %team); 
@@ -1999,6 +2062,21 @@ function dropLongProj(%team){
    MissionCleanup.add(%p);
 }
 
+function bbSwitchInit(){
+   for(%i = 0; %i < switchGrp.getCount(); %i++){
+      %obj = switchGrp.getObject(%i);
+      %obj.lastFired = getSimTime();
+      %obj.digit[0] = "";
+      %obj.digit[1] = "";
+      %obj.digit[2] = "";
+      %obj.digit[3] = "";
+      %obj.digit[4] = "";
+      if(%obj.displayPos !$= ""){
+         updateTimers(%obj);
+      }
+   }
+}
+
 
 function CannonBlocker::onAdd(%data, %obj){
    parent::onAdd(%data,%obj);
@@ -2009,7 +2087,14 @@ function CannonBlocker::onAdd(%data, %obj){
       $tickCountBB = 0;
       new simGroup(ccSimObj);
       MissionCleanup.add(ccSimObj);    
-      $BBSimEvent = schedule(10000, 0, "bbsim");// allow time in case we open the editor 
+      $BBSimEvent = schedule(10000, 0, "bbsim");
+      schedule(1000, 0, "bbSwitchInit");
+   }
+} 
+
+function CannonBlocker::onRemove(%this, %obj){
+   if (isActivePackage(bbSpawn)){
+      deactivatePackage(bbSpawn);
    }
 }
 
@@ -2121,6 +2206,71 @@ function drawTarget(%pos,%pos2, %tf){
    }
 }
 
+function updateTimers(%obj){
+   if(digitGrp.getCount() > 40){
+      digitGrp.delete();// something is not right prob form messing with things delete and reset
+   }
+   if(!isObject(digitGrp)){
+      new simGroup(digitGrp);
+      MissionCleanup.add(digitGrp);
+   }
+   if(%obj.lastFired $= ""){// bit of a fail safe 
+      %obj.lastFired = getSimTime();
+   }
+   
+   if(%obj.mode $= "Orbital"){
+      %time = game.formatTime((60 * %obj.lockOutTime) - Game.turtleTime);
+   }
+   else{
+      %time = game.formatTime((60 * %obj.lockOutTime) - (getSimTime() - %obj.lastFired));
+   }
+
+   if((60 * %obj.lockOutTime) - (getSimTime() - %obj.lastFired) < 0){
+      %time =  "00:00";
+   }
+   %offsetDir = %obj.team == 1 ? -0.15 : 0.15;
+   %rot = %obj.team == 1 ? "0 0 1 0" : "0 0 1 180";
+   for(%i = 0; %i < 5; %i++){
+      %posOffset = vectorAdd(%obj.displayPos, %i * %offsetDir SPC "0 0");
+      %digit = getSubStr(%time, %i, 1);
+
+
+      if(isObject(%obj.digit[%i]) && %obj.digit[%i].digit != %digit){
+         %obj.digit[%i].delete();// time has changed lets update 
+      }
+      else{
+         %obj.digit[%i].setScopeAlways();
+      }
+
+      if(%i == 2){
+         if(!isObject(%obj.digit[%i])){
+            %d = new TSStatic() {
+               position = %posOffset;
+               rotation = %rot;
+               scale = "0.2 0.2 0.2";
+               shapeName = "displayCol.dts";
+               digit = %digit;
+            };
+            %obj.digit[%i] = %d;
+            digitGrp.add(%d);
+         }
+      }
+      else{
+         if(!isObject(%obj.digit[%i])){
+            %d = new TSStatic() {
+               position = %posOffset;
+               rotation = %rot;
+               scale = "0.2 0.2 0.2";
+               shapeName = "display" @ %digit @ ".dts";
+               digit = %digit;
+            };
+            %obj.digit[%i] = %d;
+            digitGrp.add(%d);
+         }
+      }
+   }
+}
+
 function fireSwitchBB::onCollision(%data,%obj,%col)
 {
    if (%col.getDataBlock().className $= Armor && %col.getState() !$= "Dead"){
@@ -2128,49 +2278,61 @@ function fireSwitchBB::onCollision(%data,%obj,%col)
          switch$(%obj.mode){
             case "longGuns":
                if(isObject(Game.colObjX[%obj.team]) && isObject(Game.colObjY[%obj.team])){
-                  if(!%obj.lastFired ||  (getSimTime() - %obj.lastFired) > 60 * 5000){ 
+                  if(!%obj.lastFired ||  (getSimTime() - %obj.lastFired) > 60 * %obj.lockOutTime){ 
                      fireLongGuns(%obj.team);
                      %obj.lastFired = getSimTime();
                      messageTeam(%obj.team, 'msgSwitchDenied', '\c2Firing Long Range Guns.~wfx/misc/red_alert_short.wav');    
                   }
                   else{
-                     messageClient(%col.client, 'msgSwitchDenied', '\c2Reloading - Time Remaining %1.~wfx/powered/station_denied.wav', game.formatTime((60 * 5000) - (getSimTime() - %obj.lastFired)));    
+                     messageClient(%col.client, 'msgSwitchDenied', '\c2Reloading - Time Remaining %1.~wfx/powered/station_denied.wav', game.formatTime((60 * %obj.lockOutTime) - (getSimTime() - %obj.lastFired)));    
                   }
                }
                else{
                      messageClient(%col.client, 'msgSwitchDenied', '\c2No Valid Coordinates Selected.~wfx/powered/station_denied.wav');    
                }
             case "mortarGuns":
-               if(!%obj.lastFired ||  (getSimTime() - %obj.lastFired) > 60 * 5000){ 
+               if(!%obj.lastFired ||  (getSimTime() - %obj.lastFired) > 60 * %obj.lockOutTime){ 
                   fireMortarGuns(%obj.team);
                   %obj.lastFired = getSimTime();
                   messageTeam(%obj.team, 'msgSwitchDenied', '\c2Firing Short Range Mortars.~wfx/misc/red_alert_short.wav'); 
                }
                else{
-                  messageClient(%col.client, 'msgSwitchDenied', '\c2Reloading - Time Remaining %1.~wfx/powered/station_denied.wav', game.formatTime((60 * 5000) - (getSimTime() - %obj.lastFired)));    
+                  messageClient(%col.client, 'msgSwitchDenied', '\c2Reloading - Time Remaining %1.~wfx/powered/station_denied.wav', game.formatTime((60 * %obj.lockOutTime) - (getSimTime() - %obj.lastFired)));    
                }
             case "nuke":
-			   if(isObject(Game.colObjX[%obj.team]) && isObject(Game.colObjY[%obj.team])){
-					%rayStart = Game.TargetX[%obj.team] SPC Game.TargetY[%obj.team] SPC 1000;
-					%rayEnd =Game.TargetX[%obj.team]SPC Game.TargetY[%obj.team] SPC -1000;
-					%mask = $TypeMasks::StaticShapeObjectType | $TypeMasks::InteriorObjectType | $TypeMasks::TerrainObjectType | $TypeMasks::ForceFieldObjectType | $TypeMasks::VehicleObjectType;
-					%ground = ContainerRayCast(%rayStart, %rayEnd, %mask, 0);
-					if(%ground){
-						  if(!%obj.lastFired ||  (getSimTime() - %obj.lastFired) > 60 * 7500){ 
-							 firenukeMissile(%obj.team, getWords(%ground,1,3));
-							 %obj.lastFired = getSimTime();
-							 messageTeam(%obj.team, 'msgSwitchDenied', '\Launching Tac-Nuke.~wfx/misc/red_alert_short.wav');  
-						  }
-						  else{
-							 messageClient(%col.client, 'msgSwitchDenied', '\c2Reloading - Time Remaining %1.~wfx/powered/station_denied.wav', game.formatTime((60 * 7500) - (getSimTime() - %obj.lastFired)));    
-						  }
-					}
-					else{
-						messageClient(%col.client, 'msgSwitchDenied', '\c2Could Not Find Target Try Again.~wfx/powered/station_denied.wav'); 
-					}
+               if(isObject(Game.colObjX[%obj.team]) && isObject(Game.colObjY[%obj.team])){
+                  %rayStart = Game.TargetX[%obj.team] SPC Game.TargetY[%obj.team] SPC 1000;
+                  %rayEnd =Game.TargetX[%obj.team]SPC Game.TargetY[%obj.team] SPC - 1000;
+                  %mask = $TypeMasks::StaticShapeObjectType | $TypeMasks::InteriorObjectType | $TypeMasks::TerrainObjectType | $TypeMasks::ForceFieldObjectType | $TypeMasks::VehicleObjectType;
+                  %ground = ContainerRayCast(%rayStart, %rayEnd, %mask, 0);
+                  if(%ground){
+                     if(!%obj.lastFired ||  (getSimTime() - %obj.lastFired) > 60 * %obj.lockOutTime){ 
+                        firenukeMissile(%obj.team, getWords(%ground,1,3));
+                        %obj.lastFired = getSimTime();
+                        messageTeam(%obj.team, 'msgSwitchDenied', '\Launching Tac-Nuke.~wfx/misc/red_alert_short.wav');  
+                     }
+                     else{
+                        messageClient(%col.client, 'msgSwitchDenied', '\c2Reloading - Time Remaining %1.~wfx/powered/station_denied.wav', game.formatTime((60 * %obj.lockOutTime) - (getSimTime() - %obj.lastFired)));    
+                     }
+                  }
+                  else{
+                     messageClient(%col.client, 'msgSwitchDenied', '\c2Could Not Find Target Try Again.~wfx/powered/station_denied.wav'); 
+                  }
                }
                else{
                      messageClient(%col.client, 'msgSwitchDenied', '\c2No Valid Coordinates Selected.~wfx/powered/station_denied.wav');    
+               }
+            case "orbital":
+               if(!%obj.lastFired ||  (getSimTime() - %obj.lastFired) > 60 * %obj.lockOutTime){ 
+                  if(!Game.orbitalGunFire){
+                     //Game.orbitalGunFire = true;// lock it out as this is game over
+                     fireOrbitGuns(%obj.team, %col.client);
+                     %obj.lastFired = getSimTime();
+                     messageAll('msgSwitchDenied', '\c2Firing Orbital Ion Cannon.~wfx/misc/red_alert_short.wav'); 
+                  }
+               }
+               else{
+                  messageClient(%col.client, 'msgSwitchDenied', '\c2Reloading - Time Remaining %1.~wfx/powered/station_denied.wav', game.formatTime((60 * %obj.lockOutTime) - (getSimTime() - %obj.lastFired)));    
                }
          }
       }
@@ -2468,6 +2630,18 @@ function bbsim(){
       if(!isObject(%trackObj.trackObj)){// if are tracked object is not valid any more delete icons 
          %trackObj.delete();   
       }
+
+      if(Game.stalemate){
+         Game.turtleTime += 512;
+      }
+      if(($tickCountBB % 2) == 0){
+         for(%i = 0; %i < switchGrp.getCount(); %i++){
+            %obj = switchGrp.getObject(%i);
+            if(%obj.displayPos !$= ""){
+               updateTimers(%obj);
+            }
+         }
+      }
    }
 	if(isObject(ccSimObj)){
 		$BBSimEvent = schedule(512, 0, "bbsim");
@@ -2475,3 +2649,1134 @@ function bbsim(){
 }
 
 
+
+datablock ParticleData(OBLShockPart)
+{
+   textureName          = "firefly.png";
+   dragCoefficient      = "0.371457";
+   gravityCoefficient   = 0.0;
+   inheritedVelFactor   = "0.199609";
+   windCoefficient      = 0;
+   constantAcceleration = 0;
+   lifetimeMS           = "15000";
+   lifetimeVarianceMS   = "0";
+   spinRandomMin = "0";
+   spinRandomMax =  "1";
+   useInvAlpha   = "0";
+
+   colors[0]     = "0.463 0.463 0.463 0.057"; 
+   colors[1]     = "0.404 0.404 0.404 0.03";
+   colors[2]     = "0.514 0.51 0.51 0.051";
+   colors[3] = "0.502 0.498 0.498 0";
+
+   sizes[0]      = "1";
+   sizes[1]      = "1";
+   sizes[2]      = "1";
+   sizes[3]      = "1";
+
+   times[0]      = "0";
+   times[1]      = "0.372549";
+   times[2]      = "0.580392";
+   times[3] = "1";
+
+   spinSpeed = "0";
+};
+
+datablock ParticleEmitterData(OBLShockEmit)
+{
+   ejectionPeriodMS = "1";
+   periodVarianceMS = "0";
+   ejectionVelocity = "2.5";
+   velocityVariance = "0";
+   ejectionOffset   = "0";
+   thetaMin         = "90";
+   thetaMax         = "90";
+   phiReferenceVel  = 0;
+   phiVariance      = 360;
+   orientParticles  = "0";
+   orientOnVelocity = true;
+   overrideAdvances = false;
+   particles = "OBLShockPart";
+   lifetimeMS = "500";
+};
+
+
+datablock ParticleData(OBLShockPart2)
+{
+   textureName          = "firefly.png";
+   dragCoefficient      = "0.371457";
+   gravityCoefficient   = 0.0;
+   inheritedVelFactor   = "0.199609";
+   windCoefficient      = 0;
+   constantAcceleration = 0;
+   lifetimeMS           = "15000";
+   lifetimeVarianceMS   = "0";
+   spinRandomMin = "0";
+   spinRandomMax =  "1";
+   useInvAlpha   = "0";
+
+   colors[0]     = "0.463 0.463 0.463 0.01"; 
+   colors[1]     = "0.404 0.404 0.404 0.08";
+   colors[2]     = "0.514 0.51 0.51 0.08";
+   colors[3] = "0.502 0.498 0.498 0";
+   
+   sizes[0]      = "1";
+   sizes[1]      = "2";
+   sizes[2]      = "3";
+   sizes[3] = "3";
+
+   times[0]      = "0";
+   times[1]      = "0.1";
+   times[2]      = "0.5";   
+   times[3] = "1";
+
+   spinSpeed = "0";
+};
+
+datablock ParticleEmitterData(OBLShockEmit2)
+{
+   ejectionPeriodMS = "1";
+   periodVarianceMS = "0";
+   ejectionVelocity = "2.1";
+   velocityVariance = "1.5";
+   ejectionOffset   = "0";
+   thetaMin         = "90";
+   thetaMax         = "110";
+   phiReferenceVel  = 0;
+   phiVariance      = 360;
+   orientParticles  = "0";
+   orientOnVelocity = true;
+   overrideAdvances = false;
+   particles = "OBLShockPart2";
+   lifetimeMS = "800";
+};
+
+
+datablock ParticleData(OBLFireBallPart)
+{
+   textureName          = "orbitGunPart.png";
+   dragCoefficient      = "1";
+   gravityCoefficient   = 0.0;
+   inheritedVelFactor   = "0.199609";
+   windCoefficient      = 0;
+   constantAcceleration = 0;
+   lifetimeMS           = "15000";
+   lifetimeVarianceMS   = "0";
+   spinRandomMin = "0";
+   spinRandomMax =  "1";
+   useInvAlpha   = "0";
+
+   colors[0]     = "0.897638 0.299213 0 0.787402"; 
+   colors[1]     = "0.897638 0.188976 0 0.503937";
+   colors[2]     = "0.897638 0.188976 0 0.275591";
+   colors[3] = "0.897638 0.0944882 0 0.00787402";
+
+   sizes[0]      = "0.9";
+   sizes[1]      = "0.9";
+   sizes[2]      = "0.9";
+   sizes[3]      = "0.9";
+
+   times[0]      = "0";
+   times[1]      = "0.364706";
+   times[2]      = "0.537255";   
+   times[3] = "0.911765";
+
+   spinSpeed = "0";
+};
+datablock ParticleEmitterData(OBLFireBallEmit)
+{
+   ejectionPeriodMS = "1";
+   periodVarianceMS = "0";
+   ejectionVelocity = "1.5";
+   velocityVariance = 0.5;
+   ejectionOffset   = "0";
+   thetaMin         = "0";
+   thetaMax         = "176.3";
+   phiReferenceVel  = 0;
+   phiVariance      = 360;
+   orientParticles  = "0";
+   orientOnVelocity = true;
+   overrideAdvances = false;
+   particles = "OBLFireBallPart";
+   lifetimeMS = "1000";
+
+};
+
+datablock ParticleData(OBLHotRingPart)
+{
+   textureName          = "orbitGunPart.png";
+   dragCoefficient      = "0.564712";
+   gravityCoefficient   = 0.0;
+   inheritedVelFactor   = "0";
+   windCoefficient      = 0;
+   constantAcceleration = 0;
+   lifetimeMS           = "10000";
+   lifetimeVarianceMS   = "0";
+   spinRandomMin = "0";
+   spinRandomMax =  "1";
+   useInvAlpha   = "0";
+
+   colors[0]     = "0.9 0.3 0.008 1"; 
+   colors[1]     = "0.996 0.3 0.008 0.994";
+   colors[2]     = "0.996 0.471 0.008 1";
+   colors[3]     = "0.996078 0.533333 0.00784314 0";
+   
+   sizes[0]      = "0.7";
+   sizes[1]      = "0.7";
+   sizes[2]      = "0.7";
+   sizes[3]      = "0.7";
+
+   times[0]      = "0.145833";
+   times[1]      = "0.279167";
+   times[2]      = "0.466667";
+   times[3]      = "1";
+
+   spinSpeed = "0";
+};
+
+datablock ParticleEmitterData(OBLHotRingEmit)
+{
+   ejectionPeriodMS = "1";
+   periodVarianceMS = "0";
+   ejectionVelocity = "2";
+   velocityVariance = 0;
+   ejectionOffset   = "0";
+   thetaMin         = "90";
+   thetaMax         = "90";
+   phiReferenceVel  = 0;
+   phiVariance      = 360;
+    orientParticles  = "0";
+   orientOnVelocity = true;
+   overrideAdvances = false;
+   particles = "OBLHotRingPart";
+   lifetimeMS = "200";
+};
+
+datablock AudioProfile(ionAlarmSFX){
+   filename    = "ionwarn.wav";
+   description = "AudioBIGXExplosion3d";
+   preload = true;
+};
+
+
+
+function fireOrbitGuns(%team, %client){
+   %otherTeam = (%team == 1) ? 2 : 1;
+   %targetPos = $TeamFlag[%otherTeam].originalPosition;
+   //ionBeamStart(vectorAdd(%targetPos,"0 0 100"));
+   ServerPlay3D(ionAlarmSFX, "-20.333 746.415 192.375");
+   ServerPlay3D(ionAlarmSFX, "-36.703 -746.442 193.631");
+   ServerPlay3D(ionAlarmSFX, "-20.333 746.415 192.375");
+   ServerPlay3D(ionAlarmSFX, "-36.703 -746.442 193.631");
+   ServerPlay3D(ionAlarmSFX, "-20.333 746.415 192.375");
+   ServerPlay3D(ionAlarmSFX, "-36.703 -746.442 193.631");
+   //messageAll('ServerAudio','~walarm.wav');
+   %pos = "4.60111 -1.10804 -436.073";
+   %rot = "0.324266 0.260938 -0.909265 83.0181";
+   //%client.camera.setTransform(%pos SPC %rot);
+   %client.camera.setTransform("4.60111 -1.10804 -436.073 0.324266 0.260938 -0.909265 83.0181");
+   commandToClient(%client, 'setHudMode', 'PickTeam');
+   schedule(8000, 0, "fireOrbitGunStart", %client);
+}
+
+function fireOrbitGunStart(%client){
+   %client.setControlObject(%client.camera);
+   obGun.stopThread(0);
+   obGun.schedule(2000, "playThread", 0, "open");
+   schedule(2000, 0, "commandToClient", %client, 'ServerAudio', "~worbitGunPop.wav",0);
+   schedule(2333, 0, "commandToClient", %client, 'ServerAudio', "~worbitGunCharge.wav",1);
+   schedule(5333, 0, "fireOrbitGunCrossBeam", %client, 1);
+   schedule(7333, 0, "fireOrbitGunCrossBeam", %client, 2);
+   schedule(8333, 0, "commandToClient", %client, 'ServerAudio', "~worbitGunStage.wav",0);
+   schedule(10500, 0, "fireOrbitGunBeam", %client);
+}
+
+function fireOrbitGunCrossBeam(%client, %beam){
+   commandToClient(%client, 'ServerAudio', "~wbeamstrike.wav",2);
+   if(%beam == 1){
+      %obj = new StaticShape() {
+         position = "3.95583 -0.886909 -436.632";
+         rotation = "0 -1 0 56.1499";
+         scale = "0.005 0.335549 0.004";
+         nameTag = "Base";
+         dataBlock = "orbitalBeam";
+         lockCount = "0";
+         homingCount = "0";
+
+         Target = "-1";
+      };
+      MissionCleanup.add(%obj);
+      %obj.schedule(15000,"delete");
+   }
+   else if(%beam == 2){
+      %obj = new StaticShape() {
+         position = "3.8527 -0.719244 -436.497";
+         rotation = "0.894263 0.316334 0.316586 96.3445";
+         scale = "0.005 0.335549 0.004";
+         nameTag = "Base";
+         dataBlock = "orbitalBeam";
+         lockCount = "0";
+         homingCount = "0";
+
+         Target = "-1";
+      };
+      MissionCleanup.add(%obj);
+      %obj.schedule(15000,"delete");
+   }
+}
+
+function fireOrbitGunBeam(%client){
+   %obj = new StaticShape() {
+         position = "-8.58598 -0.602089 -446.815";
+         rotation = "-0.314547 0.317455 0.894585 96.8931";
+         scale = "0.01 16.4064 0.01";
+         nameTag = "Base";
+         dataBlock = "orbitalBeam";
+         lockCount = "0";
+         homingCount = "0";
+         Target = "-1";
+	};
+   MissionCleanup.add(%obj);
+   schedule(1, 0, "commandToClient", %client, 'ServerAudio', "~worbitGunFire.wav",1);
+   schedule(1000, 0, "commandToClient", %client, 'ServerAudio', "~worbitGunImpact.wav",0);
+   schedule(1000, 0, "fireOrbitGunImpact", %client);
+   %obj.schedule(2000,"delete");
+   schedule(15000, 0, "resetClientView", %client);
+   schedule(13000, 0, "orbitGunBeamFireA", %client);
+}
+
+function fireOrbitGunImpact(%client){
+   %client.getControlObject().setWhiteout(0.8); 
+   %pos = "-7.60736 -0.555335 -446.065";
+   %e = new ParticleEmissionDummy() { // outter shockwave
+      position = %pos;
+      rotation = "0 -1 0 50.9934";
+      scale = "1 1 1";
+      dataBlock = "doubleTimeEmissionDummy";
+      lockCount = "0";
+      homingCount = "0";
+      emitter = "OBLShockEmit";
+      velocity = "1";
+   };
+   MissionCleanup.add(%e);
+   %e.schedule(9000,"delete");
+
+
+   %e = new ParticleEmissionDummy() { //seconed shockwave
+   
+      position = %pos;
+      rotation = "0 -1 0 50.9934";
+      scale = "1 1 1";
+      dataBlock = defaultEmissionDummy;
+      lockCount = "0";
+      homingCount = "0";
+      emitter = "OBLShockEmit2";
+      velocity = "1";
+   };
+   MissionCleanup.add(%e);
+   %e.schedule(9000,"delete");
+
+
+   %e = new ParticleEmissionDummy() { // fireball
+      position = %pos;
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      dataBlock = "defaultEmissionDummy";
+      lockCount = "0";
+      homingCount = "0";
+      emitter = "OBLFireBallEmit";
+      velocity = "1";
+   };
+   MissionCleanup.add(%e);
+   %e.schedule(9000,"delete");
+
+   %e = new ParticleEmissionDummy() { // hot ring
+      position = %pos;
+      rotation = "0 -1 0 50.9934";
+      scale = "1 1 1";
+      dataBlock = "defaultEmissionDummy";
+      lockCount = "0";
+      homingCount = "0";
+      emitter = "OBLHotRingEmit";
+      velocity = "1";
+   };
+   MissionCleanup.add(%e);
+   %e.schedule(9000,"delete");
+
+   schedule(2000, 0, "fireObitGunCrack");
+}
+
+function fireObitGunCrack(){
+   %obj = new TSStatic() {
+		position = "-7.66393 -0.60618 -446.079";
+		rotation = "0.41657 -0.0143753 0.90899 180.674";
+		scale = "8 8 1";
+		shapeName = "hotCracks.dts";
+	};
+   MissionCleanup.add(%obj);
+   %obj.schedule(15000,"delete");
+}
+
+
+function resetClientView(%client){
+   %camPoint = ObserverDropPoints.getObject(0);
+   %client.camera.setTransform(%camPoint.getTransform());
+   if(isObject(%client.player)){
+      %client.setControlObject(%client.player);
+      commandToClient(%client, 'setHudMode', 'Standard');
+   }
+   else{
+      commandToClient(%client, 'setHudMode', 'Observer');
+   }
+}
+
+
+datablock StaticShapeData(orbitalGun)
+{
+   catagory = "misc";
+   shapefile = "orbitalGun.dts";
+   emap = true;
+};
+
+datablock StaticShapeData(orbitalBeam)
+{
+   catagory = "misc";
+   shapefile = "orbitalBeam.dts";
+   emap = true;
+   alwaysAmbient = true;
+};
+
+function aGameOver(){
+   //$TeamScore[$darkWeaponTeam] += $Anomaly::darkWeaponBonus;
+   //messageAll('MsgTeamScoreIs', "", $darkWeaponTeam, $TeamScore[$darkWeaponTeam]);
+   messageAll('message', '\c2%1 used the orbital ion cannon to end game, %3 Bonus points for team %2.~wfx/misc/MA3.wav', $darkWeaponClient.name, $darkWeaponTeam, $Anomaly::darkWeaponBonus);
+   
+   Game.gameOver();
+   cycleMissions();
+}
+
+
+
+datablock ParticleData(ionGunExpExplosionParticle) {
+   dragCoefficient = "1.5";
+   windCoefficient = "0";
+   gravityCoefficient = "0";
+   inheritedVelFactor = "0";
+   constantAcceleration = "0";
+   lifetimeMS = "4000";
+   lifetimeVarianceMS = "0";
+   spinSpeed = "0.083";
+   spinRandomMin = "-10";
+   spinRandomMax = "10";
+   useInvAlpha = "0";
+   textureName = "bsmoke02";
+   colors[0] = "0.992 0.4 0 1";
+   colors[1] = "0.992 0.301961 0.00784314 1";
+   colors[2] = "0.996078 0.301961 0.00784314 0";
+   colors[3] = "0.980392 0.301961 0.0156863 0";
+   sizes[0] = "150";
+   sizes[1] = "150";
+   sizes[2] = "150";
+   sizes[3] = "150";
+   times[0] = "0";
+   times[1] = "0.229167";
+   times[2] = "0.6875";
+   times[3] = "1";
+};
+
+datablock ParticleEmitterData(ionGunExpExplosionEmitter) {//smoke
+   ejectionPeriodMS = "1";
+   periodVarianceMS = "0";
+   ejectionVelocity = "650";
+   velocityVariance = "1";
+   ejectionOffset = "0";
+   thetaMin = "0";
+   thetaMax = "90";
+   phiReferenceVel = "0";
+   phiVariance = "360";
+   overrideAdvance = "0";
+   orientParticles = "0";
+   orientOnVelocity = "1";
+   particles = "ionGunExpExplosionParticle";
+   lifetimeMS = "15000";
+   lifetimeVarianceMS = "0";
+};
+
+
+datablock ParticleData(ionGunExpExplosionParticle2) {
+   dragCoefficient = "2";
+   windCoefficient = "0";
+   gravityCoefficient = "0";
+   inheritedVelFactor = "0";
+   constantAcceleration = "0";
+   lifetimeMS = "15000";
+   lifetimeVarianceMS = "0";
+   spinSpeed = "0.083";
+   spinRandomMin = "-10";
+   spinRandomMax = "10";
+   useInvAlpha = "1";
+   textureName = "bsmoke02";
+   colors[0] = "0.529412 0.533333 0.533333 0.495";
+   colors[1] = "0.537 0.537 0.541 0.438";
+   colors[2] = "0.568627 0.568627 0.564706 0.492";
+   colors[3] = "0.502 0.502 0.498 0";
+   sizes[0] = "150";
+   sizes[1] = "150";
+   sizes[2] = "150";
+   sizes[3] = "150";
+   times[0] = "0";
+   times[1] = "0.229167";
+   times[2] = "0.6875";
+   times[3] = "1";
+};
+
+datablock ParticleEmitterData(ionGunExpExplosionEmitter2) {//smoke
+   ejectionPeriodMS = "1";
+   periodVarianceMS = "0";
+   ejectionVelocity = "650";
+   velocityVariance = "600.83";
+   ejectionOffset = "0";
+   thetaMin = "0";
+   thetaMax = "90";
+   phiReferenceVel = "0";
+   phiVariance = "360";
+   overrideAdvance = "0";
+   orientParticles = "0";
+   orientOnVelocity = "1";
+   particles = "ionGunExpExplosionParticle2";
+   lifetimeMS = "15000";
+   lifetimeVarianceMS = "0";
+};
+
+datablock ParticleData(ionGunExpExplosionParticleS) {
+   dragCoefficient = "1";
+   windCoefficient = "0";
+   gravityCoefficient = "0";
+   inheritedVelFactor = "0";
+   constantAcceleration = "1";
+   lifetimeMS = "9000";
+   lifetimeVarianceMS = "0";
+   spinSpeed = "0";
+   spinRandomMin = "-360";
+   spinRandomMax = "720";
+   useInvAlpha = "0";
+   textureName = "smoke02";
+   colors[0] = "0.984 0.992 0.992 0.1";
+   colors[1] = "0.984 0.984 0.992 0.1";
+   colors[2] = "0.996 0.996 0.992 0.1";
+   colors[3] = "0.996 0.996 0.992 0";
+   sizes[0] = "150";
+   sizes[1] = "150";
+   sizes[2] = "150";
+   sizes[3] = "150";
+   times[0] = "0";
+   times[1] = "0.0416667";
+   times[2] = "0.125";
+   times[3] = "0.375";
+};
+
+datablock ParticleEmitterData(ionGunExpExplosionEmitterS) { //wave
+   ejectionPeriodMS = "1";
+   periodVarianceMS = "0";
+   ejectionVelocity = "340.29";
+   velocityVariance = "0";
+   ejectionOffset = "100";
+   ejectionOffsetVariance = "0";
+   thetaMin = "";
+   thetaMax = "180";
+   phiReferenceVel = "0";
+   phiVariance = "360";
+   overrideAdvance = "0";
+   orientParticles = "0";
+   orientOnVelocity = "1";
+   particles = "ionGunExpExplosionParticleS";
+   lifetimeMS = "512";
+   lifetimeVarianceMS = "0";
+   useInvAlpha = false;
+   alignParticles = "0";
+};
+
+datablock ExplosionData(ionGunExpStrikeExplosion2){
+   emitter[0] = ionGunExpExplosionEmitterS;
+   emitter[1] = ionGunExpExplosionEmitterS;
+   emitter[2] = ionGunExpExplosionEmitterS;
+   emitter[3] = ionGunExpExplosionEmitterS;
+   emitter[4] = ionGunExpExplosionEmitterS;
+};
+
+datablock ExplosionData(ionGunExpStrikeExplosion){
+   explosionShape = "effect_plasma_explosion.dts";
+   //soundProfile   = BombExplosionSound;
+   faceViewer           = true;
+   emitter[0] = ionGunExpExplosionEmitter;
+   emitter[1] = ionGunExpExplosionEmitter2;
+   subExplosion[0] = ionGunExpStrikeExplosion2;
+   subExplosion[1] = ionGunExpStrikeExplosion2;
+   subExplosion[2] = ionGunExpStrikeExplosion2;
+   subExplosion[3] = ionGunExpStrikeExplosion2;
+   subExplosion[4] = ionGunExpStrikeExplosion2;
+   //emitter[2] = BlastRingEmitter;
+   delayMS = 150;
+   offset = 4.0;
+   playSpeed = 0.8;
+
+   sizes[0] = "70 70 70";
+   sizes[1] = "70 70 70";
+   times[0] = 0.0;
+   times[1] = 1.0;
+   shakeCamera = true;
+   camShakeFreq = "8.0 9.0 7.0";
+   camShakeAmp = "10.0 10.0 10.0";
+   camShakeDuration = 2;
+   camShakeRadius = 400.0;
+};  
+
+datablock LinearFlareProjectileData(ionCannonProj){
+   projectileShapeName = "plasmabolt.dts";
+   scale               = "0.1 0.1 0.1";
+   faceViewer          = true;
+   directDamage        = 0.0;
+   hasDamageRadius     = true;
+   indirectDamage      = 0.0;
+   damageRadius        = 0.0;
+   kickBackStrength    = 5000.0;
+   radiusDamageType    = $DamageType::Explosion;
+
+   explosion           = "ionGunExpStrikeExplosion";
+
+   dryVelocity       = 32; 
+   wetVelocity       = -1;
+   velInheritFactor  = 0.3;
+   fizzleTimeMS      = 0;
+   lifetimeMS        = 125;
+   explodeOnDeath    = true;
+   reflectOnWaterImpactAngle = 0.0;
+   explodeOnWaterImpact      = true;
+   deflectionOnWaterImpact   = 0.0;
+   fizzleUnderwaterMS        = -1;
+
+   activateDelayMS = -1;
+
+   size[0]           = 0.01;
+   size[1]           = 0.01;
+   size[2]           = 0.01;
+
+
+   numFlares         = 1;
+   flareColor        = "1 0.75 0.25";
+   flareModTexture   = "flaremod";
+   flareBaseTexture  = "flarebase";
+
+   
+   hasLight    = false;
+   lightRadius = 3.0;
+   lightColor  = "1 0.75 0.25";
+};
+
+datablock AudioProfile(ionCannonHit){
+   filename    = "ionCannonHit.wav";
+   description = "AudioBIGBIGExplosion3d";
+   preload = true;
+};
+
+function orbitGunBeamFireA(%client){
+   %otherTeam = (%client.team == 1) ? 2 : 1;
+   %pos = $TeamFlag[%otherTeam].originalPosition;
+
+   cancel($BBSimEvent);
+   %a = new AudioEmitter() {
+      position = "0 0 200";
+      rotation = "1 0 0 0";
+      scale = "1 1 1";
+      fileName = "ionCannonBuildUp.wav";
+      useProfileDescription = "0";
+      outsideAmbient = "1";
+      volume = "1";
+      isLooping = "0";
+      is3D = "0";
+      minDistance = "20";
+      maxDistance = "2048";
+      coneInsideAngle = "360";
+      coneOutsideAngle = "360";
+      coneOutsideVolume = "1";
+      coneVector = "0 0 1";
+      loopCount = "-1";
+      minLoopGap = "0";
+      maxLoopGap = "0";
+      type = "EffectAudioType";
+   };
+   %a.schedule(10000,"delete");
+   MissionCleanup.add(%a);
+
+   schedule(7000, 0, "orbitGunBeamFireB", %pos);
+
+}
+
+function orbitGunBeamFireB(%pos){
+	%a = new StaticShape() {
+		position = vectorAdd(%pos, "0 0 -20");
+		rotation = "-1 0 0 90";
+		scale = "10 2000 10";
+		nameTag = "Base";
+		dataBlock = "orbitalBeam";
+		lockCount = "0";
+		homingCount = "0";
+
+	};
+   %a.schedule(512,"delete");
+   MissionCleanup.add(%a);
+
+   schedule(128, 0, "orbitGunBeamFireC", %pos);
+
+}
+
+
+datablock StaticShapeData(ionFlareX)
+{
+   catagory             = "misc";
+   shapeFile            = "ionFlare.dts";
+};
+
+
+function orbitGunBeamFireC(%pos){
+   testSky(%pos);
+   %p = new LinearFlareProjectile() {
+      dataBlock        = ionCannonProj;
+      initialDirection = "0 0 -1";
+      initialPosition  = vectorAdd(%pos,"0 0" SPC 1+ %i * 20);
+      sourceObject     = -1;
+      sourceSlot       = 0;
+      vehicleObject    = 0;
+   };
+   MissionCleanup.add(%p);   
+
+   %a = new AudioEmitter() {
+			position = "0 0 200";
+			rotation = "1 0 0 0";
+			scale = "1 1 1";
+			fileName = "ionCannonThud.wav";
+			useProfileDescription = "0";
+			outsideAmbient = "1";
+			volume = "1";
+			isLooping = "0";
+			is3D = "0";
+			minDistance = "20";
+			maxDistance = "2048";
+			coneInsideAngle = "360";
+			coneOutsideAngle = "360";
+			coneOutsideVolume = "1";
+			coneVector = "0 0 1";
+			loopCount = "-1";
+			minLoopGap = "0";
+			maxLoopGap = "0";
+			type = "EffectAudioType";
+   };
+   %a.schedule(15000,"delete");
+   MissionCleanup.add(%a);
+   
+   for(%idx = 0; %idx < ClientGroup.getCount(); %idx++){
+      %client = ClientGroup.getObject(%idx);
+      %obj  = %client.getControlObject();
+      if(isObject(%obj) && %obj.getClassName() $= "Camera"){
+         %obj.setWhiteout(0.85); 
+         %dist = vectorDist(%pos, %obj.getPosition());
+         %client.schedule(SpeedOfSound(%dist),"play2D", ionCannonHit);
+         %obj.schedule(SpeedOfSound(%dist), %pos, 50, $DamageType::Explosion);
+      }
+   }
+
+   %damageMasks = $TypeMasks::PlayerObjectType | $TypeMasks::VehicleObjectType |
+                  $TypeMasks::StationObjectType | $TypeMasks::GeneratorObjectType |
+                  $TypeMasks::SensorObjectType | $TypeMasks::TurretObjectType;
+   InitContainerRadiusSearch(%pos,  2048, %damageMasks); 
+   while ((%targetObject = containerSearchNext()) != 0){
+      %dist = vectorDist(%pos, %targetObject.getPosition());
+      if((%targetObject.getType() & $TypeMasks::PlayerObjectType)){
+         %targetObject.setWhiteout(0.85); 
+         %targetObject.client.schedule(SpeedOfSound(%dist),"play2D", ionCannonHit);
+         schedule(SpeedOfSound(%dist), 0, "nukeCamShake2",%obj);
+      }
+      %targetObject.schedule(SpeedOfSound(%dist), "damage", %pos, 50, $DamageType::Explosion);
+    }
+    if($bbGame::ionCannonMode){
+      schedule(5000, 0, "spawnLCTFItems");
+    }
+    else{
+      schedule(5000, 0, "terSwapTest");
+    }
+   schedule(8000, 0, "bbUpdatePlayers");
+}
+
+
+function testSky(%pos){
+
+   Sky.delete();
+   new Sky(Sky) {
+		position = "-1216 -848 0";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		cloudHeightPer[0] = "0.349971";
+		cloudHeightPer[1] = "0.25";
+		cloudHeightPer[2] = "0.199973";
+		cloudSpeed1 = "0.0001";
+		cloudSpeed2 = "0.0002";
+		cloudSpeed3 = "0.0003";
+		visibleDistance = "1600";
+		useSkyTextures = "1";
+		renderBottomTexture = "0";
+		SkySolidColor = "0.390000 0.390000 0.390000 0.000000";
+		fogDistance = "1500";
+		fogColor = "0.500000 0.500000 0.500000 1.000000";
+		fogVolume1 = "0 0 0";
+		fogVolume2 = "0 0 0";
+		fogVolume3 = "0 0 0";
+		materialList = "Lush_l4.dml";
+		windVelocity = "1 0 0";
+		windEffectPrecipitation = "0";
+		fogVolumeColor1 = "128.000000 128.000000 128.000000 0";
+		fogVolumeColor2 = "128.000000 128.000000 128.000000 0";
+		fogVolumeColor3 = "128.000000 128.000000 128.000000 0";
+		high_visibleDistance = "-1";
+		high_fogDistance = "-1";
+		high_fogVolume1 = "-1 1.78457e+25 1.76114e+19";
+		high_fogVolume2 = "-1 3.1807e-27 3.1928e-27";
+		high_fogVolume3 = "-1 0 3.19284e-27";
+
+		locked = "true";
+		cloudSpeed0 = "0.000000 0.000000";
+	};
+
+   MissionCleanup.add(Sky);
+   %a = new StaticShape() {
+		position = %pos;
+		rotation = "1 0 0 0";
+		scale = "10 10 10";
+		nameTag = "Base";
+		dataBlock = "ionFlareX";
+		lockCount = "0";
+		homingCount = "0";
+		Target = "-1";
+	};
+   MissionCleanup.add(%a);
+   %a.schedule(19000,"delete");
+   expandAtSpeed(%a, 1500, 343);
+
+}
+
+
+function spawnLCTFItems(){
+
+   if(!isActivePackage(bbSpawn)){
+      activatePackage(bbSpawn);
+      Game.spawnBypass = true;
+   }
+
+   new TerrainBlock(Terrain2) {
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		detailTexture = "details/snowdet2";
+		terrainFile = "bbAfterMath.ter";
+		squareSize = "8";
+		emptySquares = "";
+      position = "-1024 -1024 0";
+	};  
+
+   Sky.delete();
+   new Sky(Sky) {
+		position = "-1216 -848 0";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		cloudHeightPer[0] = "0.349971";
+		cloudHeightPer[1] = "0.25";
+		cloudHeightPer[2] = "0.199973";
+		cloudSpeed1 = "0.0001";
+		cloudSpeed2 = "0.0002";
+		cloudSpeed3 = "0.0003";
+		visibleDistance = "400";
+		useSkyTextures = "1";
+		renderBottomTexture = "0";
+		SkySolidColor = "0.390000 0.390000 0.390000 0.000000";
+		fogDistance = "300";
+		fogColor = "0.500000 0.500000 0.500000 1.000000";
+		fogVolume1 = "0 0 0";
+		fogVolume2 = "0 0 0";
+		fogVolume3 = "0 0 0";
+		materialList = "Lush_l4.dml";
+		windVelocity = "1 0 0";
+		windEffectPrecipitation = "0";
+		fogVolumeColor1 = "128.000000 128.000000 128.000000 0";
+		fogVolumeColor2 = "128.000000 128.000000 128.000000 0";
+		fogVolumeColor3 = "128.000000 128.000000 128.000000 0";
+		high_visibleDistance = "-1";
+		high_fogDistance = "-1";
+		high_fogVolume1 = "-1 1.78457e+25 1.76114e+19";
+		high_fogVolume2 = "-1 3.1807e-27 3.1928e-27";
+		high_fogVolume3 = "-1 0 3.19284e-27";
+
+		locked = "true";
+		cloudSpeed0 = "0.000000 0.000000";
+	};
+   if(!isActivePackage(bbSpawn)){
+      activatePackage(bbSpawn);
+   }
+   $TeamFlag[1].setTransform("-231.889 90.3593 642.733 0 0 1 120");
+   $TeamFlag[1].originalPosition = "-231.889 90.3593 642.733";
+
+   $TeamFlag[2].setTransform("233.986 -91.1905 642.713 0 0 -1 60");
+   $TeamFlag[2].originalPosition = "233.986 -91.1905 642.713";
+
+
+   %a = new TSStatic() {
+		position = "-239.643 70.4626 636.839";
+		rotation = "-0.0913773 -0.486135 0.869093 198.556";
+		scale = "1 1 1";
+		shapeName = "bbStandBrokenTop.dts";
+	};
+   MissionCleanup.add(%a);
+   %a = new TSStatic() {
+		position = "-231.889 90.3593 632.253";
+		rotation = "0 0 1 201.291";
+		scale = "1 1 1";
+		shapeName = "bbStandBrokenBtm.dts";
+	};
+   MissionCleanup.add(%a);
+
+
+   %a = new TSStatic() {
+		position = "238.497 -73.4026 636.975";
+		rotation = "0.916437 -0.17226 0.361205 54.9839";
+		scale = "1 1 1";
+		shapeName = "bbStandBrokenTop.dts";
+	};
+   MissionCleanup.add(%a);
+   %a = new TSStatic() {
+		position = "233.986 -91.1905 632.333";
+		rotation = "0 0 1 21.291";
+		scale = "1 1 1";
+		shapeName = "bbStandBrokenBtm.dts";
+	};
+   MissionCleanup.add(%a);
+
+
+   %a = new Item() {
+		position = "-260.618 60.9086 636.086";
+		rotation = "0 0 1 107.326";
+		scale = "1 1 1";
+		dataBlock = "InventoryDeployable";
+		lockCount = "0";
+		homingCount = "0";
+		collideable = "0";
+		static = "1";
+		rotate = "0";
+
+		Target = "-1";
+	};
+   MissionCleanup.add(%a);
+	%a = new Item() {
+		position = "-261.273 58.8084 636.086";
+		rotation = "0 0 1 107.326";
+		scale = "1 1 1";
+		dataBlock = "InventoryDeployable";
+		lockCount = "0";
+		homingCount = "0";
+		collideable = "0";
+		static = "1";
+		rotate = "0";
+
+		Target = "-1";
+	};
+   MissionCleanup.add(%a);
+	%a = new Item() {
+		position = "259.082 -64.4557 635.665";
+		rotation = "0 0 -1 71.0468";
+		scale = "1 1 1";
+		dataBlock = "InventoryDeployable";
+		lockCount = "0";
+		homingCount = "0";
+		collideable = "0";
+		static = "1";
+		rotate = "0";
+
+		Target = "-1";
+	};
+   MissionCleanup.add(%a);
+	%a = new Item() {
+		position = "258.413 -66.404 635.665";
+		rotation = "0 0 -1 71.0468";
+		scale = "1 1 1";
+		dataBlock = "InventoryDeployable";
+		lockCount = "0";
+		homingCount = "0";
+		collideable = "0";
+		static = "1";
+		rotate = "0";
+
+		Target = "-1";
+	};
+   MissionCleanup.add(%a);
+
+   %a = new ParticleEmissionDummy() {
+		position = "-239.643 70.4626 600";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "defaultEmissionDummy";
+		lockCount = "0";
+		homingCount = "0";
+		emitter = "midMapSmokeEmitter";
+		velocity = "1";
+
+		locked = "true";
+	};
+   MissionCleanup.add(%a);
+
+   %a = new ParticleEmissionDummy() {
+		position = "238.497 -73.4026 600";
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		dataBlock = "defaultEmissionDummy";
+		lockCount = "0";
+		homingCount = "0";
+		emitter = "midMapSmokeEmitter";
+		velocity = "1";
+
+		locked = "true";
+	};
+   MissionCleanup.add(%a);
+}
+
+function terSwapTest(){
+ 	new TerrainBlock(Terrain2) {
+		rotation = "1 0 0 0";
+		scale = "1 1 1";
+		detailTexture = "details/snowdet2";
+		terrainFile = "bombardmentFlat.ter";
+		squareSize = "8";
+		emptySquares = "";
+      position = "-1024 -1024 0";
+	};  
+}
+
+
+function expandAtSpeed(%obj, %finalScale, %speed)
+{
+    %dt = 33; // ~30 FPS
+    expandTick(%obj, %finalScale, %speed, %dt);
+}
+
+function expandTick(%obj, %finalScale, %speed, %dt)
+{
+    if (!isObject(%obj))
+        return;
+
+    // Current uniform scale (uses X only)
+    %current = getWord(%obj.getScale(), 0);
+
+    // Stop if at or above final scale
+    if (%current >= %finalScale)
+    {
+        %obj.setScale(%finalScale SPC %finalScale SPC %finalScale);
+        return;
+    }
+
+    // Increase per tick
+    %step = %speed * (%dt / 1000);
+
+    %new = %current + %step;
+    if (%new > %finalScale)
+        %new = %finalScale;
+
+    %obj.setScale(%new SPC %new SPC %new);
+
+    // Continue
+    schedule(%dt, 0, expandTick, %obj, %finalScale, %speed, %dt);
+}
+
+function bbUpdatePlayers(){
+   Game.spawnBypass = 1;
+   for(%i = 0; %i < ClientGroup.getCount(); %i++){
+      %client = ClientGroup.getObject(%i);
+      if(isObject(%client.player)){
+         %newPos = Game.pickPlayerSpawn(%client, 0);
+         %client.player.setPosition(%newPos);
+      }
+   }
+}
+
+package bbSpawn{
+   function DefaultGame::pickPlayerSpawn(%game, %client, %respawn){
+      if(Game.spawnBypass){
+         %team = %client.team;
+         %pos = $TeamFlag[%team].getPosition();
+         for(%i = 0; %i < 25; %i++){
+            %randx = getWord(%pos,0)+getRandom(-150,150);
+            %randy = getWord(%pos,1)+getRandom(-150,150);
+            %mask = $TypeMasks::StaticShapeObjectType | $TypeMasks::InteriorObjectType | $TypeMasks::TerrainObjectType;
+            %rayStart = %randx SPC %randy SPC "1000";
+            %rayEnd = %randx SPC %randy SPC "-1000";
+            %ground = ContainerRayCast(%rayStart, %rayEnd, %mask, 0);
+            if(%ground)
+            {
+               %loc = getWord(%ground,1) SPC getWord(%ground,2) SPC getWord(%ground,3)+0.1;
+               break;
+            }
+         }
+         if(%ground)
+            return %loc;
+         return parent::pickPlayerSpawn(%game, %client, %respawn);
+
+      }
+      else{
+         return parent::pickPlayerSpawn(%game, %client, %respawn);
+      }
+   }
+};
+
+datablock ParticleData(standSmokeParticle) {
+   dragCoefficient = "0";
+   windCoefficient = "0";
+   gravityCoefficient = "-0.5";
+   inheritedVelFactor = "0";
+   constantAcceleration = "0";
+   lifetimeMS = "6000";
+   lifetimeVarianceMS = "500";
+   spinSpeed = "1";
+   spinRandomMin = "-50";
+   spinRandomMax = "50";
+   useInvAlpha = "1";
+   textureName = "hotSmoke";
+   colors[0] = "0.604724 0.604724 0.604724 0.2";
+   colors[1] = "0.6291339 0.691339 0.691339 0.2";
+   colors[2] = "0.659843 0.659843 0.659843 0.2";
+   colors[3] = "0.0787402 0.0787402 0.0787402 0.0";
+   sizes[0] = "50";
+   sizes[1] = "50";
+   sizes[2] = "50";
+   sizes[3] = "50";
+   times[0] = "0.1";
+   times[1] = "0.4";
+   times[2] = "0.8";
+   times[3] = "1";
+};
+
+datablock ParticleEmitterData(standSmokeEmitter) {
+   ejectionPeriodMS = "10";
+   periodVarianceMS = "0";
+   ejectionVelocity = "5";
+   velocityVariance = "3";
+   ejectionOffset = "100";
+   ejectionOffsetVariance = "50";
+   thetaMin = "20";
+   thetaMax = "90";
+   phiReferenceVel = "0";
+   phiVariance = "360";
+   overrideAdvance = "1";
+   orientParticles = "0";
+   orientOnVelocity = "1";
+   particles = "standSmokeParticle";
+   lifetimeMS = "0";
+   lifetimeVarianceMS = "0";
+   reverseOrder = "0";
+   alignParticles = "0";
+   alignDirection = "0 1 0";
+   highResOnly = "1";
+};
