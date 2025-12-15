@@ -2089,12 +2089,14 @@ function CannonBlocker::onAdd(%data, %obj){
       MissionCleanup.add(ccSimObj);    
       $BBSimEvent = schedule(10000, 0, "bbsim");
       schedule(1000, 0, "bbSwitchInit");
+      $AmmoStation::mode = 0;
    }
 } 
 
 function CannonBlocker::onRemove(%this, %obj){
    if (isActivePackage(bbSpawn)){
       deactivatePackage(bbSpawn);
+      $AmmoStation::mode = 1;
    }
 }
 
@@ -2323,16 +2325,16 @@ function fireSwitchBB::onCollision(%data,%obj,%col)
                      messageClient(%col.client, 'msgSwitchDenied', '\c2No Valid Coordinates Selected.~wfx/powered/station_denied.wav');    
                }
             case "orbital":
-               if(!%obj.lastFired ||  (getSimTime() - %obj.lastFired) > 60 * %obj.lockOutTime){ 
+               if(!%obj.lastFired ||  (Game.turtleTime > (%obj.lockOutTime*60))){ 
                   if(!Game.orbitalGunFire){
-                     //Game.orbitalGunFire = true;// lock it out as this is game over
+                     Game.orbitalGunFire = true;// lock it out as this is game over
                      fireOrbitGuns(%obj.team, %col.client);
-                     %obj.lastFired = getSimTime();
                      messageAll('msgSwitchDenied', '\c2Firing Orbital Ion Cannon.~wfx/misc/red_alert_short.wav'); 
                   }
                }
                else{
-                  messageClient(%col.client, 'msgSwitchDenied', '\c2Reloading - Time Remaining %1.~wfx/powered/station_denied.wav', game.formatTime((60 * %obj.lockOutTime) - (getSimTime() - %obj.lastFired)));    
+                  %time = (60 * %obj.lockOutTime) - Game.turtleTime;
+                  messageClient(%col.client, 'msgSwitchDenied', '\c2Only counts down during a stalemate/turtle - Time Remaining %1.~wfx/powered/station_denied.wav', game.formatTime(%time));
                }
          }
       }
@@ -2871,16 +2873,15 @@ function fireOrbitGuns(%team, %client){
    ServerPlay3D(ionAlarmSFX, "-20.333 746.415 192.375");
    ServerPlay3D(ionAlarmSFX, "-36.703 -746.442 193.631");
    //messageAll('ServerAudio','~walarm.wav');
-   %pos = "4.60111 -1.10804 -436.073";
-   %rot = "0.324266 0.260938 -0.909265 83.0181";
-   //%client.camera.setTransform(%pos SPC %rot);
-   %client.camera.setTransform("4.60111 -1.10804 -436.073 0.324266 0.260938 -0.909265 83.0181");
    commandToClient(%client, 'setHudMode', 'PickTeam');
+   
+   %client.schedule(7000, "setControlObject", %client.camera);
    schedule(8000, 0, "fireOrbitGunStart", %client);
 }
 
 function fireOrbitGunStart(%client){
-   %client.setControlObject(%client.camera);
+   %client.camera.setTransform("4.60111 -1.10804 -436.073" SPC "0.324266 0.260938 -0.909265 83.0181");
+
    obGun.stopThread(0);
    obGun.schedule(2000, "playThread", 0, "open");
    schedule(2000, 0, "commandToClient", %client, 'ServerAudio', "~worbitGunPop.wav",0);
@@ -3562,7 +3563,7 @@ function spawnLCTFItems(){
 		position = "-260.618 60.9086 636.086";
 		rotation = "0 0 1 107.326";
 		scale = "1 1 1";
-		dataBlock = "InventoryDeployable";
+		dataBlock = "T2AmmoDeployable";
 		lockCount = "0";
 		homingCount = "0";
 		collideable = "0";
@@ -3576,7 +3577,7 @@ function spawnLCTFItems(){
 		position = "-261.273 58.8084 636.086";
 		rotation = "0 0 1 107.326";
 		scale = "1 1 1";
-		dataBlock = "InventoryDeployable";
+		dataBlock = "T2AmmoDeployable";
 		lockCount = "0";
 		homingCount = "0";
 		collideable = "0";
@@ -3590,7 +3591,7 @@ function spawnLCTFItems(){
 		position = "259.082 -64.4557 635.665";
 		rotation = "0 0 -1 71.0468";
 		scale = "1 1 1";
-		dataBlock = "InventoryDeployable";
+		dataBlock = "T2AmmoDeployable";
 		lockCount = "0";
 		homingCount = "0";
 		collideable = "0";
@@ -3604,7 +3605,7 @@ function spawnLCTFItems(){
 		position = "258.413 -66.404 635.665";
 		rotation = "0 0 -1 71.0468";
 		scale = "1 1 1";
-		dataBlock = "InventoryDeployable";
+		dataBlock = "T2AmmoDeployable";
 		lockCount = "0";
 		homingCount = "0";
 		collideable = "0";

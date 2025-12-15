@@ -5602,6 +5602,28 @@ $armorArray[6] = LightMaleBiodermArmor;
 $armorArray[7] = MediumMaleBiodermArmor;
 $armorArray[8] = HeavyMaleBiodermArmor;
 
+function t1ammoarray(){
+   if(!$t1SetupAmmoArray){
+      $t1SetupAmmoArray = 1;
+      
+      for(%i = 0; %i < 100; %i++){// find the end of the array
+         if($ammoType[%i] $= ""){
+            break;
+         }
+      }
+      $ammoType[%i] = "T1DiscAmmo";
+      %i++;
+      $ammoType[%i] = "T1PlasmaAmmo";
+      %i++;
+      $ammoType[%i] = "T1MortarAmmo";
+      %i++;
+      $ammoType[%i] = "T1GLAmmo";
+      %i++;
+      $ammoType[%i] = "T1ChainGunAmmo";
+      %i++;
+   }
+}t1ammoarray();
+
 function loadRetInfo(){
    if(!$t1loadRet){ 
       $t1loadRet = 1;
@@ -5676,7 +5698,7 @@ function loadRetInfo(){
 
 
       for(%a = 0; %a < 9; %a++){
-                     %armor = $armorArray[%a];
+         %armor = $armorArray[%a];
          for(%i = 0; %i < 5; %i++){
             %armor.max[$t1AmmoWep[%i]] = %armor.max[$t1AmmoWepEQ[%i]];
             %armor.max[$t1AmmoWep[%i].image.ammo] = %armor.max[$t1AmmoWepEQ[%i].image.ammo];
@@ -5724,7 +5746,6 @@ function t1buyFavorites(%client)
    %client.player.t1clearInventory();
    %client.setWeaponsHudClearAll();
    %cmt = $CurrentMissionType;
-   %eng = %client.player.getEnergyLevel();
    %curArmor = %client.player.getDatablock();
    %curDmgPct = getDamagePercent(%curArmor.maxDamage, %client.player.getDamageLevel());
 
@@ -5733,7 +5754,7 @@ function t1buyFavorites(%client)
    %client.player.setArmor( %client.armor );
    %newArmor = %client.player.getDataBlock();
    %client.player.setDamageLevel(%curDmgPct * %newArmor.maxDamage);
-   %client.player.setEnergyLevel(%eng);
+   %client.player.setEnergyLevel( %client.player.getDataBlock().maxEnergy);
    %weaponCount = 0;
 
    // weapons

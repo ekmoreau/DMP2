@@ -1,5 +1,6 @@
 //t2 ammo station
 //Script By: DarkTiger
+$AmmoStation::mode = 1; // ammo only 0 like a deployable invy 
 datablock TriggerData(T2AmmoTrig){
    tickPeriodMS =  32;
 };
@@ -122,6 +123,19 @@ function T2AmmoDeployableImage::onDeploy(%item, %plyr, %slot){
    %trigger.station =%obj;
    %obj.trigger = %trigger;
 
+   %b = new BeaconObject() {
+      dataBlock = "DeployedBeacon";
+      position =%obj.position;
+      rotation = %obj.rotation;
+      team = %obj.team;
+      scale = "0.5 0.5 0.5";
+      invincible = "1";
+   };
+   MissionCleanup.add(%b);
+   %b.setBeaconType(friend);
+   %b.setTarget(%obj.team);
+   %obj.beacon = %b;
+
 }
 function T2AmmoDeployable::onCollision(%data,%obj,%col){
    if (%col.getDataBlock().className $= Armor && %col.getState() !$= "Dead" && %col.getMountedImage(2) == 0 && !%col.isMounted()){
@@ -142,11 +156,25 @@ function T2AmmoDeployable::onCollision(%data,%obj,%col){
 
 function T2AmmoDeployableObj::onDestroyed(%this, %obj, %prevState){
    Parent::onDestroyed(%this, %obj, %prevState);
+   //$TeamDeployedCount[%obj.team, T2AmmoDeployable]--;
+   if(isObject(%obj.trigger)){   
+      %obj.trigger.delete();
+   }
+   if(isObject(%obj.beacon)){   
+      %obj.beacon.delete();
+   }
+   %obj.schedule(256, "delete");
+}
+
+function T2AmmoDeployableObj::onRemove(%this,%obj){
    $TeamDeployedCount[%obj.team, T2AmmoDeployable]--;
    if(isObject(%obj.trigger)){   
       %obj.trigger.delete();
    }
-   %obj.schedule(500, "delete");
+   if(isObject(%obj.beacon)){   
+      %obj.beacon.delete();
+   }
+   Parent::onRemove(%this, %obj);
 }
 
 
@@ -182,7 +210,12 @@ function T2AmmoTrig::onEnterTrigger(%data, %trigger, %player){
       commandToClient(%player.client, 'TogglePlayHuds', true);
       if(%targetname $= "T2AmmoDeployableObj"){
          %station.playAudio(2, DepInvActivateSound);
-         getAmmoStationLovin2(%player.client);
+         if($AmmoStation::mode){
+            getAmmoStationLovin2(%player.client);
+         }
+         else{
+            buyDeployableFavorites(%player.client);
+         }
          %player.setVelocity("0 0 0");
          %oldRate = %player.getRepairRate();
          %player.setRepairRate(%oldRate + 0.00625);
@@ -198,6 +231,16 @@ function T2AmmoTrig::onleaveTrigger(%data, %trigger, %player){
       if(isObject(%station)){
          %station.stopThread(2);
          %player.setRepairRate(0);
+
+         if(!$AmmoStation::mode && %player.getMountedImage($WeaponSlot) == 0)
+         {
+            if(%player.inv[%player.lastWeapon]){
+               %player.use(%player.lastWeapon);
+            }
+            else{ 
+               %player.selectWeaponSlot( 0 );
+            }
+         }
       }
    }
 }
