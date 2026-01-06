@@ -146,3 +146,25 @@ function clientCmdOpenCommanderMap(%scope){
       CommanderMapGui.close();
 }
 
+function clientCmdServerAudio(%file, %track, %pitch, %pos){
+
+ error(%file SPC %track SPC %pitch SPC %pos);
+   if ( ( %file $= "" ) )
+      return;
+            
+   // search for wav tag marker
+   %wavStart = strstr( %file, "~w" );
+   if ( %wavStart != -1 ){
+      %wavFile = getSubStr(%file, %wavStart + 2, 1000);
+      if (%pitch < 0.5 || %pitch > 2.0)
+         %pitch = 1.0;
+
+      if ( $ServerAudio[%track] != 0 )
+         alxStop( $ServerAudio[%track] );
+      $ServerAudio[%track] = alxCreateSource( AudioChat, %wavFile );
+
+      if (%pitch != 1.0)
+         alxSourcef($ServerAudio[%track], "AL_PITCH", %pitch);
+      alxPlay( $ServerAudio[%track]);
+   }
+}

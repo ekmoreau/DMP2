@@ -7,6 +7,19 @@
 datablock TriggerData(waterSkiTrig){
    tickPeriodMS =  32;
 };
+datablock StaticShapeData(WaterSkiObj)
+{
+   catagory             = "misc";
+   shapeFile            = "t1baseflag.dts";
+};
+function WaterSkiObj::onAdd(%this, %obj){ 
+   parent::onAdd(%this, %obj);
+   addWaterSki(1);
+}
+function WaterSkiObj::onRemove(%this, %obj){
+   parent::onRemove(%this, %obj);
+
+}
 
 package tdSki{
   function Armor::onTrigger(%data, %player, %triggerNum, %val){
@@ -70,19 +83,30 @@ function waterSkiTrig::onleaveTrigger(%data, %trigger, %player){
   //do nothing 
 }
 
-function addWaterSki(){
+function addWaterSki(%cleanup){
    InitContainerRadiusSearch("0 0 50",  9999,  $TypeMasks::WaterObjectType);
    while ((%targetObject = containerSearchNext()) != 0){
       error("adding water ski objs too" SPC %targetObject);
-      setupWaterSki(%targetObject);
+      if(!%targetObject.waterSKi){
+         %targetObject.waterSKi = 0;
+         %targetObject.skiTrig = 0;
+         %targetObject.skiZone = 0;
+         setupWaterSki(%targetObject,%cleanup);
+      }
    }
 }
 
 
-function setupWaterSki(%obj){
+function setupWaterSki(%obj, %cleanup){
+   if(isObject(WaterSkiObj)){
+      WaterSkiObj.delete();   
+   }
    if(!isObject(%obj.skiTrig) && !isObject(%obj.skiZone)){
-      if(!isObject(waterSkiGrp)){
-         new simGroup(waterSkiGrp);
+      new simGroup(waterSkiGrp);
+      if(%cleanup){
+         MissionCleanup.add(waterSkiGrp);
+      }
+      else{
          MissionGroup.add(waterSkiGrp);
       }
       %waterSurface = getWord(%obj.getWorldBoxCenter(),2) + (getWord(%obj.getScale(),2)/2);
