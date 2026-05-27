@@ -75,6 +75,30 @@ function faceBox::onRemove(%this, %obj){
 
    }
 
+   function deleteNonLCTFObjects(){
+      %c = 0;
+      InitContainerRadiusSearch("0 0 0", 9999, $TypeMasks::ItemObjectType |
+      $TypeMasks::TurretObjectType | $TypeMasks::VehicleObjectType | $TypeMasks::StaticShapeObjectType); //For FF: $TypeMasks::ForceFieldObjectType
+      while ((%obj = containerSearchNext()) != 0){
+         if(%obj.Datablock !$= "flag" && 
+         %obj.Datablock !$= "RepairKit" && 
+         %obj.Datablock !$= "RepairPatch" && 
+         %obj.Datablock !$= "ExteriorFlagStand" && 
+         %obj.Datablock !$= "InteriorFlagStand" && 
+         %obj.Datablock !$= "NexusBase" &&
+         %obj.dontDelete != 1){
+            %deleteList[%c] = %obj;
+            %c++;
+         }
+      }
+      for(%i = 0; %i  < %c; %i++){
+          %deleteList[%i].delete();
+      }
+      //Delete all ForceField PhysicalZones (PZones)
+      // if(isObject(PZones))
+      //    PZones.schedule(1500,"delete");
+   }   
+
  };
 
 function faceDeathTrigger::onEnterTrigger(%data, %trigger, %player){
@@ -106,45 +130,6 @@ function faceFlagReset(){
 		}
 	}
 }
-
-
-package lctfDelete{
-   //AutoRemove assets, sensors, and turrets from non-LT maps
-   function deleteNonLCTFObjects()
-   {
-      %c = 0;
-      InitContainerRadiusSearch("0 0 0", 9999, $TypeMasks::ItemObjectType |
-      $TypeMasks::TurretObjectType | $TypeMasks::VehicleObjectType | $TypeMasks::StaticShapeObjectType); //For FF: $TypeMasks::ForceFieldObjectType
-      while ((%obj = containerSearchNext()) != 0)
-      {
-         if(%obj.Datablock !$= "flag" && 
-         %obj.Datablock !$= "RepairKit" && 
-         %obj.Datablock !$= "RepairPatch" && 
-         %obj.Datablock !$= "ExteriorFlagStand" && 
-         %obj.Datablock !$= "InteriorFlagStand" && 
-         %obj.Datablock !$= "NexusBase" &&
-         %obj.dontDelete != 1) //Dont delete these...
-         {
-            %deleteList[%c] = %obj;
-            %c++;
-         }
-      }
-      for(%i = 0; %i  < %c; %i++)
-      {
-          %deleteList[%i].delete();
-      }
-
-      //Delete all ForceField PhysicalZones (PZones)
-      // if(isObject(PZones))
-      //    PZones.schedule(1500,"delete");
-   }   
-   
-};
-if(!isActivePackage(lctfDelete))
-      activatePackage(lctfDelete);
-
-
-
 
 
  datablock ItemData(Redeemer){

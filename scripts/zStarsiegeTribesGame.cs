@@ -14,6 +14,11 @@ function T1StartObj::onAdd(%this, %obj){
          $TeamDeployedCount[%i, T1RemoteTurret] = 0;
          $TeamDeployedCount[%i, T1InvyDeployable] = 0;
          $TeamDeployedCount[%i, T1AmmoDeployable] = 0; 
+         $TeamDeployedCount[%i, T1MineDeployed] = 0;
+         $TeamDeployedCount[%i, T1PulseSensorDeployable] = 0;
+         $TeamDeployedCount[%i, T1MotionSensorDeployable] = 0;
+         $TeamDeployedCount[%i, TargetBeacon] = 0;
+         $TeamDeployedCount[%i, MarkerBeacon] = 0;    
       }
    }
 }
@@ -42,7 +47,7 @@ function T1WeaponImage::onMount(%this,%obj,%slot)
       if (%obj.getInventory(%this.ammo))
          %obj.setImageAmmo(%slot,true);
 
-   %shape = %this.shapeFile;
+   %shape = %this.shapeFile; 
    switch$(%shape){//    t1RepairPackGun.dts
       case "t1plasma.dts":
          %obj.client.setWeaponsHudActive("Blaster");
@@ -230,7 +235,7 @@ datablock ItemData(T1Disc){
    pickupRadius = 2;
    pickUpName = "a T1 disc";
    ammoAmount = 15;
-   ammo = DiscAmmo;
+   ammo = T1DiscAmmo;
 };
 
 
@@ -1032,7 +1037,7 @@ datablock ItemData(T1Plasma){
    pickupRadius = 2;
    pickUpName = "a T1 disc";
    ammoAmount = 30;
-   ammo = PlasmaAmmo;
+   ammo = T1PlasmaAmmo;
 };
 
 datablock ItemData(T1PlasmaAmmo)
@@ -1167,7 +1172,7 @@ datablock ItemData(T1Mortar){
    pickupRadius = 2;
    pickUpName = "a T1 disc";
    ammoAmount = 10;
-   ammo = MortarAmmo;
+   ammo = T1MortarAmmo;
 };
 
 datablock ItemData(T1MortarAmmo)
@@ -1335,7 +1340,7 @@ datablock AudioProfile(T1GLFireSound)
 
 datablock AudioProfile(T1GLExpSound)
 {
-   filename    = "t1sounds/EXPLO3.wav";
+   filename    = "t1sounds/BXplo3.wav";
    description = AudioExplosion3d;
    preload = true;
 };
@@ -1413,7 +1418,7 @@ datablock ItemData(T1GL){
    pickupRadius = 2;
    pickUpName = "a T1 disc";
    ammoAmount = 10;
-   ammo = GrenadeLauncherAmmo;
+   ammo = T1GrenadeLauncherAmmo;
 };
 
 datablock ItemData(T1GrenadeLauncherAmmo)
@@ -1622,7 +1627,7 @@ datablock ItemData(T1ChainGun){
    pickupRadius = 2;
    pickUpName = "a T1 chaingun";
    ammoAmount = 200;
-   ammo = ChaingunAmmo;
+   ammo = T1ChaingunAmmo;
 };
 
 datablock ItemData(T1ChaingunAmmo)
@@ -5540,13 +5545,13 @@ function CTFGame::equip(%game, %player){
 
       //%player.setArmor("Light");
       %player.setInventory(RepairKit,1);
-      %player.setInventory(Grenade,6);
+      %player.setInventory(T1Grenade,6);
       %player.setInventory(T1Blaster,1);
       %player.setInventory(T1Disc,1);
       %player.setInventory(T1ChainGun, 1);
       %player.setInventory(T1ChainGunAmmo, 100);
       %player.setInventory(T1DiscAmmo, 20);
-      %player.setInventory(Beacon, 3);
+      %player.setInventory(T1Beacon, 3);
       %player.setInventory(TargetingLaser, 1);
       %player.weaponCount = 3;
       
@@ -5601,6 +5606,8 @@ $armorArray[5] = HeavyFemaleHumanArmor;
 $armorArray[6] = LightMaleBiodermArmor;
 $armorArray[7] = MediumMaleBiodermArmor;
 $armorArray[8] = HeavyMaleBiodermArmor;
+
+
 
 function t1ammoarray(){
    if(!$t1SetupAmmoArray){
@@ -5696,6 +5703,52 @@ function loadRetInfo(){
       $BackpackHudData[$BackpackHudCount, bitmapName] = "gui/hud_new_packinventory";
       $BackpackHudCount++;  
 
+      $BackpackHudData[$BackpackHudCount, itemDataName] = "T1AmmoPack";
+      $BackpackHudData[$BackpackHudCount, bitmapName] = "gui/hud_new_packammo";
+      $BackpackHudCount++; 
+
+      $BackpackHudData[$BackpackHudCount, itemDataName] = "T1EnergyPack";
+      $BackpackHudData[$BackpackHudCount, bitmapName] = "gui/hud_new_packenergy";
+      $BackpackHudCount++; 
+
+      $BackpackHudData[$BackpackHudCount, itemDataName] = "T1ShieldPack";
+      $BackpackHudData[$BackpackHudCount, bitmapName] = "gui/hud_new_packshield";
+      $BackpackHudCount++; 
+
+      $BackpackHudData[$BackpackHudCount, itemDataName] = "T1SensorJammerPack";
+      $BackpackHudData[$BackpackHudCount, bitmapName] = "gui/hud_new_packsensjam";
+      $BackpackHudCount++; 
+
+      $BackpackHudData[$BackpackHudCount, itemDataName] = "T1SensorJammerPack";
+      $BackpackHudData[$BackpackHudCount, bitmapName] = "gui/hud_new_packsensjam";
+      $BackpackHudCount++; 
+
+      $BackpackHudData[$BackpackHudCount, itemDataName] = "T1MotionSensorDeployable";
+      $BackpackHudData[$BackpackHudCount, bitmapName] = "gui/hud_new_packmotionsens";
+      $BackpackHudCount++; 
+
+      $BackpackHudData[$BackpackHudCount, itemDataName] = "T1PulseSensorDeployable";
+      $BackpackHudData[$BackpackHudCount, bitmapName] = "gui/hud_new_packradar";
+      $BackpackHudCount++; 
+
+      $InventoryHudData[$InventoryHudCount, bitmapName]   = "gui/hud_handgren";
+      $InventoryHudData[$InventoryHudCount, itemDataName] = T1Grenade;
+      $InventoryHudData[$InventoryHudCount, ammoDataName] = T1Grenade;
+      $InventoryHudData[$InventoryHudCount, slot]         = 0;
+      $InventoryHudCount++;
+
+      $InventoryHudData[$InventoryHudCount, bitmapName]   = "gui/hud_mine";
+      $InventoryHudData[$InventoryHudCount, itemDataName] = T1Mine;
+      $InventoryHudData[$InventoryHudCount, ammoDataName] = T1Mine;
+      $InventoryHudData[$InventoryHudCount, slot]         = 1;
+      $InventoryHudCount++;
+
+      $InventoryHudData[$InventoryHudCount, bitmapName]   = "gui/hud_beacon";
+      $InventoryHudData[$InventoryHudCount, itemDataName] = T1Beacon;
+      $InventoryHudData[$InventoryHudCount, ammoDataName] = T1Beacon;
+      $InventoryHudData[$InventoryHudCount, slot]         = 2;
+      $InventoryHudCount++;
+
 
       for(%a = 0; %a < 9; %a++){
          %armor = $armorArray[%a];
@@ -5706,6 +5759,15 @@ function loadRetInfo(){
          for(%i = 0; %i < 4; %i++){
             %armor.max[$t1EngWep[%i]] = %armor.max[$t1EngWepEQ[%i]];
          }
+         %armor.max[T1Mine]  = %armor.max[Mine];//copy mine values from 
+         %armor.max[T1Grenade]  = %armor.max[Grenade];
+         %armor.max[T1AmmoPack]  = %armor.max[AmmoPack];
+         %armor.max[T1EnergyPack]  = %armor.max[EnergyPack];
+         %armor.max[T1ShieldPack]  = %armor.max[ShieldPack];
+         %armor.max[T1SensorJammerPack]  = %armor.max[SensorJammerPack];
+         %armor.max[T1PulseSensorDeployable]  = %armor.max[PulseSensorDeployable];
+         %armor.max[T1MotionSensorDeployable]  = %armor.max[MotionSensorDeployable];
+         %armor.max[T1Beacon]  = %armor.max[Beacon];
       }
    }
 }loadRetInfo();
@@ -5784,17 +5846,27 @@ function t1buyFavorites(%client)
       if ( %pCh $= "" )
          %client.clearBackpackIcon();
       else{
-         if(%pch $= "RepairPack"){
+         switch$(%pch){
+            case "RepairPack":
                %client.player.setInventory( "t1RepairPack", 1, 1);
-         }
-         else if(%pch $= "InventoryDeployable"){
+            case "AmmoPack":
+               %client.player.setInventory( "T1AmmoPack", 1, 1);
+            case "EnergyPack":
+               %client.player.setInventory( "T1EnergyPack", 1, 1);
+            case "ShieldPack":
+               %client.player.setInventory( "T1ShieldPack", 1, 1);
+            case "SensorJammerPack":
+               %client.player.setInventory( "T1SensorJammerPack", 1, 1);
+            case "InventoryDeployable":
                %client.player.setInventory( "T1InvyDeployable", 1, 1);
-         }
-         else if(%pch $= "TurretIndoorDeployable" || %pch $= "TurretOutdoorDeployable"){
+            case "TurretIndoorDeployable" or "TurretOutdoorDeployable":
                %client.player.setInventory( "T1RemoteTurret", 1, 1);
-         }
-         else{
-            %client.player.setInventory( %pCh, 1 );
+            case "PulseSensorDeployable":
+               %client.player.setInventory( "T1PulseSensorDeployable", 2, 1);
+            case "MotionSensorDeployable":
+               %client.player.setInventory( "T1MotionSensorDeployable", 2, 1);
+            default:
+               %client.player.setInventory( %pCh, 1 );
          }
       }
    }
@@ -5822,8 +5894,11 @@ function t1buyFavorites(%client)
    // grenades
    for ( %i = 0; %i < getFieldCount( %client.grenadeIndex ); %i++ )
    {
-      if ( !($InvBanList[%cmt, $NameToInv[%client.favorites[getField( %client.grenadeIndex, %i )]]]) )
-        %client.player.setInventory( $NameToInv[%client.favorites[getField( %client.grenadeIndex,%i )]], 30 );
+      %data = $NameToInv[%client.favorites[getField( %client.grenadeIndex, %i )]];
+      if ( !($InvBanList[%cmt, %data]) ){
+         %data = (%data $= "Grenade") ? "T1Grenade" : %data;
+        %client.player.setInventory(%data, 30 );
+      }
    }
 
    %client.player.lastGrenade = $NameToInv[%client.favorites[getField( %client.grenadeIndex,%i )]];
@@ -5846,20 +5921,20 @@ function t1buyFavorites(%client)
    for ( %i = 0; %i < getFieldCount( %client.mineIndex ); %i++ )
    {
       if ( !($InvBanList[%cmt, $NameToInv[%client.favorites[getField( %client.mineIndex, %i )]]]) )
-        %client.player.setInventory( $NameToInv[%client.favorites[getField( %client.mineIndex,%i )]], 30 );
+        %client.player.setInventory(T1Mine, 30);
    }
    // -----------------------------------------------------------------------------------------------------
    // miscellaneous stuff -- Repair Kit, Beacons, Targeting Laser
    if ( !($InvBanList[%cmt, RepairKit]) )
       %client.player.setInventory( RepairKit, 1 );
    if ( !($InvBanList[%cmt, Beacon]) )
-      %client.player.setInventory( Beacon, 20 ); // z0dd - ZOD, 4/24/02. 400 was a bit much, changed to 20
+      %client.player.setInventory( T1Beacon, 20 ); // z0dd - ZOD, 4/24/02. 400 was a bit much, changed to 20
    if ( !($InvBanList[%cmt, TargetingLaser]) )
       %client.player.setInventory( TargetingLaser, 1 );
 
    // ammo pack pass -- hack! hack!
    if( %pCh $= "AmmoPack" )
-      invAmmoPackPass(%client);
+      t1InvAmmoPackPass(%client);
 }
 
 
@@ -5898,8 +5973,11 @@ function t1buyDeployableFavorites(%client)
    {   
       %GInv = $NameToInv[%client.favorites[getField( %client.grenadeIndex, %i )]];
       %client.player.lastGrenade = %GInv;
-      if ( !($InvBanList[DeployInv, %GInv])  &&  !$InvBanList[%cmt, %GInv])
+      if ( !($InvBanList[DeployInv, %GInv])  &&  !$InvBanList[%cmt, %GInv]){
+         %GInv = (%GInv $= "Grenade") ? "T1Grenade" : %GInv;
+         %GInv = (%GInv $= "Mine") ? "T1Mine" : %GInv;
          %player.setInventory( %GInv, 30 );
+      }
    }
 
    // if player is buying cameras, show how many are already deployed
@@ -5970,7 +6048,7 @@ function t1buyDeployableFavorites(%client)
    }
 
    if(%packChoice $= "AmmoPack")
-      invAmmoPackPass(%client);
+      t1InvAmmoPackPass(%client);
 }
 
 //-------------------------------------------------------------------------------------
@@ -6000,8 +6078,11 @@ function T1getAmmoStationLovin(%client)
    {
       %grenType = Grenade;
    } 
-   if ( !($InvBanList[%cmt, %grenType]) )
+   if ( !($InvBanList[%cmt, %grenType]) ){
+      %grenType = (%grenType $= "Grenade") ? "T1Grenade" : %grenType;
+      %grenType = (%grenType $= "Mine") ? "T1Mine" : %grenType;
       %client.player.setInventory( %grenType, 30 );
+   }
 
    if(%grenType $= "Deployable Camera")
    {
@@ -6040,8 +6121,28 @@ function T1getAmmoStationLovin(%client)
    if ( !($InvBanList[%cmt, TargetingLaser]) )
       %client.player.setInventory( TargetingLaser, 1 );
 
-   if( %client.player.getMountedImage($BackpackSlot) $= "AmmoPack" )
-      invAmmoPackPass(%client);
+   if( %client.player.getMountedImage($BackpackSlot) $= "T1AmmoPack" )
+      t1InvAmmoPackPass(%client);
+}
+
+
+function t1InvAmmoPackPass(%client)
+{
+   // "normal" ammo stuff (everything but mines and grenades)
+   for ( %idx = 0; %idx < T1AmmoPack.NumAmmoItems; %idx++ ) 
+   {
+      %ammo = T1AmmoPack.AmmoItem[%idx];
+      %client.player.t1IncInventory(%ammo, T1AmmoPack.max[%ammo]);
+   }
+   //our good friends, the grenade family *SIGH*
+   // first find out what type of grenade the player has selected
+   %grenFav = %client.favorites[getField(%client.grenadeIndex, 0)];
+   if((%grenFav !$= "EMPTY") && (%grenFav !$= "INVALID"))
+      %client.player.t1IncInventory($NameToInv[%grenFav], T1AmmoPack.max[$NameToInv[%grenFav]]);
+   // now the same check for mines
+   %mineFav = %client.favorites[getField(%client.mineIndex, 0)];
+   if((%mineFav !$= "EMPTY") && (%mineFav !$= "INVALID") && !($InvBanList[%cmt, Mine]))
+      %client.player.t1IncInventory($NameToInv[%mineFav], T1AmmoPack.max[$NameToInv[%mineFav]]);
 }
 
 function ShapeBase::t1clearInventory(%this)
@@ -6068,6 +6169,1348 @@ function ShapeBase::t1clearInventory(%this)
       %this.setInventory(%curPack.item, 0);
 }   
 
+
+$TeamDeployableMax[T1MineDeployed] = 25;//classic default
+
+
+datablock ExplosionData(T1MineExplosion)
+{
+   explosionShape = "effect_plasma_explosion.dts";
+   playSpeed      = 1.0;
+   sizes[0] = "0.5 0.5 0.5";
+   sizes[1] = "0.5 0.5 0.5";
+   soundProfile   = T1MortarExpSound;
+   faceViewer     = true;
+
+   emitter[0] = MineExplosionSmokeEmitter;
+   emitter[1] = MineCrescentEmitter;
+
+   shakeCamera = true;
+   camShakeFreq = "8.0 7.0 9.0";
+   camShakeAmp = "50.0 50.0 50.0";
+   camShakeDuration = 1.0;
+   camShakeRadius = 10.0;
+};
+
+datablock ItemData(T1MineDeployed)
+{
+   className = Weapon;
+   shapeFile = "t1mine.dts";
+   mass = 0.75;
+   elasticity = 0.2;
+   friction = 0.8; // z0dd - ZOD, 9/27/03. was 0.6
+   pickupRadius = 3;
+   maxDamage = 0.01; // z0dd - ZOD, 9/27/03. was 0.2
+   explosion = T1MineExplosion;
+   underwaterExplosion = UnderwaterMineExplosion;
+   indirectDamage = 0.57; // z0dd - ZOD, 7/14/03. Slight increase to dmg. Was 0.55
+   damageRadius = 10.0; // z0dd - ZOD, 7/14/03. Slight increase to det range. Was 6.0
+   radiusDamageType = $DamageType::Mine;
+   kickBackStrength = 1500;
+   aiAvoidThis = true;
+   dynamicType = $TypeMasks::DamagableItemObjectType;
+   spacing = 6.0; // how close together mines can be
+   proximity = 2.5; // how close causes a detonation (by player/vehicle)
+   armTime = 2200; // 2.2 seconds to arm a mine after it comes to rest
+   maxDepCount = 5; // try to deploy this many times before detonating. // z0dd - ZOD, 9/27/02. Was 9
+
+   computeCRC = true;
+};
+
+datablock ItemData(T1Mine)
+{     
+   className = HandInventory;
+   catagory = "Handheld";
+   shapeFile = "t1mine.dts";
+   mass = 1;
+   elasticity = 0.2;
+   friction = 0.7;
+   pickupRadius = 2;
+
+   thrownItem = T1MineDeployed;
+   pickUpName = "some mines";
+   isMine = true; // z0dd - ZOD, 5/19/03. New param.
+   computeCRC = true;
+};
+
+
+function T1MineDeployed::onThrow(%this, %mine, %thrower)
+{
+   error("t1MineDeployed::onThrow");
+   %mine.armed = false;
+   %mine.damaged = 0;
+   %mine.detonated = false;
+   %mine.depCount = 0;
+   %mine.theClient = %thrower.client;
+   $TeamDeployedCount[%mine.sourceObject.team, T1MineDeployed]++; // z0dd - ZOD, 8/13/02, Moved this from deployMineCheck to here. Fixes mine count bug
+
+   schedule(1500, %mine, "T1deployMineCheck", %mine, %thrower);
+}
+
+function T1deployMineCheck(%mineObj, %player)
+{
+   if(%mineObj.depCount > %mineObj.getDatablock().maxDepCount)
+      t1ExplodeMine(%mineObj, true);
+   
+   // wait until the mine comes to rest
+   if(%mineObj.getVelocity() $= "0 0 0")
+   {
+      // 2-second delay before mine is armed -- let deploy thread play out etc.
+      schedule(%mineObj.getDatablock().armTime, %mineObj, "t1ArmDeployedMine", %mineObj);
+
+      // check for other deployed mines in the vicinity
+      InitContainerRadiusSearch(%mineObj.getWorldBoxCenter(), %mineObj.getDatablock().spacing, $TypeMasks::ItemObjectType);
+      while((%itemObj = containerSearchNext()) != 0)
+      {
+         if(%itemObj == %mineObj)
+            continue;
+         %ioType = %itemObj.getDatablock().getName();
+         if(%ioType $= "MineDeployed")
+            schedule(100, %mineObj, "t1ExplodeMine", %mineObj, true);
+         else
+            continue;
+      }
+      // play "deploy" thread
+      %mineObj.playThread(0, "deploy");
+      serverPlay3D(MineDeploySound, %mineObj.getTransform());
+      %mineTeam = %mineObj.sourceObject.team;
+      //$TeamDeployedCount[%mineTeam, MineDeployed]++; // z0dd - ZOD, 8/13/02, Moved the increment to MineDeployed::onThrow. Fixes mine count bug
+      if($TeamDeployedCount[%mineTeam, T1MineDeployed] > $TeamDeployableMax[T1MineDeployed])
+      {   
+         messageClient( %player.client, '', 'Maximum allowable mines deployed.' );
+         schedule(100, %mineObj, "t1ExplodeMine", %mineObj, true);
+      }
+      else
+      {
+         //start the thread that keeps checking for objects near the mine...
+         t1MineCheckVicinity(%mineObj);
+
+         //let the AI know *after* it's come to rest...
+         AIDeployMine(%mineObj);
+
+         //let the game know there's a deployed mine
+         Game.notifyMineDeployed(%mineObj);
+      }
+   }
+   else
+   {
+      //schedule this deploy check again a little later
+      %mineObj.depCount++;
+      schedule(500, %mineObj, "t1deployMineCheck", %mineObj, %player);
+   }
+}
+
+// prob not needed but renamed it be there own thing in case its used in a mod that does not ahve these for whatever reasion 
+function t1ArmDeployedMine(%mine)
+{
+   %mine.armed = true;
+}
+
+function t1MineCheckVicinity(%mine)
+{
+   // this function is called after the mine has been deployed. It will check the
+   // immediate area around the mine (2.5 meters at present) for players or vehicles
+   // passing by, and detonate if any are found. This is to extend the range of the
+   // mine so players don't have to collide with them to set them off.
+
+   // don't bother to check if mine isn't armed yet
+   if(%mine.armed)
+   {
+      // don't keep checking if mine is already detonating
+      if(!%mine.boom)
+      {
+         // the actual check for objects in the area
+         %mineLoc = %mine.getWorldBoxCenter();
+         %masks = $TypeMasks::PlayerObjectType | $TypeMasks::VehicleObjectType;
+         %detonateRange = %mine.getDatablock().proximity;
+         %noExplode = 0;
+         InitContainerRadiusSearch(%mineLoc, %detonateRange, %masks);
+         while((%tgt = containerSearchNext()) != 0) 
+         {
+            if(!$TeamDamage)
+            {
+               if(%mine.team == %tgt.team)
+                  %noExplode = 1;
+            }
+            if(%noExplode == 0)
+            {
+               %mine.detonated = true;
+               schedule(50, %mine, "t1ExplodeMine", %mine, false);
+               break;
+            }
+         }
+      }
+   }
+   // if nothing set off the mine, schedule another check
+   if(!%mine.detonated)
+      schedule(300, %mine, "t1MineCheckVicinity", %mine);
+}
+
+function t1ExplodeMine(%mo, %noDamage)
+{
+   %mo.noDamage = %noDamage;
+   %mo.setDamageState(Destroyed);
+}
+
+function T1MineDeployed::onCollision(%data, %obj, %col)
+{
+   // don't detonate if mine isn't armed yet
+   if(!%obj.armed)
+      return;
+
+   // don't detonate if mine is already detonating
+   if(%obj.boom)
+      return;
+
+   %noExplode = 0;
+   //check to see what it is that collided with the mine
+   %struck = %col.getClassName();
+   if(%struck $= "Player" || %struck $= "WheeledVehicle" || %struck $= "FlyingVehicle")
+   {
+      if(!$teamDamage)
+      {
+         if(%obj.team == %col.getOwnerClient().team)
+            %noExplode = 1;
+      }
+      if(%noExplode == 0)
+      {
+         //error("Mine detonated due to collision with #"@%col@" ("@%struck@"); armed = "@%obj.armed);
+         t1ExplodeMine(%obj, false);
+      }
+   }
+}
+
+function T1MineDeployed::damageObject(%data, %targetObject, %sourceObject, %position, %amount, %damageType)
+{
+   // -----------------------------
+   // z0dd - ZOD, 5/09/04. If gameplay changes in affect, no mine disc
+   if($Host::ClassicLoadMineChanges)
+   {
+      if(!%targetObject.armed)
+         return;
+   }
+   // -----------------------------
+     
+   if(%targetObject.boom)
+      return;
+
+   %targetObject.damaged += %amount;
+
+   if(%targetObject.damaged >= %data.maxDamage)
+   {   
+      %targetObject.setDamageState(Destroyed);
+   }
+}
+
+function T1MineDeployed::onDestroyed(%data, %obj, %lastState)
+{
+   %obj.boom = true;
+   %mineTeam = %obj.team;
+   $TeamDeployedCount[%mineTeam, T1MineDeployed]--;
+   // %noDamage is a boolean flag -- don't want to set off all other mines in
+   // vicinity if there's a "mine overload", so apply no damage/impulse if true
+   if(!%obj.noDamage)
+       RadiusExplosion(%obj,
+                      %obj.getPosition(),
+                      %data.damageRadius,
+                      %data.indirectDamage,
+                      %data.kickBackStrength,
+                      %obj.sourceObject,
+                      %data.radiusDamageType);
+
+   %obj.schedule(600, "delete");
+}
+
+datablock ExplosionData(T1HandGrenadeExplosion)
+{
+   soundProfile   = T1GLExpSound;
+
+   emitter[0] = HandGrenadeExplosionSmokeEmitter;
+   emitter[1] = HandGrenadeSparkEmitter;
+
+   subExplosion[0] = HandGrenadeSubExplosion1;
+   subExplosion[1] = HandGrenadeSubExplosion2;
+   
+   shakeCamera = true;
+   camShakeFreq = "12.0 13.0 11.0";
+   camShakeAmp = "35.0 35.0 35.0";
+   camShakeDuration = 1.0;
+   camShakeRadius = 15.0;
+}; 
+
+datablock ItemData(T1GrenadeThrown){
+	className = Weapon;
+	shapeFile = "t1Grenade.dts";
+	mass = 0.7;
+	elasticity = 0.2;
+   friction = 1;
+   pickupRadius = 2;
+   maxDamage = 0.5;
+	explosion = T1HandGrenadeExplosion;
+	underwaterExplosion = UnderwaterHandGrenadeExplosion;
+   indirectDamage      = 0.4;
+   damageRadius        = 10.0;
+   radiusDamageType    = $DamageType::Grenade;
+   kickBackStrength    = 2000;
+
+   computeCRC = true;
+
+};
+
+datablock ItemData(T1Grenade){
+	className = HandInventory;
+	catagory = "Handheld";
+	shapeFile = "grenade.dts";
+	mass = 0.7;
+	elasticity = 0.2;
+   friction = 1;
+   pickupRadius = 2;
+   thrownItem = T1GrenadeThrown;
+	pickUpName = "some grenades";
+	isGrenade = true;
+
+   computeCRC = true;
+
+};
+
+function T1GrenadeThrown::onThrow(%this, %gren){
+   AIGrenadeThrown(%gren);
+   %gren.playThread(0, "deploy");
+   %gren.detThread = schedule(1500, %gren, "detonateGrenade", %gren);
+}
+
+function T1GrenadeThrown::onCollision(%data, %obj, %col){
+   // do nothing
+}
+
+
+package StarsiegeTribes{// annoyingly had to use package do to fixed use of names
+   function ShapeBase::use(%this, %data){
+     %val = parent::use(%this, %data);
+      if(!%val && isObject(%this) && %data !$= "") {
+         if(%data $= Grenade && %this.inv[T1Grenade] > 0){
+            %data = T1Grenade;   
+         }
+         else if(%data $= Mine && %this.inv[T1Mine] > 0) {
+            %data = T1Mine;   
+         }
+         else if(%data $= Beacon && %this.inv[T1Beacon] > 0) {
+            %data = T1Beacon;   
+         }
+         // default case
+         if (%this.inv[%data.getName()] > 0) {
+            %data.onUse(%this);
+            return true;
+         }
+         return false;
+      }
+     return %val;
+   }
+};
+if(!isActivePackage(StarsiegeTribes)){
+   activatePackage(StarsiegeTribes);
+}
+
+
+datablock ShapeBaseImageData(T1AmmoPackImage)
+{
+   shapeFile = "t1AmmoPack.dts";
+   item = T1AmmoPack;
+   mountPoint = 1;
+   offset = "0 0 0";
+};
+
+datablock ItemData(T1AmmoPack)
+{
+   className = Pack;
+   catagory = "Packs";
+   shapeFile = "t1AmmoPack.dts";
+   mass = 1;
+   elasticity = 0.2;
+   friction = 0.6;
+   pickupRadius = 2;
+   rotate = true;
+   image = "T1AmmoPackImage";
+	pickUpName = "an ammo pack";
+
+   computeCRC = true;
+
+   // uses t2 ammo  settings in ammopack.cs
+	max[T1PlasmaAmmo] = 30;
+	max[T1ChaingunAmmo] = 150;
+	max[T1DiscAmmo] = 15;
+	max[T1GrenadeLauncherAmmo] = 15;
+	max[T1MortarAmmo] = 10;
+	max[MissileLauncherAmmo] = 4;
+	max[T1Grenade] = 10;
+	max[ConcussionGrenade] = 10;
+	max[FlashGrenade] = 10;
+	max[FlareGrenade] = 10;
+	max[CameraGrenade] = 0;
+   max[T1Mine] = 5;
+	max[RepairKit] = 1;
+
+   AmmoItem[0] = T1PlasmaAmmo;
+   AmmoItem[1] = T1ChaingunAmmo;
+   AmmoItem[2] = T1DiscAmmo;
+   AmmoItem[3] = T1GrenadeLauncherAmmo;
+   AmmoItem[4] = T1MortarAmmo;
+   AmmoItem[5] = T1MissileLauncherAmmo;
+   AmmoItem[6] = RepairKit;
+
+   NumAmmoItems = 7;
+
+   GrenAmmoType[0] = T1Grenade;
+   GrenAmmoType[1] = ConcussionGrenade;
+   GrenAmmoType[2] = FlashGrenade;
+   GrenAmmoType[3] = FlareGrenade;
+
+   NumGrenTypes = 4;
+};
+
+function Player::t1MaxInventory(%this,%data)
+{
+   %max = ShapeBase::maxInventory(%this,%data);
+   if (%this.getInventory(T1AmmoPack)){
+      %max += T1AmmoPack.max[%data.getName()];
+   }
+   return %max;
+}
+
+function ShapeBase::t1IncInventory(%this, %data, %amount)
+{
+   if(isObject(%data)) // z0dd - ZOD, 5/18/03. Console spam fix
+   {
+      %max = %this.t1MaxInventory(%data);
+      %cv = %this.inv[%data.getName()];
+      // if(%data.getName() $= "PlasmaAmmo"){
+      //    %this.save("meow.cs");
+      // }
+      if (%cv < %max) {
+         if (%cv + %amount > %max)
+            %amount = %max - %cv;
+         %this.setInventory(%data,%cv + %amount,1);
+         error(%data.getName() SPC %cv + %amount);
+         %data.incCatagory(%this); // Inc the players weapon count
+         return %max;
+      }
+      return 0;
+   }
+}
+
+function T1AmmoPack::onPickup(%this,%pack,%player,%amount)
+{
+   error("T1AmmoPack::onPickup");
+	// %this = AmmoPack datablock
+	// %pack = AmmoPack object number
+	// %player = player
+	// %amount = 1
+
+	for (%idx = 0; %idx < T1AmmoPack.NumAmmoItems; %idx++)
+	{
+	   %ammo = T1AmmoPack.AmmoItem[%idx];
+      if (%pack.inv[%ammo] > 0)
+      {
+         %amount = %pack.getInventory(%ammo);
+         %player.t1IncInventory(%ammo,%amount);
+         %pack.setInventory(%ammo,0);
+      }
+		else if(%pack.inv[%ammo] == -1)
+		{
+			// this particular type of ammo has already been exhausted for this pack;
+			// don't give the player any
+		}
+      else
+      {
+         // Assume it's full if no inventory has been assigned
+         %player.t1IncInventory(%ammo,%this.max[%ammo]);
+		}
+   }
+	// now check what type grenades (if any) player is carrying
+	%gFound = false;
+	for (%i = 0; %i < T1AmmoPack.NumGrenTypes; %i++)
+	{
+		%gType = T1AmmoPack.GrenAmmoType[%i];
+		if(%player.inv[%gType] > 0)
+		{
+			%gFound = true;
+			%playerGrenType = %gType;
+			break;
+		}
+	}
+	// if player doesn't have any grenades at all, give 'em whatever the ammo pack has
+	if(!%gFound)
+	{
+		%given = false;
+		for(%j = 0; %j < T1AmmoPack.NumGrenTypes; %j++)
+		{
+			%packGren = T1AmmoPack.GrenAmmoType[%j];
+			if(%pack.inv[%packGren] > 0)
+			{
+				// pack has some of these grenades
+	         %player.t1IncInventory(%packGren, %pack.getInventory(%packGren));
+	         %pack.setInventory(%packGren, 0);
+				%given = true;
+				break;
+			}
+			else if(%pack.inv[%packGren] == -1)
+			{
+				// the pack doesn't have any of this type of grenades
+			}
+			else
+			{
+				// pack has full complement of this grenade type
+	         %player.t1IncInventory(%packGren, %this.max[%packGren]);
+				%given = true;
+			}
+			if(%given)
+				break;
+		}
+	}
+	else
+	{
+		// player had some amount of grenades before picking up pack
+		if(%pack.inv[%playerGrenType] > 0)
+		{
+			// pack has 1 or more of this type of grenade
+         %player.t1IncInventory(%playerGrenType, %pack.getInventory(%playerGrenType));
+         %pack.setInventory(%playerGrenType, 0);
+		}
+		else if(%pack.inv[%playerGrenType] == -1)
+		{
+			// sorry Chester, the pack is out of these grenades.
+		}
+		else
+		{
+			// pack is uninitialized for this grenade type -- meaning it has full count
+			%player.t1IncInventory(%playerGrenType, %this.max[%playerGrenType]);
+		}
+	}
+	// now see if player had mines selected and if they're allowed in this mission type
+	%mineFav = %player.client.favorites[getField(%player.client.mineIndex, 0)];
+	if ( ( $InvBanList[$CurrentMissionType, "Mine"] !$= "1" ) 
+	  && !( ( %mineFav $= "EMPTY" ) || ( %mineFav $= "INVALID" ) ) )
+	{
+		// player has selected mines, and they are legal in this mission type
+		if(%pack.inv[Mine] > 0)
+		{
+			// and the pack has some mines in it! bonus!
+			%player.t1IncInventory(Mine, %pack.getInventory(Mine));
+			%pack.setInventory(Mine, 0);
+		}
+		else if(%pack.inv[Mine] == -1)
+		{
+			// no mines left in the pack. do nothing.
+		}
+		else
+		{
+			// assume it's full of mines if no inventory has been assigned
+			%player.t1IncInventory(Mine,%this.max[Mine]);
+		}
+	}
+}
+
+function T1AmmoPack::onThrow(%this,%pack,%player)
+{
+	// %this = AmmoPack datablock
+	// %pack = AmmoPack object number
+	// %player = player
+
+	%player.throwAmmoPack = 1;
+	t1dropAmmoPack(%pack, %player);
+	// do the normal ItemData::onThrow stuff -- sound and schedule deletion
+   serverPlay3D(ItemThrowSound, %player.getTransform());
+   %pack.schedulePop();
+}
+
+function T1AmmoPack::onInventory(%this,%player,%value)
+{
+   error("T1AmmoPack::onInventory");
+	// %this = AmmoPack
+	// %player = player
+	// %value = 1 if gaining a pack, 0 if losing a pack
+
+	// the below test is necessary because this function is called everytime the ammo
+	// pack gains or loses an item
+	if(%player.getClassName() $= "Player")
+	{
+		if(!%value)
+			if(%player.throwAmmoPack == 1)
+			{
+				%player.throwAmmoPack = 0;
+				// ammo stuff already handled by AmmoPack::onThrow
+			}
+			else
+			{
+				// ammo pack was sold at inventory station -- no need to worry about
+				// setting the ammo in the pack object (it doesn't exist any more)
+				t1dropAmmoPack(-1, %player);
+			}
+	}
+   Pack::onInventory(%this,%player,%value);
+}
+
+function t1dropAmmoPack(%packObj, %player)
+{
+	// %packObj = Ammo Pack object number if pack is being thrown, -1 if sold at inv station
+	// %player = player object
+
+	for(%i = 0; %i < T1AmmoPack.NumAmmoItems; %i++)
+	{
+		%ammo = T1AmmoPack.AmmoItem[%i];
+		// %pAmmo == how much of this ammo type the player has
+		%pAmmo = %player.getInventory(%ammo);
+		// %pMax == how much of this ammo type the player's datablock says can be carried
+		%pMax = %player.getDatablock().max[%ammo];
+		if(%pAmmo > %pMax)
+		{
+			// if player has more of this ammo type than datablock's max...
+			if(%packObj > 0)
+			{
+				// put ammo that player can't carry anymore in pack
+				%packObj.setInventory(%ammo, %pAmmo - %pMax);
+			}
+			// set player to max for this ammo type
+			%player.setInventory(%ammo, %pMax);
+		}
+		else
+		{
+			if(%packObj > 0)
+			{
+				// the pack gets -1 of this ammo type -- else it'll assume it's full
+				// can't use setInventory() because it won't allow values less than 1
+				%packObj.inv[%ammo] = -1;
+			}
+		}
+	}
+	// and, of course, a pass for the grenades. Whee.
+	%gotGren = false;
+	// check to see what kind of grenades the player has.
+	for(%j = 0; %j < T1AmmoPack.NumGrenTypes; %j++)
+	{
+		%gType = T1AmmoPack.GrenAmmoType[%j];
+		if(%player.inv[%gType] > 0)
+		{
+			%gotGren = true;
+			%playerGren = %gType;
+			break;
+		}
+		else
+		{
+			// ammo pack only carries type of grenades that player who bought it (or picked
+			// it up) had at the time -- all else are zeroed out (value of -1)
+			if(%packObj > 0)
+				%packObj.inv[%gType] = -1;
+		}
+	}
+	if(%gotGren)
+	{
+		%pAmmo = %player.getInventory(%playerGren);
+		%pMax = %player.getDatablock().max[%playerGren];
+		if(%pAmmo > %pMax)
+		{
+			if(%packObj > 0)
+				%packObj.setInventory(%playerGren, %pAmmo - %pMax);
+			%player.setInventory(%playerGren, %pMax);
+		}
+		else
+			if(%packObj > 0)
+				%packObj.inv[%playerGren] = -1;
+	}
+	else
+	{
+		// player doesn't have any grenades at all. nothing needs to be done here.
+	}
+	// crap. forgot the mines.
+	if(%player.getInventory(Mine) > %player.getDatablock().max[Mine])
+	{
+		// if player has more mines than datablock's max...
+		if(%packObj > 0)
+		{
+			// put mines that player can't carry anymore in pack
+			%packObj.setInventory(Mine, %player.getInventory(Mine) - %player.getDatablock().max[Mine]);
+		}
+		// set player to max mines
+		%player.setInventory(Mine, %player.getDatablock().max[Mine]);
+	}
+	else
+	{
+		if(%packObj > 0)
+		{
+			// the pack gets -1 for mines -- else it'll assume it's full
+			// can't use setInventory() because it won't allow values less than 1
+			%packObj.inv[Mine] = -1;
+		}
+	}
+}
+
+
+datablock ShapeBaseImageData(T1EnergyPackImage)
+{
+   shapeFile = "t1EnergyPack.dts";
+   item = T1EnergyPack;
+   mountPoint = 1;
+   offset = "0 0 0";
+   rechargeRateBoost = 0.15;
+
+	stateName[0] = "default";
+	stateSequence[0] = "activation";
+};
+
+datablock ItemData(T1EnergyPack)
+{
+   className = Pack;
+   catagory = "Packs";
+   shapeFile = "t1EnergyPack.dts";
+   mass = 1;
+   elasticity = 0.2;
+   friction = 0.6;
+   pickupRadius = 2;
+   rotate = true;
+   image = "T1EnergyPackImage";
+	pickUpName = "an energy pack";
+
+   computeCRC = true;
+
+};
+
+function T1EnergyPackImage::onMount(%data, %obj, %node)
+{
+	%obj.setRechargeRate(%obj.getRechargeRate() + %data.rechargeRateBoost);
+   %obj.hasEnergyPack = true; // set for sniper check
+}
+
+function T1EnergyPackImage::onUnmount(%data, %obj, %node)
+{
+	%obj.setRechargeRate(%obj.getRechargeRate() - %data.rechargeRateBoost);
+   %obj.hasEnergyPack = "";
+}
+
+function T1EnergyPack::onPickup(%this, %obj, %shape, %amount)
+{
+	// created to prevent console errors
+}
+
+
+
+datablock AudioProfile(T1ShieldPackActivateSound)
+{
+	filename = "t1sounds/shield_on.wav";
+	description = ClosestLooping3d;
+   preload = true;
+};
+
+datablock ShapeBaseImageData(T1ShieldPackImage)
+{
+   shapeFile = "t1ShieldPack.dts";
+   item = T1ShieldPack;
+   mountPoint = 1;
+   offset = "0 0 0";
+
+   usesEnergy = true;
+   minEnergy = 3;
+
+	stateName[0] = "Idle";
+	stateTransitionOnTriggerDown[0] = "Activate";
+	
+	stateName[1] = "Activate";
+	stateScript[1] = "onActivate";
+	stateSequence[1] = "fire";
+	stateSound[1] = T1ShieldPackActivateSound;
+   stateEnergyDrain[1] = 9;
+	stateTransitionOnTriggerUp[1] = "Deactivate";
+   stateTransitionOnNoAmmo[1] = "Deactivate";
+
+	stateName[2] = "Deactivate";
+	stateScript[2] = "onDeactivate";
+	stateTransitionOnTimeout[2] = "Idle";
+};
+
+datablock ItemData(T1ShieldPack)
+{
+   className = Pack;
+   catagory = "Packs";
+   shapeFile = "t1ShieldPack.dts";
+   mass = 1;
+   elasticity = 0.2;
+   friction = 0.6;
+   pickupRadius = 2;
+   rotate = true;
+   image = "T1ShieldPackImage";
+	pickUpName = "a shield pack";
+
+   computeCRC = true;
+};
+
+function T1ShieldPackImage::onMount(%data, %obj, %node)
+{
+}
+
+function T1ShieldPackImage::onUnmount(%data, %obj, %node)
+{
+	%obj.setImageTrigger(%node, false);
+   %obj.isShielded = "";
+}
+
+function T1ShieldPackImage::onActivate(%data, %obj, %slot)
+{
+   messageClient(%obj.client, 'MsgShieldPackOn', '\c2Shield pack on.');
+   %obj.isShielded = true;
+   if ( !isDemo() )
+      commandToClient( %obj.client, 'setShieldIconOn' );
+}
+
+function T1ShieldPackImage::onDeactivate(%data, %obj, %slot)
+{
+   messageClient(%obj.client, 'MsgShieldPackOff', '\c2Shield pack off.');
+	%obj.setImageTrigger(%slot,false);
+   %obj.isShielded = "";
+   if ( !isDemo() )
+      commandToClient( %obj.client, 'setShieldIconOff' );
+}
+
+function T1ShieldPack::onPickup(%this, %obj, %shape, %amount)
+{
+	// created to prevent console errors
+}
+
+
+
+// datablock AudioProfile(T1SensorJammerActivateSound)
+// {
+//    filename = "fx/packs/sensorjammerpack_on.wav";
+//    description = ClosestLooping3d;
+//    preload = true;
+//    effect = SensorJammerPackActivateEffect;
+// };
+
+datablock ShapeBaseImageData(T1SensorJammerPackImage)
+{
+   shapeFile = "t1SensorJammerPack.dts";
+   item = T1SensorJammerPack;
+   mountPoint = 1;
+   offset = "0 0 0";
+
+   usesEnergy = true;
+   minEnergy = 3;
+
+   stateName[0] = "Idle";
+   stateTransitionOnTriggerDown[0] = "Activate";
+   
+   stateName[1] = "Activate";
+   stateScript[1] = "onActivate";
+   stateSequence[1] = "fire";
+   stateSound[1] = SensorJammerActivateSound;
+   stateEnergyDrain[1] = 10.5;
+   stateTransitionOnTriggerUp[1] = "Deactivate";
+   stateTransitionOnNoAmmo[1] = "Deactivate";
+
+   stateName[2] = "Deactivate";
+   stateScript[2] = "onDeactivate";
+   stateTransitionOnTimeout[2] = "Idle";
+};
+
+datablock ItemData(T1SensorJammerPack)
+{
+   className = Pack;
+   catagory = "Packs";
+   shapeFile = "t1SensorJammerPack.dts";
+   mass = 1;
+   elasticity = 0.2;
+   friction = 0.6;
+   pickupRadius = 2;
+   rotate = true;
+   image = "T1SensorJammerPackImage";
+   pickUpName = "a sensor jammer pack";
+
+   computeCRC = true;
+};
+
+function T1SensorJammerPackImage::onMount(%data, %obj, %slot)
+{
+    setTargetSensorData(%obj.client.target, JammerSensorObjectPassive);
+}
+
+function T1SensorJammerPackImage::onUnmount(%data, %obj, %slot)
+{
+    setTargetSensorData(%obj.client.target, PlayerSensor);
+    %obj.setImageTrigger(%slot, false);
+}
+
+function T1SensorJammerPackImage::onActivate(%data, %obj, %slot)
+{
+   messageClient(%obj.client, 'MsgSensorJammerPackOn', '\c2Sensor jammer pack on.');
+   setTargetSensorData(%obj.client.target, JammerSensorObjectActive);
+   // z0dd - ZOD, 9/29/02. Removed T2 demo code from here
+   commandToClient( %obj.client, 'setSenJamIconOn' );
+
+   %obj.setJammerFX( true );
+}
+
+function T1SensorJammerPackImage::onDeactivate(%data, %obj, %slot)
+{
+   messageClient(%obj.client, 'MsgSensorJammerPackOff', '\c2Sensor jammer pack off.');
+   %obj.setImageTrigger(%slot, false);
+
+   // ----------------------------------------------------------------------
+   // z0dd - ZOD, 4/25/02. This function is actually getting called AFTER 
+   // ::onUnmount. We must check to see what the players current sensor data
+   // is, then if it is NOT PlayerSensor, set to passive jam, bug fix.
+   if(getTargetSensorData(%obj.client.target).getName() !$= "PlayerSensor")
+      setTargetSensorData(%obj.client.target, JammerSensorObjectPassive);
+   // ----------------------------------------------------------------------
+
+   // z0dd - ZOD, 9/29/02. Removed T2 demo code from here
+   commandToClient( %obj.client, 'setSenJamIconOff' );
+
+   %obj.setJammerFX( false );
+}
+
+
+datablock ItemData(T1Beacon)
+{
+   className = HandInventory;
+   catagory = "Misc";
+   shapeFile = "t1beacon.dts";
+   mass = 1;
+   elasticity = 0.2;
+   friction = 0.8;
+   pickupRadius = 1;
+   pickUpName = "a deployable beacon";
+
+   computeCRC = true;
+
+};
+
+datablock StaticShapeData(T1DeployedBeacon) : StaticShapeDamageProfile
+{
+   shapeFile = "t1beacon.dts";
+   explosion = DeployablesExplosion;
+   maxDamage = 0.45;
+   disabledLevel = 0.45;
+   destroyedLevel = 0.45;
+   targetNameTag = 'beacon';
+   deployedObject = true;
+   dynamicType = $TypeMasks::SensorObjectType;
+   debrisShapeName = "debris_generic_small.dts";
+   debris = SmallShapeDebris;
+   damageScale[$DamageType::Mine] = 1.0; // z0dd - ZOD, 5/17/03. Kill beacons that mark mines.
+};
+
+function T1DeployedBeacon::onDestroyed(%data, %obj, %prevState)
+{
+   if(%obj.getBeaconType() $= "friend")
+      %bType = "MarkerBeacon";
+   else
+      %bType = "TargetBeacon";
+   $TeamDeployedCount[%obj.team, %bType]--;
+   %obj.schedule(500, delete);
+}
+
+function T1Beacon::onUse(%data, %obj)
+{
+   error("T1Beacon::onUse");
+   // look for 3 meters along player's viewpoint for interior or terrain
+   %searchRange = 3.0;
+   %mask = $TypeMasks::TerrainObjectType | $TypeMasks::InteriorObjectType | $TypeMasks::StaticShapeObjectType | $TypeMasks::ForceFieldObjectType;
+   // get the eye vector and eye transform of the player
+   %eyeVec = %obj.getEyeVector();
+   %eyeTrans = %obj.getEyeTransform();
+   // extract the position of the player's camera from the eye transform (first 3 words)
+   %eyePos = posFromTransform(%eyeTrans);
+   // normalize the eye vector
+   %nEyeVec = VectorNormalize(%eyeVec);
+   // scale (lengthen) the normalized eye vector according to the search range
+   %scEyeVec = VectorScale(%nEyeVec, %searchRange);
+   // add the scaled & normalized eye vector to the position of the camera
+   %eyeEnd = VectorAdd(%eyePos, %scEyeVec);
+   // see if anything gets hit
+   %searchResult = containerRayCast(%eyePos, %eyeEnd, %mask, 0);
+   if(!%searchResult )
+   {
+      // no terrain/interior collision within search range
+      if(%obj.inv[%data.getName()] > 0)
+         messageClient(%obj.client, 'MsgBeaconNoSurface', '\c2Cannot place beacon. Too far from surface.');
+      return 0;
+   }
+   else
+   {
+      %searchObj = GetWord(%searchResult, 0);
+      if(%searchObj.getType() & ($TypeMasks::StaticShapeObjectType | $TypeMasks::ForceFieldObjectType) )
+      {
+         // if there's already a beacon where player is aiming, switch its type
+         // otherwise, player can't deploy a beacon there
+         if(%searchObj.getDataBlock().getName() $= T1DeployedBeacon ||  %searchObj.getDataBlock().getName() $= DeployedBeacon)
+            switchBeaconType(%searchObj);
+         else
+            messageClient(%obj.client, 'MsgBeaconNoSurface', '\c2Cannot place beacon. Not a valid surface.');
+         return 0;
+      }
+      else if(%obj.inv[%data.getName()] <= 0) 
+         return 0;   
+   }
+   // newly deployed beacons default to "target" type
+   if($TeamDeployedCount[%obj.team, TargetBeacon] >= $TeamDeployableMax[TargetBeacon])
+   {
+      messageClient(%obj.client, 'MsgDeployFailed', '\c2Your team\'s control network has reached its capacity for this item.~wfx/misc/misc.error.wav');
+      return 0;
+   }
+   %terrPt = posFromRaycast(%searchResult);
+   %terrNrm = normalFromRaycast(%searchResult);
+
+   %intAngle = getTerrainAngle(%terrNrm);  // getTerrainAngle() function found in staticShape.cs
+   %rotAxis = vectorNormalize(vectorCross(%terrNrm, "0 0 1"));
+   if (getWord(%terrNrm, 2) == 1 || getWord(%terrNrm, 2) == -1)
+      %rotAxis = vectorNormalize(vectorCross(%terrNrm, "0 1 0"));
+   %rotation = %rotAxis @ " " @ %intAngle;
+
+   %obj.decInventory(%data, 1);
+   %depBeac = new BeaconObject() {
+      dataBlock = "T1DeployedBeacon";
+      position = VectorAdd(%terrPt, VectorScale(%terrNrm, 0.05));
+      rotation = %rotation;
+   };
+   $TeamDeployedCount[%obj.team, TargetBeacon]++;
+   
+   %depBeac.playThread($AmbientThread, "ambient");
+   %depBeac.team = %obj.team;
+   %depBeac.sourceObject = %obj;
+
+   // give it a team target
+   %depBeac.setTarget(%depBeac.team);
+   MissionCleanup.add(%depBeac);
+}
+
+$TeamDeployableMax[T1PulseSensorDeployable]    = 15;
+$TeamDeployableMax[T1MotionSensorDeployable]   = 15;
+
+
+datablock StaticShapeData(T1DeployedMotionSensor) : StaticShapeDamageProfile
+{
+   className = Sensor;
+   shapeFile = "t1moSensor.dts";
+   maxDamage = 0.6;
+   destroyedLevel = 0.6;
+   disabledLevel = 0.4;
+   explosion = DeployablesExplosion;
+   dynamicType = $TypeMasks::SensorObjectType;
+
+   deployedObject = true;
+
+   cmdCategory = "DSupport";
+   cmdIcon = CMDSensorIcon;
+   cmdMiniIconName = "commander/MiniIcons/com_deploymotionsensor";
+   targetNameTag = 'Deployable Motion';
+   targetTypeTag = 'Sensor';
+   sensorData = DeployMotionSensorObj;
+   sensorRadius = DeployMotionSensorObj.detectRadius;
+   sensorColor = "9 136 255";
+   deployAmbientThread = true;
+
+   debrisShapeName = "debris_generic_small.dts";
+   debris = DeployableDebris;
+   heatSignature = 0;
+};
+
+datablock ShapeBaseImageData(T1MotionSensorDeployableImage)
+{
+   shapeFile = "t1beacon.dts";
+   item = T1MotionSensorDeployable;
+   mountPoint = 1;
+   offset = "0 0 0";
+   rotation = "1 0 0 -90";
+   deployed = T1DeployedMotionSensor;
+
+   stateName[0] = "Idle";
+   stateTransitionOnTriggerDown[0] = "Activate";
+
+   stateName[1] = "Activate";
+   stateScript[1] = "onActivate";
+   stateTransitionOnTriggerUp[1] = "Idle";
+
+   maxDepSlope = 360;
+   deploySound = MotionSensorDeploySound;
+   emap = true;
+   heatSignature = 1;
+
+   minDeployDis                       =  0.5; 
+   maxDeployDis                       =  5.0;  //meters from body
+};
+
+datablock ItemData(T1MotionSensorDeployable)
+{
+   className = Pack;
+   catagory = "Deployables";
+   shapeFile = "t1beacon.dts";
+   mass = 2.0;
+   elasticity = 0.2;
+   friction = 0.6;
+   pickupRadius = 1;
+   rotate = false;
+   image = "T1MotionSensorDeployableImage";
+   pickUpName = "a motion sensor pack";
+
+   computeCRC = true;
+   emap = true;
+   heatSignature = 0;
+
+   //maxSensors = 3;
+   maxSensors = 2;
+};
+
+function T1DeployedMotionSensor::checkDeployPos(%this, %xform){
+   %xform = setWord(%xform, 2, getWord(%xform,2)+0.1);
+   return parent::checkDeployPos(%this, %xform);
+}
+function T1MotionSensorDeployableImage::onDeploy(%item, %plyr, %slot)
+{
+   %plyr.deploySensors--;
+   %plyr.client.updateSensorPackText(%plyr.deploySensors);
+   if(%plyr.deploySensors <= 0)
+   {
+      // take the deployable off the player's back and out of inventory
+      %plyr.unmountImage(%slot);
+      %plyr.decInventory(%item.item, 1);  
+   }
+  return parent::onDeploy(%item, %plyr, %slot); 
+}
+
+function T1DeployedMotionSensor::onDestroyed(%this, %obj, %prevState)
+{
+   //%obj.hide(true);
+   Parent::onDestroyed(%this, %obj, %prevState);
+   $TeamDeployedCount[%obj.team, T1MotionSensorDeployable]--;
+   %obj.schedule(500, "delete");
+}
+
+function T1MotionSensorDeployableImage::getInitialRotation(%item, %plyr)
+{
+   %rotAxis = vectorNormalize(vectorCross(%item.surfaceNrm, "0 0 1"));
+   if (getWord(%item.surfaceNrm, 2) == 1 || getWord(%item.surfaceNrm, 2) == -1)
+      %rotAxis = vectorNormalize(vectorCross(%item.surfaceNrm, "0 1 0"));     
+   return %rotAxis SPC mACos(vectorDot(%item.surfaceNrm, "0 0 1"));
+}
+
+function T1MotionSensorDeployable::onPickup(%this, %pack, %player, %amount)
+{
+   // %this = Sensor pack datablock
+   // %pack = Sensor pack object number
+   // %player = player
+   // %amount = amount picked up (1)
+
+   if(%pack.sensors $= "")
+   {
+      // assume that this is a pack that has been placed in a mission
+      // this case was handled in ::onInventory below (max sensors);
+   }
+   else
+   {
+      // find out how many sensor were in the pack
+      %player.deploySensors = %pack.sensors;
+      %player.client.updateSensorPackText(%player.deploySensors);
+   }
+}
+
+function T1MotionSensorDeployable::onThrow(%this,%pack,%player)
+{
+   // %this = Sensor pack datablock
+   // %pack = Sensor pack object number
+   // %player = player
+
+   %player.throwSensorPack = 1;
+   %pack.sensors = %player.deploySensors;
+   %player.deploySensors = 0;
+   %player.client.updateSensorPackText(%player.deploySensors);
+   // do the normal ItemData::onThrow stuff -- sound and schedule deletion
+   serverPlay3D(ItemThrowSound, %player.getTransform());
+   %pack.schedulePop();
+}
+
+function T1MotionSensorDeployable::onInventory(%this,%player,%value)
+{
+   // %this = Sensor pack datablock
+   // %player = player
+   // %value = 1 if gaining a pack, 0 if losing a pack
+
+   if(%player.getClassName() $= "Player")
+   {
+      if(%value)
+      {
+         // player picked up or bought a motion sensor pack
+         %player.deploySensors = %this.maxSensors;
+         %player.client.updateSensorPackText(%player.deploySensors);
+      }
+      else
+      {
+         // player dropped or sold a motion sensor pack
+         if(%player.throwSensorPack)
+         {
+            // player threw the pack
+            %player.throwSensorPack = 0;
+            // everything handled in ::onThrow above
+         }
+         else
+         {
+            //the pack was sold at an inventory station, or unmounted because the player
+            // used all the sensors
+            %player.deploySensors = 0;
+            %player.client.updateSensorPackText(%player.deploySensors);
+         }
+      }
+   }
+   Pack::onInventory(%this,%player,%value);
+}
+
+
+
+datablock StaticShapeData(T1DeployedPulseSensor) : StaticShapeDamageProfile
+{
+   className = Sensor;
+   shapeFile = "t1PulseSensorDep.dts";
+   maxDamage = 0.6;
+   destroyedLevel = 0.6;
+   disabledLevel = 0.4;
+   explosion = DeployablesExplosion;
+   dynamicType = $TypeMasks::SensorObjectType;
+
+   deployedObject = true;
+
+   cmdCategory = "DSupport";
+   cmdIcon = CMDSensorIcon;
+   cmdMiniIconName = "commander/MiniIcons/com_deploypulsesensor";
+   targetNameTag = 'Deployable';
+   targetTypeTag = 'Pulse Sensor';
+   sensorData = DeployPulseSensorObj;
+   sensorRadius = DeployPulseSensorObj.detectRadius;
+   sensorColor = "255 194 9";
+   deployAmbientThread = true;
+
+   debrisShapeName = "debris_generic_small.dts";
+   debris = DeployableDebris;
+   heatSignature = 0;
+};
+
+datablock ShapeBaseImageData(T1PulseSensorDeployableImage)
+{
+   shapeFile = "t1PulseSensor.dts";
+   item = T1PulseSensorDeployable;
+   mountPoint = 1;
+   offset = "0 0 0";
+   rotation = "1 0 0 -90";
+   deployed = T1DeployedPulseSensor;
+
+   stateName[0] = "Idle";
+   stateTransitionOnTriggerDown[0] = "Activate";
+
+   stateName[1] = "Activate";
+   stateScript[1] = "onActivate";
+   stateTransitionOnTriggerUp[1] = "Idle";
+   deploySound = SensorDeploySound;
+
+   maxDepSlope = 40;
+   emap = true;
+   heatSignature = 0;
+
+   minDeployDis                       =  0.5;
+   maxDeployDis                       =  5.0;  //meters from body
+};
+
+datablock ItemData(T1PulseSensorDeployable)
+{
+   className = Pack;
+   catagory = "Deployables";
+   shapeFile = "t1PulseSensor.dts";
+   mass = 2.0;
+   elasticity = 0.2;
+   friction = 0.6;
+   pickupRadius = 1;
+   rotate = false;
+   image = "T1PulseSensorDeployableImage";
+   pickUpName = "a pulse sensor pack";
+
+   computeCRC = true;
+   emap = true;
+
+   maxSensors = 2;
+};
+
+function T1DeployedPulseSensor::onDestroyed(%this, %obj, %prevState)
+{
+   Parent::onDestroyed(%this, %obj, %prevState);
+   $TeamDeployedCount[%obj.team, T1PulseSensorDeployable]--;
+   %obj.schedule(300, "delete");
+}
+
+function T1PulseSensorDeployable::onPickup(%this, %pack, %player, %amount)
+{
+   // %this = Sensor pack datablock
+   // %pack = Sensor pack object number
+   // %player = player
+   // %amount = amount picked up (1)
+
+   if(%pack.sensors $= "")
+   {
+      // assume that this is a pack that has been placed in a mission
+      // this case was handled in ::onInventory below (max sensors);
+   }
+   else
+   {
+      // find out how many sensor were in the pack
+      %player.deploySensors = %pack.sensors;
+      %player.client.updateSensorPackText(%player.deploySensors);
+   }
+}
+
+function T1PulseSensorDeployable::onThrow(%this,%pack,%player)
+{
+   // %this = Sensor pack datablock
+   // %pack = Sensor pack object number
+   // %player = player
+
+   %player.throwSensorPack = 1;
+   %pack.sensors = %player.deploySensors;
+   %player.deploySensors = 0;
+   %player.client.updateSensorPackText(%player.deploySensors);
+   // do the normal ItemData::onThrow stuff -- sound and schedule deletion
+   serverPlay3D(ItemThrowSound, %player.getTransform());
+   %pack.schedulePop();
+}
+
+function T1PulseSensorDeployable::onInventory(%this,%player,%value)
+{
+   // %this = Sensor pack datablock
+   // %player = player
+   // %value = 1 if gaining a pack, 0 if losing a pack
+
+   if(%player.getClassName() $= "Player")
+   {
+      if(%value)
+      {
+         // player picked up or bought a motion sensor pack
+         %player.deploySensors = %this.maxSensors;
+         %player.client.updateSensorPackText(%player.deploySensors);
+      }
+      else
+      {
+         // player dropped or sold a motion sensor pack
+         if(%player.throwSensorPack)
+         {
+            // player threw the pack
+            %player.throwSensorPack = 0;
+            // everything handled in ::onThrow above
+         }
+         else
+         {
+            //the pack was sold at an inventory station, or unmounted because the player
+            // used all the sensors
+            %player.deploySensors = 0;
+            %player.client.updateSensorPackText(%player.deploySensors);
+         }
+      }
+   }
+   Pack::onInventory(%this,%player,%value);
+}
+//client raycast fix not needed tho, only here for archrival 
 //TSShapeInstance::castRay
 //memPatch("6bb017","eb00");
 //memPatch("6bb1e0","eb00");
@@ -6077,3 +7520,4 @@ function ShapeBase::t1clearInventory(%this)
 //memPatch("6bac02","eb00");
 //memPatch("6bad48","eb00");
 //memPatch("6bad7e","eb00");
+

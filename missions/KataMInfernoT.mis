@@ -41,7 +41,7 @@ new SimGroup(MissionGroup) {
 		useSkyTextures = "1";
 		renderBottomTexture = "0";
 		SkySolidColor = "0.365000 0.390000 0.420000 0.000000";
-		fogDistance = "4003";
+		fogDistance = "400";
 		fogColor = "0.650000 0.650000 0.700000 1.000000";
 		fogVolume1 = "450 0 100";
 		fogVolume2 = "400 100 250";

@@ -85,7 +85,7 @@ function stormragesim(){
 					}
 					if(isObject(%player) && !%player.zapSafe){
                   if(%player.getState() !$= "Dead"){
-                     if(getRandom(1,20) == 1 || (%x > 300  || %x < -300 || %y > 1033  || %y < -1033 || %z > 400)){
+                     if(getRandom(1,16) == 1){
 						      zapTarget(%player,50);       
                      }
                   }

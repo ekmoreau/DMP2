@@ -86,27 +86,18 @@ new SimGroup(MissionGroup) {
 		cloudSpeed3 = "0";
 		visibleDistance = "1650";
 		useSkyTextures = "1";
-		renderBottomTexture = "0";
+		renderBottomTexture = "1";
 		SkySolidColor = "0.452500 0.332500 0.312500 1.000000";
 		fogDistance = "1650";
-		fogColor = "0.452500 0.402500 0.312500 1.000000";
+		fogColor = "0.000000 0.000000 0.000000 1.000000";
 		fogVolume1 = "0 0 0";
 		fogVolume2 = "0 0 0";
 		fogVolume3 = "0 0 0";
-		materialList = "RedPlanet.dml";
+		materialList = "faceStarBox.dml";
 		windVelocity = "0 0 0";
 		windEffectPrecipitation = "0";
-		fogVolumeColor1 = "64.000000 64.000000 64.000000 0.000000";
-		fogVolumeColor2 = "64.000000 64.000000 64.000000 -198748244414614882000000000000000000000.000000";
-		fogVolumeColor3 = "64.000000 64.000000 64.000000 -222768174765569861000000000000000000000.000000";
-		high_visibleDistance = "-1";
-		high_fogDistance = "-1";
-		high_fogVolume1 = "-1 1.05665e+20 -3.13715e-37";
-		high_fogVolume2 = "-1 -2.97835e-09 2.21725e+28";
-		high_fogVolume3 = "-1 -2.59274e+33 55388.8";
-
-		locked = "1";
 		cloudSpeed0 = "0.000000 0.000000";
+		locked = "1";
 	};
 	new FireballAtmosphere(FireballAtmosphere) {
 		position = "0 0 0";
